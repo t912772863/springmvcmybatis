@@ -1,0 +1,78 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<!--先在上面引入aop相关的命名空间 ,然后打开aop应用,实现对aop相关的注解的支持 -->
+	<aop:aspectj-autoproxy />
+
+	<!--把本地的property配置文件引用进来,这样在这个xml文件中某些变量就不用写死了,可以用${key}的方式来获取  -->
+	<context:property-placeholder location="classpath:business.properties" />
+
+	<!-- 加载数据源 -->
+	<bean id="dbcpdatasource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="username" value="${data_source_username}"></property>
+		<property name="password" value="${data_source_password}"></property>
+		<property name="url" value="${data_source_url}"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+	</bean>
+
+
+	<!--加载sql文件对应的xml文件 -->
+	<bean id="sqlsessionfactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dbcpdatasource"></property>
+		<property name="mapperLocations" value="classpath:com/tian/springmvcmybatis/dao/mapper/*.xml"></property>
+	</bean>
+
+	<!--加载dao层 -->
+	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+		<property name="basePackage" value="com.tian.springmvcmybatis.dao.mapper"></property>
+	</bean>
+
+	<!-- 组件扫描 加载dao,service和Controller -->
+	<context:component-scan base-package="com.tian.springmvcmybatis"></context:component-scan>
+
+	<!-- 使用mvc:annotation-driven代替上边的注解映射器和注解适配器, 而且会默认加载一些常用的参数,所以这种配置方式 是开发中真正 
+		常用的. -->
+	<mvc:annotation-driven />
+
+	<!-- view视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<!--配置返回jsp页面的路径的前缀和后缀,这样可以在controller中的ModelAndView中setview时少写一些代码 -->
+		<property name="prefix" value="/WEB-INF/"></property>
+		<property name="suffix" value=".jsp"></property>
+	</bean>
+
+	<!-- 配置事务 -->
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dbcpdatasource" />
+	</bean>
+
+	<!-- 自动注入事物,也就是@Transaction注解的处理器-->
+	<tx:annotation-driven transaction-manager="transactionManager" />
+
+
+	<!--配置使可以通过注解简化读取配置文件 -->
+	<bean id="appProperty"
+		class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+		<property name="locations">
+			<array>
+				<value>classpath:business.properties</value>
+			</array>
+		</property>
+	</bean>
+
+
+</beans>

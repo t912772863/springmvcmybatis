@@ -42,7 +42,8 @@
     </servlet>
     <servlet-mapping>
         <servlet-name>spring</servlet-name>
-        <url-pattern>*.do</url-pattern>
+        <!--配置请求url的后缀-->
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 
     <!--启动tomcat欢迎页面-->

@@ -20,4 +20,20 @@
         </dependency>
     </dependencies>
 
+    <!--idea中web的根目录叫web,而在maven规范中,默认打包会云找一个叫webapp的目录,所以会找不到里面的web.xml配置
+     文件,所以这里加上下面这个配置,显式的指定web.xml文件的位置
+    -->
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-war-plugin</artifactId>
+                <version>2.1.1</version>
+                <configuration>
+                    <webXml>web/WEB-INF/web.xml</webXml>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
 </project>

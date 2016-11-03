@@ -31,7 +31,8 @@
 	<!--加载sql文件对应的xml文件 -->
 	<bean id="sqlsessionfactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dbcpdatasource"></property>
-		<property name="mapperLocations" value="classpath:com/tian/springmvcmybatis/dao/mapper/*.xml"></property>
+		<property name="mapperLocations" value="*.xml"></property>
+		<!--<property name="mapperLocations" value="classpath:*.xml"></property>-->
 	</bean>
 
 	<!--加载dao层 -->

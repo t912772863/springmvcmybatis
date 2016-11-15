@@ -1,12 +1,9 @@
 package com.tian.springmvcmybatis.controller;
 
-import com.tian.springmvcmybatis.common.BaseController;
-import com.tian.springmvcmybatis.common.ResponseData;
 import com.tian.springmvcmybatis.dao.entity.User;
 import com.tian.springmvcmybatis.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -41,7 +38,7 @@ public class UserController extends BaseController {
     @ResponseBody
     public ResponseData insertUser(User user){
 
-        userService.insertUser(user);
+//        userService.insertUser(user);
         return successData;
     }
 

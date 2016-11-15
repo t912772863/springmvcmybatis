@@ -1,4 +1,4 @@
-package com.tian.springmvcmybatis.common;
+package com.tian.springmvcmybatis.controller;
 
 /**
  * 返回到页面的数据封装

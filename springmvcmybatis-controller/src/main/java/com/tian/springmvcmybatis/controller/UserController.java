@@ -25,7 +25,6 @@ public class UserController extends BaseController {
      */
     @RequestMapping("query_user_by_id")
     public ModelAndView queryUserById(Long id){
-        System.out.println("--------------------->进入方法了");
         userService.queryUserById(id);
         return new ModelAndView("index");
     }
@@ -38,7 +37,6 @@ public class UserController extends BaseController {
     @RequestMapping("insert_user")
     @ResponseBody
     public ResponseData insertUser(User user){
-
         userService.insertUser(user);
         return successData;
     }

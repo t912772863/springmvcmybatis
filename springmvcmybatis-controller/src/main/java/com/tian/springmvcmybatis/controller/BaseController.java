@@ -1,5 +1,7 @@
 package com.tian.springmvcmybatis.controller;
 
+import com.tian.springmvcmybatis.controller.common.ResponseData;
+
 /**
  * Created by tian on 2016/11/2.
  */

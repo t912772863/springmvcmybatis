@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.controller;
 
+import com.tian.springmvcmybatis.controller.common.ResponseData;
 import com.tian.springmvcmybatis.dao.entity.SystemMenu;
 import com.tian.springmvcmybatis.service.ISystemMenuService;
 import org.springframework.beans.factory.annotation.Autowired;

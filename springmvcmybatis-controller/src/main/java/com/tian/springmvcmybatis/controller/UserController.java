@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.controller;
 
+import com.tian.springmvcmybatis.controller.common.ResponseData;
 import com.tian.springmvcmybatis.dao.entity.User;
 import com.tian.springmvcmybatis.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,5 +1,7 @@
 package com.tian.springmvcmybatis.controller.common;
 
+import com.alibaba.fastjson.JSONObject;
+
 /**
  * 返回到页面的数据封装
  * Created by tian on 2016/11/2.
@@ -54,5 +56,10 @@ public class ResponseData {
     public ResponseData setData(Object data) {
         this.data = data;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
     }
 }

@@ -37,9 +37,9 @@ public class UserController extends BaseController {
      */
     @RequestMapping("insert_user")
     @ResponseBody
-    public ResponseData insertUser(User user,int test){
+    public ResponseData insertUser(User user){
 
-//        userService.insertUser(user);
+        userService.insertUser(user);
         return successData;
     }
 

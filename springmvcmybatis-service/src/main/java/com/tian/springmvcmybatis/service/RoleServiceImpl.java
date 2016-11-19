@@ -37,4 +37,9 @@ public class RoleServiceImpl implements IRoleService {
     public Role queryRoleById(Long id) {
         return roleMapper.selectByPrimaryKey(id);
     }
+
+    public boolean insertRole(Role role) {
+        roleMapper.insertSelective(role);
+        return true;
+    }
 }

@@ -1,5 +1,8 @@
 package com.tian.springmvcmybatis.dao.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class SystemMenu {
@@ -77,6 +80,8 @@ public class SystemMenu {
         this.status = status == null ? null : status.trim();
     }
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
@@ -85,6 +90,8 @@ public class SystemMenu {
         this.createTime = createTime;
     }
 
+    @DateTimeFormat(pattern="yyyy-MM-dd")
+    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getUpdateTime() {
         return updateTime;
     }

@@ -13,7 +13,7 @@ public class User {
 
     private Date updateTime;
 
-    private Byte status;
+    private Integer status;
 
     public Long getId() {
         return id;
@@ -55,11 +55,11 @@ public class User {
         this.updateTime = updateTime;
     }
 
-    public Byte getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
-    public void setStatus(Byte status) {
+    public void setStatus(Integer status) {
         this.status = status;
     }
 

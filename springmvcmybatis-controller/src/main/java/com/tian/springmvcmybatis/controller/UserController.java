@@ -42,13 +42,24 @@ public class UserController extends BaseController {
     }
 
     /**
-     * 测试事务控制
+     * 测试事务控制(单个数据源)
      * @return
      */
     @RequestMapping("test_trancation")
     @ResponseBody
     public ResponseData testTrancation(){
         userService.testTranscation();
+        return success;
+    }
+
+    /**
+     * 测试事务控制(多个数据源)
+     * @return
+     */
+    @RequestMapping("test_trancation2")
+    @ResponseBody
+    public ResponseData testTrancation2(){
+        userService.testTranscation2();
         return success;
     }
 

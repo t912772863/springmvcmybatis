@@ -21,8 +21,14 @@ public interface IUserService {
     public boolean insertUser(User user);
 
     /**
-     * 测试事务方法
+     * 测试事务方法(单个数据源)
      * @return
      */
     boolean testTranscation();
+
+    /**
+     * 测试事务方法(多个数据源)
+     * @return
+     */
+    boolean testTranscation2();
 }

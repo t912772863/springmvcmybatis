@@ -19,7 +19,7 @@ public class LogAspect {
 
     @Around(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
     public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
-        logger.info("--> process in : " + pjp.getSignature());
+        logger.info("====> process in : " + pjp.getSignature());
         StringBuffer params = new StringBuffer();
         String oneParam;
         for (Object o : pjp.getArgs()) {
@@ -30,10 +30,10 @@ public class LogAspect {
             }
             params.append(oneParam + " ; ");
         }
-        logger.info("--> param : " + params.toString());
+        logger.info("====> param : " + params.toString());
 
         Object result = pjp.proceed();
-        logger.info("--> result : "+result.toString());
+        logger.info("====> result : "+result.toString());
         return result;
     }
 

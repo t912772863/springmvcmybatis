@@ -67,17 +67,29 @@
 	<!-- 组件扫描 加载dao,service和Controller -->
 	<context:component-scan base-package="com.tian.springmvcmybatis"></context:component-scan>
 
-	<!-- 使用mvc:annotation-driven代替上边的注解映射器和注解适配器, 而且会默认加载一些常用的参数,所以这种配置方式 是开发中真正 
+	<!-- 使用mvc:annotation-driven代替上边的注解映射器和注解适配器, 而且会默认加载一些常用的参数,所以这种配置方式 是开发中真正
 		常用的. -->
 	<mvc:annotation-driven>
-		<!--     解决返回String时乱码-->
 		<mvc:message-converters register-defaults="true">
+			<!--解决返回String时乱码-->
 			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
 				<property name="supportedMediaTypes">
 					<list>
 						<value>text/plain;charset=UTF-8</value>
 						<value>text/html;charset=UTF-8</value>
 					</list>
+				</property>
+			</bean>
+			<!--spring4中通过@ResponseBody返回json中时间格式化-->
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="dateFormat">
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+							</bean>
+						</property>
+					</bean>
 				</property>
 			</bean>
 		</mvc:message-converters>

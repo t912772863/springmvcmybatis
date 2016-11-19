@@ -19,4 +19,10 @@ public interface IUserService {
      * @return
      */
     public boolean insertUser(User user);
+
+    /**
+     * 测试事务方法
+     * @return
+     */
+    boolean testTranscation();
 }

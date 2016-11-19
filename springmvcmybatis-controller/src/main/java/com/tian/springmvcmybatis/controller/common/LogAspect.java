@@ -1,7 +1,9 @@
 package com.tian.springmvcmybatis.controller.common;
 
 import org.apache.log4j.Logger;
+import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Component;
@@ -16,7 +18,7 @@ public class LogAspect {
     private final Logger logger = Logger.getLogger(LogAspect.class);
 
     @Around(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
-    public void doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
+    public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
         logger.info("--> process in : " + pjp.getSignature());
         StringBuffer params = new StringBuffer();
         String oneParam;
@@ -29,7 +31,10 @@ public class LogAspect {
             params.append(oneParam + " ; ");
         }
         logger.info("--> param : " + params.toString());
-        logger.info("--> result : "+pjp.proceed().toString());
+
+        Object result = pjp.proceed();
+        logger.info("--> result : "+result.toString());
+        return result;
     }
 
 }

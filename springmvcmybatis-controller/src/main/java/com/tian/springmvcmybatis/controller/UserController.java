@@ -41,4 +41,25 @@ public class UserController extends BaseController {
         return successData;
     }
 
+    /**
+     * 测试事务控制
+     * @return
+     */
+    @RequestMapping("test_trancation")
+    @ResponseBody
+    public ResponseData testTrancation(){
+        userService.testTranscation();
+        return success;
+    }
+
+    /**
+     * 测试直接返回一个String中文乱码的问题
+     * @return
+     */
+    @RequestMapping("test_luan_ma")
+    @ResponseBody
+    public String testLuanMa(){
+        return "乱码不?";
+    }
+
 }

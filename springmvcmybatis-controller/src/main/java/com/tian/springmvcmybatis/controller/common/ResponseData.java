@@ -14,7 +14,7 @@ public class ResponseData {
     /**
      * 一个失败返回的实例
      */
-    public static ResponseData failedData = new ResponseData(100,"failed");
+    public static ResponseData failedData = new ResponseData(500,"failed");
 
     public ResponseData(){}
     public ResponseData(int code,String message){

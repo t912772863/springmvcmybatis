@@ -19,21 +19,45 @@
 	<!--把本地的property配置文件引用进来,这样在这个xml文件中某些变量就不用写死了,可以用${key}的方式来获取  -->
 	<context:property-placeholder location="classpath:business.properties" />
 
-	<!-- 加载数据源 -->
+	<!-- 加载数据源1 -->
 	<bean id="dbcpdatasource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="username" value="${data_source_username}"></property>
 		<property name="password" value="${data_source_password}"></property>
 		<property name="url" value="${data_source_url}"></property>
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 	</bean>
+	<!--加载数据源2-->
+	<bean id="dbcpdatasource2" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="username" value="${data_source_username2}"></property>
+		<property name="password" value="${data_source_password2}"></property>
+		<property name="url" value="${data_source_url2}"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+	</bean>
+	<!--数据源管理类-->
+	<bean id="dataSource" class="com.tian.springmvcmybatis.controller.common.ThreadLocalRountingDataSource">
+		<property name="defaultTargetDataSource" ref="dbcpdatasource" />
+		<property name="targetDataSources">
+			<map key-type="com.tian.springmvcmybatis.controller.common.DataSource">
+				<entry key="MASTER" value-ref="dbcpdatasource"/>
+				<entry key="SLAVE" value-ref="dbcpdatasource2"/>
+				<!-- 这里还可以加多个dataSource -->
+			</map>
+		</property>
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource" />
+		<!--<property name="configLocation" value="classpath:config/mybatis-config.xml" />-->
+		<property name="mapperLocations" value="classpath:com/tian/springmvcmybatis/dao/mapper/*.xml"></property>
+	</bean>
+
+
 
 
 	<!--加载sql文件对应的xml文件 -->
-	<bean id="sqlsessionfactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<!--<bean id="sqlsessionfactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dbcpdatasource"></property>
 		<property name="mapperLocations" value="classpath:com/tian/springmvcmybatis/dao/mapper/*.xml"></property>
-		<!--<property name="mapperLocations" value="classpath:*.xml"></property>-->
-	</bean>
+	</bean>-->
 
 	<!--加载dao层 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -43,9 +67,33 @@
 	<!-- 组件扫描 加载dao,service和Controller -->
 	<context:component-scan base-package="com.tian.springmvcmybatis"></context:component-scan>
 
-	<!-- 使用mvc:annotation-driven代替上边的注解映射器和注解适配器, 而且会默认加载一些常用的参数,所以这种配置方式 是开发中真正 
+	<!-- 使用mvc:annotation-driven代替上边的注解映射器和注解适配器, 而且会默认加载一些常用的参数,所以这种配置方式 是开发中真正
 		常用的. -->
-	<mvc:annotation-driven />
+	<mvc:annotation-driven>
+		<mvc:message-converters register-defaults="true">
+			<!--解决返回String时乱码-->
+			<bean class="org.springframework.http.converter.StringHttpMessageConverter">
+				<property name="supportedMediaTypes">
+					<list>
+						<value>text/plain;charset=UTF-8</value>
+						<value>text/html;charset=UTF-8</value>
+					</list>
+				</property>
+			</bean>
+			<!--spring4中通过@ResponseBody返回json中时间格式化-->
+			<bean class="org.springframework.http.converter.json.MappingJackson2HttpMessageConverter">
+				<property name="objectMapper">
+					<bean class="com.fasterxml.jackson.databind.ObjectMapper">
+						<property name="dateFormat">
+							<bean class="java.text.SimpleDateFormat">
+								<constructor-arg type="java.lang.String" value="yyyy-MM-dd HH:mm:ss" />
+							</bean>
+						</property>
+					</bean>
+				</property>
+			</bean>
+		</mvc:message-converters>
+	</mvc:annotation-driven>
 
 	<!-- view视图解析器 -->
 	<bean
@@ -58,7 +106,7 @@
 	<!-- 配置事务 -->
 	<bean id="transactionManager"
 		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dbcpdatasource" />
+		<property name="dataSource" ref="dataSource" />
 	</bean>
 
 	<!-- 自动注入事物,也就是@Transaction注解的处理器-->

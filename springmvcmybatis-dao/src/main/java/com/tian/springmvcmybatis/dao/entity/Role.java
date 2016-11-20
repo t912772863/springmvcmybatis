@@ -2,12 +2,12 @@ package com.tian.springmvcmybatis.dao.entity;
 
 import java.util.Date;
 
-public class User {
+public class Role {
     private Long id;
 
-    private String userName;
+    private String name;
 
-    private String password;
+    private String remark;
 
     private Date createTime;
 
@@ -23,20 +23,20 @@ public class User {
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName == null ? null : userName.trim();
+    public void setName(String name) {
+        this.name = name == null ? null : name.trim();
     }
 
-    public String getPassword() {
-        return password;
+    public String getRemark() {
+        return remark;
     }
 
-    public void setPassword(String password) {
-        this.password = password == null ? null : password.trim();
+    public void setRemark(String remark) {
+        this.remark = remark == null ? null : remark.trim();
     }
 
     public Date getCreateTime() {
@@ -65,10 +65,10 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
+        return "Role{" +
                 "id=" + id +
-                ", userName='" + userName + '\'' +
-                ", password='" + password + '\'' +
+                ", name='" + name + '\'' +
+                ", remark='" + remark + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", status=" + status +

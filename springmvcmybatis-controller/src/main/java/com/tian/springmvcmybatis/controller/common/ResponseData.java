@@ -1,4 +1,6 @@
-package com.tian.springmvcmybatis.common;
+package com.tian.springmvcmybatis.controller.common;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * 返回到页面的数据封装
@@ -12,7 +14,7 @@ public class ResponseData {
     /**
      * 一个失败返回的实例
      */
-    public static ResponseData failedData = new ResponseData(100,"failed");
+    public static ResponseData failedData = new ResponseData(500,"failed");
 
     public ResponseData(){}
     public ResponseData(int code,String message){
@@ -54,5 +56,10 @@ public class ResponseData {
     public ResponseData setData(Object data) {
         this.data = data;
         return this;
+    }
+
+    @Override
+    public String toString() {
+        return JSONObject.toJSONString(this);
     }
 }

@@ -19,6 +19,9 @@
 	<!--把本地的property配置文件引用进来,这样在这个xml文件中某些变量就不用写死了,可以用${key}的方式来获取  -->
 	<context:property-placeholder location="classpath:business.properties" />
 
+	<!--全局异常处理-->
+	<bean id="exceptionHandler" class="com.tian.springmvcmybatis.controller.common.DefaultExceptionHandler"/>
+
 	<!-- 加载数据源1 -->
 	<bean id="dbcpdatasource" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="username" value="${data_source_username}"></property>
@@ -122,6 +125,7 @@
 			</array>
 		</property>
 	</bean>
+
 
 
 </beans>

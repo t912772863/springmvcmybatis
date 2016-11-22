@@ -31,7 +31,10 @@ public class DefaultExceptionHandler implements HandlerExceptionResolver{
                 response.getWriter().write("{\"code\":"+be.getErrorCode()+",\"message\":\""+be.getErrorMessage()+"\"}");
             }else{
                 //返回统一内部错误
-                response.getWriter().write("{\"code\":500,\"message\":\""+e.getClass().getName()+"\"}");
+//                response.getWriter().write("{\"code\":500,\"message\":\""+e.getClass().getName()+"\"}");
+                // 返回特定页面
+                mv.setViewName("index.jsp");
+                return mv;
             }
         }catch (Exception e2){
             e2.printStackTrace();

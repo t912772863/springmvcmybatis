@@ -45,7 +45,14 @@ public class UserServiceImpl implements IUserService {
         user.setCreateTime(new Date());
         userMapper.insert(user);
         if(new Random().nextBoolean()){
-            throw new BusinessException(500,"测试事务,拋出异常");
+            if(new Random().nextBoolean()){
+                throw new BusinessException(500,"测试事务,拋出异常");
+            }else {
+                // 一个空指针异常
+                User u = null;
+                System.out.println(u.getId());
+            }
+
         }
 
         return true;

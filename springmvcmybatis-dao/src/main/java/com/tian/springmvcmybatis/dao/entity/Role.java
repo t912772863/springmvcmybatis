@@ -1,10 +1,16 @@
 package com.tian.springmvcmybatis.dao.entity;
 
+import com.tian.springmvcmybatis.dao.common.validation.Validation;
+
 import java.util.Date;
 
 public class Role {
+
+    /** 自增主键*/
     private Long id;
 
+    // 测试自定义的校验注解
+//    @Validation
     private String name;
 
     private String remark;

@@ -1,6 +1,5 @@
 package com.tian.springmvcmybatis.dao.entity;
 
-import com.tian.springmvcmybatis.dao.common.validation.Validation;
 
 import java.util.Date;
 

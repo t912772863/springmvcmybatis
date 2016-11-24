@@ -14,4 +14,10 @@ import java.lang.annotation.*;
 public @interface Regular {
     String value();
 
+    /**
+     * 是否可以为空
+     * @return
+     */
+    boolean nullAble() default true;
+
 }

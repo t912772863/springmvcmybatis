@@ -22,7 +22,7 @@ public class Validate {
         String typeName = a.annotationType().toString();
         String subStr = typeName.substring(typeName.lastIndexOf(".")+1);
         if("Length".equals(subStr)){
-            return validateLength(o.toString(),(Length)a);
+            return validateLength(o,(Length)a);
         }else if("NotNull".equals(subStr)){
             return validateNotNull(o,(NotNull)a);
         }else if("Number".equals(subStr)){
@@ -40,13 +40,20 @@ public class Validate {
 
     /**
      * Length注解的校验
-     * @param str
-     * @param length
+     * @param o
+     * @param a
      * @return
      */
-    private static boolean validateLength(String str, Length length) {
-        int maxLength = length.maxLength();
-        int minLength = length.minLength();
+    private static boolean validateLength(Object o, Length a) {
+
+
+        // 空值是否合法
+        if(o == null || "".equals(o.toString())){
+            return a.nullAble();
+        }
+        String str = o.toString();
+        int maxLength = a.maxLength();
+        int minLength = a.minLength();
         if(str.length()>maxLength || str.length()<minLength){
             return false;
         }
@@ -73,6 +80,11 @@ public class Validate {
      * @return
      */
     private static boolean validateNumber(Object o, Number a) {
+
+        // 空值是否合法
+        if(o == null || "".equals(o.toString())){
+            return a.nullAble();
+        }
         int value = Integer.parseInt(o.toString());
         int minValue = a.minValue();
         int maxValue = a.maxValue();
@@ -89,6 +101,11 @@ public class Validate {
      * @return
      */
     private static boolean validateRegular(Object o, Regular a) {
+        // 空值是否合法
+        if(o == null || "".equals(o.toString())){
+            return a.nullAble();
+        }
+
         String regular = a.value();
         if("".equals(regular) || regular == null){
             return true;
@@ -107,6 +124,10 @@ public class Validate {
      * @return
      */
     private static boolean validateEnum(Object o, Enum a) {
+        // 空值是否合法
+        if(o == null || "".equals(o.toString())){
+            return a.nullAble();
+        }
         String[] values = a.enumeration();
         boolean b = a.ignoreCase();
         List<String> valueList = Arrays.asList(values);

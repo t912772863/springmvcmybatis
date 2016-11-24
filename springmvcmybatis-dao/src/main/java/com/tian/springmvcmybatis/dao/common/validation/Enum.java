@@ -25,4 +25,10 @@ public @interface Enum {
      * @return
      */
     boolean ignoreCase() default false;
+
+    /**
+     * 是否可以为空,当为true时,也就是只有有值的时候才会做格式校验,否则直接过
+     * @return
+     */
+    boolean nullAble() default true;
 }

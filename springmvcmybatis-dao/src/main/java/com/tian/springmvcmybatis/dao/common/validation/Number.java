@@ -14,4 +14,10 @@ import java.lang.annotation.*;
 public @interface Number {
     int minValue() default -100000000;
     int maxValue() default 100000000;
+
+    /**
+     * 是否可以为空
+     * @return
+     */
+    boolean nullAble() default true;
 }

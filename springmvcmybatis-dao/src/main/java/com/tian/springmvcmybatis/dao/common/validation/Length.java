@@ -12,6 +12,21 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Length {
+    /**
+     * 最小长度
+     * @return
+     */
     int minLength() default 1;
+
+    /**
+     * 最大长度
+     * @return
+     */
     int maxLength() default 50;
+
+    /**
+     * 是否可以为空
+     * @return
+     */
+    boolean nullAble() default true;
 }

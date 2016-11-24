@@ -28,7 +28,7 @@ public class RoleController extends BaseController{
      */
     @RequestMapping("query_role_by_id")
     @ResponseBody
-    public ResponseData queryRoleById(@Regular("^(1[0-9]{10})$") Long id, @Enum(enumeration = {"1","2"}) Integer status){
+    public ResponseData queryRoleById(@Regular("^(1[0-9]{10})$") Long id, @Enum(enumeration = {"1","2"},nullAble = false) Integer status){
         System.out.println(id);
         return successData.setData(roleService.queryRoleById(id));
     }

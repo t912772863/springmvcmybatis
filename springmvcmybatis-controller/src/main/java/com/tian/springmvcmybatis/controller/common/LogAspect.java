@@ -29,21 +29,12 @@ public class LogAspect {
     public void validate(JoinPoint jp) throws Exception{
         //获取参数的值
         Object[] args = jp.getArgs();
-        for (Object o:args) {
-            System.out.println("参数的值: "+o);
-        }
-
         // 获取当前拦截到方法对象
         MethodSignature methodSignature = (MethodSignature)jp.getSignature();
         Method targetMethod = methodSignature.getMethod();
-        // 获取方法中的参数对象类型(形参)
-//        Class<?>[] params = targetMethod.getParameterTypes();
-
         Map<Annotation[],Object> map = new HashMap<Annotation[],Object>();
-
         //注解二阶数组
         Annotation[][] annotationss = targetMethod.getParameterAnnotations();
-
         for (int i = 0; i < annotationss.length; i++) {
             map.put(annotationss[i],args[i]);
         }

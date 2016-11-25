@@ -25,7 +25,7 @@ import java.util.*;
 public class LogAspect {
     private final Logger logger = Logger.getLogger(LogAspect.class);
 
-    @Before(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
+    @Before(value = "execution(* com..controller..*.*(..))")
     public void validate(JoinPoint jp) throws Exception{
         //获取参数的值
         Object[] args = jp.getArgs();
@@ -47,8 +47,10 @@ public class LogAspect {
             for (int i = 0; i < a.length; i++) {
                 boolean b = Validate.verify(a[i],map.get(a));
                 if(!b){
+                    logger.error(map.get(a)+"  校验不通过");
                     throw new BusinessException(500,"参数: "+map.get(a)+" 校验不通过!");
                 }
+                logger.debug(map.get(a)+"  校验通过");
             }
         }
 

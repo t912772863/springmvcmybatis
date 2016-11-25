@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.dao.mapper;
 
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.User;
 import org.springframework.stereotype.Repository;
 
@@ -16,4 +17,10 @@ public interface UserMapper {
     int updateByPrimaryKeySelective(User record);
 
     int updateByPrimaryKey(User record);
+
+    /**
+     * 分页查询用户信息
+     * @param pageParam
+     */
+    void queryPage(PageParam<User> pageParam);
 }

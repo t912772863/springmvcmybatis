@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.service;
 
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.Role;
 import com.tian.springmvcmybatis.dao.entity.User;
 import com.tian.springmvcmybatis.dao.mapper.UserMapper;
@@ -74,5 +75,10 @@ public class UserServiceImpl implements IUserService {
         }
 
         return true;
+    }
+
+    public PageParam<User> queryUserPage(PageParam<User> pageParam) {
+        userMapper.queryPage(pageParam);
+        return pageParam;
     }
 }

@@ -1,6 +1,7 @@
 package com.tian.springmvcmybatis.controller;
 
 import com.tian.springmvcmybatis.controller.common.ResponseData;
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.User;
 import com.tian.springmvcmybatis.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -71,6 +72,18 @@ public class UserController extends BaseController {
     @ResponseBody
     public String testLuanMa(){
         return "乱码不?";
+    }
+
+    /**
+     * 分页查询用户信息
+     * @param pageParam
+     * @return
+     */
+    @RequestMapping("query_user_page")
+    @ResponseBody
+    public ResponseData queryUserPage(PageParam<User> pageParam){
+        userService.queryUserPage(pageParam);
+        return successData.setData(pageParam);
     }
 
 }

@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.service;
 
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.User;
 
 /**
@@ -31,4 +32,11 @@ public interface IUserService {
      * @return
      */
     boolean testTranscation2();
+
+    /**
+     * 分页查询用户信息
+     * @param pageParam
+     * @return
+     */
+    PageParam<User> queryUserPage(PageParam<User> pageParam);
 }

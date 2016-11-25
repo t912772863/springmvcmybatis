@@ -103,4 +103,8 @@
       STATUS = #{status,jdbcType=TINYINT}
     where ID = #{id,jdbcType=BIGINT}
   </update>
+
+  <select id = "queryPage" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultMap="BaseResultMap">
+      SELECT <include refid="Base_Column_List"/> from user
+  </select>
 </mapper>

@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.controller.common;
 
+import com.alibaba.fastjson.JSONObject;
 import com.tian.springmvcmybatis.service.common.BusinessException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -28,10 +29,10 @@ public class DefaultExceptionHandler implements HandlerExceptionResolver{
             if(e instanceof BusinessException){
                 BusinessException be = (BusinessException)e;
                 // 如果是我们返回的业务异常则进行封装
-                response.getWriter().write("{\"code\":"+be.getErrorCode()+",\"message\":\""+be.getErrorMessage()+"\"}");
+                response.getWriter().write(JSONObject.toJSONString(new ResponseData(be.getErrorCode(),be.getErrorMessage())));
             }else{
-                //返回统一内部错误
-                response.getWriter().write("{\"code\":500,\"message\":\""+e.getClass().getName()+"\"}");
+                //返回统一内部错误类型
+                response.getWriter().write(JSONObject.toJSONString(new ResponseData(500,e.getClass().getName())));
                 // 返回特定页面
 //                mv.setViewName("index.jsp");
                 return mv;

@@ -6,7 +6,9 @@
     <!-- 读取spring配置文件 -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
-        <param-value>classpath:spring.xml</param-value>
+        <!--spring的上下文环境中初始化bean,这里面的值都会被DispatcherServlet继承,所以可以在这里加载所有,下面不加载,而且这里面加载的Bean是可以
+        通过上下文获取到的.-->
+        <param-value>classpath:spring.xml;classpath:applicationContext.xml</param-value>
     </context-param>
 
     <listener>
@@ -19,7 +21,10 @@
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <init-param>
             <param-name>contextConfigLocation</param-name>
-            <param-value>classpath:applicationContext.xml;</param-value>
+            <!--框架会默认加载一个名为spring-servlet.xml的文件,或者加载指定的文件,这里所有的配置在上下文加载了,这里不需要加载,所
+            以显式指定为空-->
+            <param-value></param-value>
+            <!--<param-value>classpath:applicationContext.xml;</param-value>-->
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>

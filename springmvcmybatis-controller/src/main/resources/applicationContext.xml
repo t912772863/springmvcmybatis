@@ -49,18 +49,8 @@
 	</bean>
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<!--<property name="configLocation" value="classpath:config/mybatis-config.xml" />-->
 		<property name="mapperLocations" value="classpath:com/tian/springmvcmybatis/dao/mapper/*.xml"></property>
 	</bean>
-
-
-
-
-	<!--加载sql文件对应的xml文件 -->
-	<!--<bean id="sqlsessionfactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dbcpdatasource"></property>
-		<property name="mapperLocations" value="classpath:com/tian/springmvcmybatis/dao/mapper/*.xml"></property>
-	</bean>-->
 
 	<!--加载dao层 -->
 	<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
@@ -112,14 +102,12 @@
 	</bean>
 
 	<!-- 配置事务 -->
-	<bean id="transactionManager"
-		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource" />
+	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"  />
 	</bean>
 
 	<!-- 自动注入事物,也就是@Transaction注解的处理器-->
 	<tx:annotation-driven transaction-manager="transactionManager" />
-
 
 	<!--配置使可以通过注解简化读取配置文件 -->
 	<bean id="appProperty"

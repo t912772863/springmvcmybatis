@@ -42,27 +42,7 @@ public class UserController extends BaseController {
         return successData;
     }
 
-    /**
-     * 测试事务控制(单个数据源)
-     * @return
-     */
-    @RequestMapping("test_trancation")
-    @ResponseBody
-    public ResponseData testTrancation(){
-        userService.testTranscation();
-        return success;
-    }
 
-    /**
-     * 测试事务控制(多个数据源)
-     * @return
-     */
-    @RequestMapping("test_trancation2")
-    @ResponseBody
-    public ResponseData testTrancation2(){
-        userService.testTranscation2();
-        return success;
-    }
 
     /**
      * 测试直接返回一个String中文乱码的问题

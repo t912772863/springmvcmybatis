@@ -22,7 +22,7 @@ public interface IUserService {
     public boolean insertUser(User user);
 
     /**
-     * 测试事务方法(单个数据源)
+     * 测试事务方法(主数据源)
      * @return
      */
     boolean testTranscation();
@@ -33,6 +33,11 @@ public interface IUserService {
      */
     boolean testTranscation2();
 
+    /**
+     * 测试事务方法(从数据源)
+     * @return
+     */
+    boolean testTransaction3();
     /**
      * 分页查询用户信息
      * @param pageParam

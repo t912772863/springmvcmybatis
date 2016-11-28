@@ -3,6 +3,7 @@ package com.tian.springmvcmybatis.controller;
 import com.tian.springmvcmybatis.controller.common.ResponseData;
 import com.tian.springmvcmybatis.dao.entity.SystemMenu;
 import com.tian.springmvcmybatis.service.ISystemMenuService;
+import com.tian.springmvcmybatis.service.common.SystemInitData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -27,7 +28,7 @@ public class SystemMenuController extends BaseController{
     @RequestMapping("query_system_menu")
     @ResponseBody
     public ResponseData querySystemMenu(){
-        List<SystemMenu> list = systemMenuService.querySystemMenuList();
+        List<SystemMenu> list = SystemInitData.menuList;
         return successData.setData(list);
     }
 }

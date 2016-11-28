@@ -36,7 +36,7 @@ public class UserServiceImpl implements IUserService {
     }
 
     /**
-     * 测试事务的方法
+     * 测试事务的方法(主数据源)
      * @return
      */
     @Transactional
@@ -58,7 +58,12 @@ public class UserServiceImpl implements IUserService {
 
         return true;
     }
-    @Transactional
+
+    /**
+     * 测试事务2(混合数据源)
+     * 默认的注解无法实现,因为无法同时管理两个数据源
+     * @return
+     */
     public boolean testTranscation2() {
         User user = new User();
         user.setUserName("tset");
@@ -74,6 +79,22 @@ public class UserServiceImpl implements IUserService {
             throw new BusinessException(500,"测试事务,拋出异常");
         }
 
+        return true;
+    }
+
+    /**
+     * 测试数据源3(从数据源)
+     * @return
+     */
+    public boolean testTransaction3(){
+        Role role = new Role();
+        role.setCreateTime(new Date());
+        role.setStatus(InnerConstant.DATA_STATUS_COMMON);
+        role.setName("testRole");
+        roleService.insertRole(role);
+        if(new Random().nextBoolean()){
+            throw new BusinessException(500,"测试事务,拋出异常");
+        }
         return true;
     }
 

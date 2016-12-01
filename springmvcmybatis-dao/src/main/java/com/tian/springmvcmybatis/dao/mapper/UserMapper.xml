@@ -107,4 +107,12 @@
   <select id = "queryPage" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultMap="BaseResultMap">
       SELECT <include refid="Base_Column_List"/> from user
   </select>
+
+  <select id="queryPageCount" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultType="int">
+     select count(*) from user
+  </select>
+
+  <select id="queryByUserNameAndPassword" resultMap="BaseResultMap">
+     select <include refid="Base_Column_List"/> from user where USER_NAME = #{userName,jdbcType=VARCHAR} and PASSWORD = #{password,jdbcType=VARCHAR}
+  </select>
 </mapper>

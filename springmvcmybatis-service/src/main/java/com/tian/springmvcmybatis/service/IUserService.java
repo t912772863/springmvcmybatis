@@ -44,4 +44,12 @@ public interface IUserService {
      * @return
      */
     PageParam<User> queryUserPage(PageParam<User> pageParam);
+
+    /**
+     * 根据用户名和密码查询用户
+     * @param userName
+     * @param password
+     * @return
+     */
+    public User queryUserByUserNameAndPassword(String userName,String password);
 }

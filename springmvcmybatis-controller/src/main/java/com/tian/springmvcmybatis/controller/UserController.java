@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * Created by tian on 2016/10/12.
  */
@@ -64,6 +66,24 @@ public class UserController extends BaseController {
     public ResponseData queryUserPage(PageParam<User> pageParam){
         userService.queryUserPage(pageParam);
         return successData.setData(pageParam);
+    }
+
+    /**
+     * 用户登录接口
+     * @param userName
+     * @param password
+     * @return
+     */
+    @RequestMapping("login")
+    @ResponseBody
+    public ResponseData login(String userName, String password, HttpServletRequest request){
+        User user = userService.queryUserByUserNameAndPassword(userName,password);
+        if(user != null){
+            // 用户登录成功,把当前登录用户信息放入Session中管理
+            request.getSession().setAttribute("user",user);
+            return success;
+        }
+        return failed;
     }
 
 }

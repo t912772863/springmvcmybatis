@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 /**
  * 测试用的一些方法入口
@@ -66,6 +67,22 @@ public class TestController extends BaseController{
     public ResponseData testTransaction3(){
         userService.testTransaction3();
         return success;
+    }
+
+    /**
+     * 测试Session相关的一些功能
+     * @param request
+     * @param response
+     * @return
+     */
+    @RequestMapping("test_session")
+    @ResponseBody
+    public ResponseData testSession(HttpServletRequest request, HttpServletResponse response){
+        System.out.println(request.getSession());
+        System.out.println(request.getSession().getId());
+        System.out.println(request.getSession().getAttributeNames());
+        System.out.println(request.getSession().toString());
+        return successData.setData(request.getSession().getId());
     }
 
 }

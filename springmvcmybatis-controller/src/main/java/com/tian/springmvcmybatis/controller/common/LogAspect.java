@@ -6,12 +6,13 @@ import com.tian.springmvcmybatis.service.common.BusinessException;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.ProceedingJoinPoint;
-import org.aspectj.lang.annotation.Around;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -25,7 +26,7 @@ import java.util.*;
 public class LogAspect {
     private final Logger logger = Logger.getLogger(LogAspect.class);
 
-    @Before(value = "execution(* com..controller..*.*(..))")
+//    @Before(value = "execution(* com..controller..*.*(..))")
     public void validate(JoinPoint jp) throws Exception{
         //获取参数的值
         Object[] args = jp.getArgs();
@@ -57,14 +58,17 @@ public class LogAspect {
     }
 
 
+    @Before(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
+    public void before(JoinPoint jp) throws Throwable {
+        //调用方法前先进行登录验证
+        checkLogin();
+        // 参数有效性验证
+        validate(jp);
 
-
-    @Around(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
-    public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
-        logger.info("====> process in : " + pjp.getSignature());
+        logger.info("====> process in : " + jp.getSignature());
         StringBuffer params = new StringBuffer();
         String oneParam;
-        for (Object o : pjp.getArgs()) {
+        for (Object o : jp.getArgs()) {
             if(o== null){
                 continue;
             }
@@ -77,9 +81,56 @@ public class LogAspect {
         }
         logger.info("====> param : " + params.toString());
 
-        Object result = pjp.proceed();
+    }
+
+    private void checkLogin() {
+
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        String uri = request.getRequestURI();
+        // ,如果本次方法就是登录方法则,直接放行
+        if("userlogin".equals(uri.replace("/","").replace("\\",""))){
+            return;
+        }
+        if(request.getSession(true).getAttribute("user")==null){
+            // 为什么这里的异常会返回给页面,
+            throw new BusinessException(501,"请先登录");
+        }
+    }
+
+
+    /**
+     * 环绕通过会拦截两次,所以换成了前置拦截+后置拦截,来实现日志.
+     * 且因为如果同时用了切面和spring的拦截器,会导致,切面中会拦截到多次spring底层的方法,所以,
+     * 现在登录验证想办法也通过拦截器来实现,至于出现问题的原因,和解决办法,还有待解决
+     * @return
+     * @throws Throwable
+     */
+//    @Around(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
+//    public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {
+//        logger.info("====> process in : " + pjp.getSignature());
+//        StringBuffer params = new StringBuffer();
+//        String oneParam;
+//        for (Object o : pjp.getArgs()) {
+//            if(o== null){
+//                continue;
+//            }
+//            if(o instanceof Integer || o instanceof Long || o instanceof Double || o instanceof String || o instanceof Boolean ){
+//                oneParam = o + "";
+//            }else {
+//                oneParam = o.toString();
+//            }
+//            params.append(oneParam + " ; ");
+//        }
+//        logger.info("====> param : " + params.toString());
+//
+//        Object result = pjp.proceed();
+//        logger.info("====> result : "+result.toString());
+//        return result;
+//    }
+
+    @AfterReturning(returning="result", value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
+    public void after(Object result) throws Throwable {
         logger.info("====> result : "+result.toString());
-        return result;
     }
 
 }

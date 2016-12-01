@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -99,7 +100,15 @@ public class UserServiceImpl implements IUserService {
     }
 
     public PageParam<User> queryUserPage(PageParam<User> pageParam) {
-        userMapper.queryPage(pageParam);
+        List<User> userList = userMapper.queryPage(pageParam);
+        pageParam.setResult(userList);
+        int total = userMapper.queryPageCount(pageParam);
+        pageParam.setTotalNumber(total);
+        pageParam.operationTotalPages();
         return pageParam;
+    }
+
+    public User queryUserByUserNameAndPassword(String userName, String password) {
+        return userMapper.queryByUserNameAndPassword(userName,password);
     }
 }

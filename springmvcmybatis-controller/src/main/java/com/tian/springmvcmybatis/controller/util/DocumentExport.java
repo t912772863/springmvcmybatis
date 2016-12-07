@@ -100,6 +100,10 @@ public class DocumentExport {
                 String getMethodName = "get"+ fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
                 Method getMethod = clazz.getMethod(getMethodName, new Class[] {});
                 Object value = getMethod.invoke(dataList.get(j), new Object[] {});
+                // 如果值 为空,跳 过
+                if(value == null){
+                    continue;
+                }
                 //判断值的类型后进行强制类型转换
                 String textValue = null;
                 if (value instanceof Date) {

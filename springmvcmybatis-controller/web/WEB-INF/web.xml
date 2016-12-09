@@ -8,7 +8,7 @@
         <param-name>contextConfigLocation</param-name>
         <!--spring的上下文环境中初始化bean,这里面的值都会被DispatcherServlet继承,所以可以在这里加载所有,下面不加载,而且这里面加载的Bean是可以
         通过上下文获取到的.-->
-        <param-value>classpath:spring.xml;classpath:applicationContext.xml</param-value>
+        <param-value>classpath:applicationContext.xml</param-value>
     </context-param>
 
     <listener>

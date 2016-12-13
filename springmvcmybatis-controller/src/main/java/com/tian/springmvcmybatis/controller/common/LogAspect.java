@@ -1,11 +1,9 @@
 package com.tian.springmvcmybatis.controller.common;
 
-import com.tian.springmvcmybatis.dao.common.validation.Length;
 import com.tian.springmvcmybatis.dao.common.validation.Validate;
 import com.tian.springmvcmybatis.service.common.BusinessException;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;

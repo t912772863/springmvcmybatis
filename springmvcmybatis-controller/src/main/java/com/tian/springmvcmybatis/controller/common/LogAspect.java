@@ -128,7 +128,7 @@ public class LogAspect {
 
     @AfterReturning(returning="result", value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
     public void after(Object result) throws Throwable {
-        logger.info("====> result : "+result==null?"null":result.toString());
+        logger.info("====> result : "+(result==null?"null":result.toString()));
     }
 
 }

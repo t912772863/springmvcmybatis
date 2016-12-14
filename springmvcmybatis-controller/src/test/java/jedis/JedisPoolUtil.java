@@ -47,4 +47,12 @@ public class JedisPoolUtil {
         }
     }
 
+    public static void main(String[] args) {
+        JedisPool jedisPool = JedisPoolUtil.getJedisPoolInstance();
+
+        Jedis jedis = jedisPool.getResource();
+//        jedis.
+
+    }
+
 }

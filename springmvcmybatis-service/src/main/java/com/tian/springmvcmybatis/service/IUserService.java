@@ -51,5 +51,12 @@ public interface IUserService {
      * @param password
      * @return
      */
-    public User queryUserByUserNameAndPassword(String userName,String password);
+    User queryUserByUserNameAndPassword(String userName,String password);
+
+    /**
+     * 根据手机号查询用户信息
+     * @param mobile
+     * @return
+     */
+    User queryUserByMobile(String mobile);
 }

@@ -19,8 +19,6 @@ public interface UserMapper {
 
     int updateByPrimaryKeySelective(User record);
 
-    int updateByPrimaryKey(User record);
-
     /**
      * 分页查询用户信息
      * @param pageParam
@@ -41,4 +39,11 @@ public interface UserMapper {
      * @return
      */
     User queryByUserNameAndPassword(@Param("userName")String userName,@Param("password")String password);
+
+    /**
+     * 根据手机号查询用户信息
+     * @param mobile
+     * @return
+     */
+    User queryByMobile(@Param("mobile") String mobile);
 }

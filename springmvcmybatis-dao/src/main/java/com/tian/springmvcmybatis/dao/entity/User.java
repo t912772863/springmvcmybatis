@@ -9,6 +9,8 @@ public class User {
 
     private String password;
 
+    private String mobile;
+
     private Date createTime;
 
     private Date updateTime;
@@ -63,12 +65,21 @@ public class User {
         this.status = status;
     }
 
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
     @Override
     public String toString() {
         return "User{" +
                 "id=" + id +
                 ", userName='" + userName + '\'' +
                 ", password='" + password + '\'' +
+                ", mobile='" + mobile + '\'' +
                 ", createTime=" + createTime +
                 ", updateTime=" + updateTime +
                 ", status=" + status +

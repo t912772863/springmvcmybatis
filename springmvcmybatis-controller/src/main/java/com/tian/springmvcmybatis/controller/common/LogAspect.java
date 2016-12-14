@@ -86,7 +86,7 @@ public class LogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String uri = request.getRequestURI();
         // ,如果本次方法就是登录方法则,直接放行
-        if("userlogin".equals(uri.replace("/","").replace("\\",""))){
+        if(uri.contains("login")){
             return;
         }
         if(request.getSession(true).getAttribute("user")==null){

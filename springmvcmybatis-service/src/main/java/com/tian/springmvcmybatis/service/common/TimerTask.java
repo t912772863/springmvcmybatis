@@ -16,7 +16,7 @@ public class TimerTask {
             // 等待的过程中,不影响其它方法的调用,说明定时任务是另起的线程.
             // 值得注意的一点是IDEA编辑,如果有断点,其它所有的线程也会等待.
             // 这个可能与IDEA工具本身的实现有关系.像eclipse就不会等待
-            Thread.sleep(20000);
+            Thread.sleep(70000);
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

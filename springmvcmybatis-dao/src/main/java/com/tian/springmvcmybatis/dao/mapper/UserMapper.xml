@@ -5,12 +5,13 @@
     <id column="ID" property="id" jdbcType="BIGINT" />
     <result column="USER_NAME" property="userName" jdbcType="VARCHAR" />
     <result column="PASSWORD" property="password" jdbcType="VARCHAR" />
+    <result column="MOBILE" property="mobile" jdbcType="VARCHAR" />
     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
     <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
     <result column="STATUS" property="status" jdbcType="TINYINT" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, USER_NAME, PASSWORD, CREATE_TIME, UPDATE_TIME, STATUS
+    ID, USER_NAME, PASSWORD, MOBILE, CREATE_TIME, UPDATE_TIME, STATUS
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -23,10 +24,10 @@
     where ID = #{id,jdbcType=BIGINT}
   </delete>
   <insert id="insert" parameterType="com.tian.springmvcmybatis.dao.entity.User" >
-    insert into user (ID, USER_NAME, PASSWORD, 
+    insert into user (ID, USER_NAME, PASSWORD, MOBILE,
       CREATE_TIME, UPDATE_TIME, STATUS
       )
-    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{mobile},
       #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=TINYINT}
       )
   </insert>
@@ -41,6 +42,9 @@
       </if>
       <if test="password != null" >
         PASSWORD,
+      </if>
+      <if test="mobile != null" >
+        MOBILE,
       </if>
       <if test="createTime != null" >
         CREATE_TIME,
@@ -62,6 +66,9 @@
       <if test="password != null" >
         #{password,jdbcType=VARCHAR},
       </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -82,6 +89,9 @@
       <if test="password != null" >
         PASSWORD = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="mobile != null" >
+        PASSWORD = #{mobile,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -94,15 +104,7 @@
     </set>
     where ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tian.springmvcmybatis.dao.entity.User" >
-    update user
-    set USER_NAME = #{userName,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      STATUS = #{status,jdbcType=TINYINT}
-    where ID = #{id,jdbcType=BIGINT}
-  </update>
+
 
   <select id = "queryPage" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultMap="BaseResultMap">
       SELECT <include refid="Base_Column_List"/> from user
@@ -114,5 +116,9 @@
 
   <select id="queryByUserNameAndPassword" resultMap="BaseResultMap">
      select <include refid="Base_Column_List"/> from user where USER_NAME = #{userName,jdbcType=VARCHAR} and PASSWORD = #{password,jdbcType=VARCHAR}
+  </select>
+
+  <select id="queryByMobile" resultMap="BaseResultMap">
+     select <include refid="Base_Column_List"/> from user where MOBILE = #{mobile}
   </select>
 </mapper>

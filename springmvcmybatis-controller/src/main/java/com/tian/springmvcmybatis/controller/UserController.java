@@ -68,22 +68,6 @@ public class UserController extends BaseController {
         return successData.setData(pageParam);
     }
 
-    /**
-     * 用户登录接口
-     * @param userName
-     * @param password
-     * @return
-     */
-    @RequestMapping("login")
-    @ResponseBody
-    public ResponseData login(String userName, String password, HttpServletRequest request){
-        User user = userService.queryUserByUserNameAndPassword(userName,password);
-        if(user != null){
-            // 用户登录成功,把当前登录用户信息放入Session中管理
-            request.getSession().setAttribute("user",user);
-            return success;
-        }
-        return failed;
-    }
+
 
 }

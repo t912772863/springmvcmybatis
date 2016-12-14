@@ -111,4 +111,8 @@ public class UserServiceImpl implements IUserService {
     public User queryUserByUserNameAndPassword(String userName, String password) {
         return userMapper.queryByUserNameAndPassword(userName,password);
     }
+
+    public User queryUserByMobile(String mobile) {
+        return userMapper.queryByMobile(mobile);
+    }
 }

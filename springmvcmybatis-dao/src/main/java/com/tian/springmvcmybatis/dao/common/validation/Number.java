@@ -19,5 +19,5 @@ public @interface Number {
      * 是否可以为空
      * @return
      */
-    boolean nullAble() default true;
+    boolean nullAble() default false;
 }

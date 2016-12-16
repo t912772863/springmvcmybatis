@@ -14,13 +14,13 @@ import javax.annotation.PostConstruct;
  * Created by Administrator on 2016/12/15 0015.
  */
 @Component
-public class MyListener extends JedisPubSub {
+public class RedisListener extends JedisPubSub {
     @Autowired
     IActivityService activityService;
 
     @PostConstruct
     public void init(){
-        final MyListener listener = this;
+        final RedisListener listener = this;
         new Thread(new Runnable() {
             public void run() {
                 Jedis jedis = JedisUtil.getResource();

@@ -1,7 +1,19 @@
 package com.tian.springmvcmybatis.service.common;
 
+import com.tian.springmvcmybatis.dao.dto.ActivityDto;
+import com.tian.springmvcmybatis.service.IActivityService;
+import com.tian.springmvcmybatis.service.common.util.DateUtil;
+import com.tian.springmvcmybatis.service.common.util.JedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
+import redis.clients.jedis.Jedis;
+
+import javax.annotation.PostConstruct;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 /**
  * 定时任务类
@@ -9,7 +21,15 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class TimerTask {
-    @Scheduled(cron = "0 0/1 * * * ?")
+    @Autowired
+    IActivityService activityService;
+
+    @PostConstruct
+    public void init(){
+        updateActivityStatus();
+    }
+
+//    @Scheduled(cron = "0 0/1 * * * ?")
     public void testTimerTask(){
         System.out.println("--------------定时任务运行开始了");
         try {
@@ -21,5 +41,28 @@ public class TimerTask {
             e.printStackTrace();
         }
         System.out.println("--------------定时任务运行结束了");
+    }
+
+    @Scheduled(cron = "0 0/59 * * * ?")
+    public void updateActivityStatus(){
+        // 从数据库中查询时间在60分钟后就要到的
+        String startTime = DateUtil.getDateBeforeHour(0,"yyyy-MM-dd HH:mm:ss");
+        String endTime = DateUtil.getDateBeforeHour(1,"yyyy-MM-dd HH:mm:ss");
+        List<ActivityDto> list = activityService.queryActivityNeedUpdateStatus(startTime,endTime);
+
+        // 将这些数据按自定义的规则,转换成key,并根据时间设置一个过期时间,存入缓存中
+             // 当前时间毫秒值
+        long current = System.currentTimeMillis();
+        for (ActivityDto a : list) {
+            // 拼接自定义的key
+            String key = a.getId()+"_"+a.getStatus();
+            // 把redis库切换到1号库
+            Jedis jedis = JedisUtil.getResource();
+            jedis.select(1);
+            // 把值放进去,同时设定一个过期时间
+            int s = (int)(a.getTheTime().getTime()-current)/1000;
+            jedis.setex(key,s,key);
+            JedisUtil.returnResource(jedis);
+        }
     }
 }

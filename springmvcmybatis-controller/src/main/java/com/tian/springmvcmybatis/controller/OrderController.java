@@ -1,7 +1,7 @@
 package com.tian.springmvcmybatis.controller;
 
 import com.tian.springmvcmybatis.controller.common.ResponseData;
-import com.tian.springmvcmybatis.controller.util.DocumentExport;
+import com.tian.springmvcmybatis.service.common.util.DocumentExport;
 import com.tian.springmvcmybatis.dao.common.validation.NotNull;
 import com.tian.springmvcmybatis.dao.entity.Order;
 import com.tian.springmvcmybatis.service.IOrderService;

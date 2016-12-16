@@ -1,9 +1,5 @@
-package com.tian.springmvcmybatis.controller.util;
+package com.tian.springmvcmybatis.service.common.util;
 import java.util.*;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 
 import org.springframework.util.StringUtils;
 import redis.clients.jedis.Jedis;
@@ -849,6 +845,21 @@ public class JedisUtil {
     }
 
     /**
+     * 切换redis的数据库
+     * @param index
+     */
+    public static void select(int index){
+        Jedis jedis = null;
+        try {
+            jedis = getResource();
+            jedis.select(index);
+        } catch (Exception e) {
+        } finally {
+            returnResource(jedis);
+        }
+    }
+
+    /**
      * Object转换byte[]类型
      *
      * @return
@@ -865,4 +876,7 @@ public class JedisUtil {
     public static Object toObject(byte[] bytes) {
         return ObjectUtil.unserialize(bytes);
     }
+
+
+
 }

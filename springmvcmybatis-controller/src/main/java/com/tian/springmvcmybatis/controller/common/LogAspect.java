@@ -82,7 +82,7 @@ public class LogAspect {
     }
 
     private void checkLogin() {
-
+        // 获取httpServletRequest对象
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String uri = request.getRequestURI();
         // ,如果本次方法就是登录方法则,直接放行

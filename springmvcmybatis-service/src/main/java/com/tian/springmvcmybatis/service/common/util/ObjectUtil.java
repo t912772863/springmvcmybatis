@@ -1,4 +1,4 @@
-package com.tian.springmvcmybatis.controller.util;
+package com.tian.springmvcmybatis.service.common.util;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;

@@ -1,8 +1,8 @@
 package com.tian.springmvcmybatis.controller;
 
 import com.tian.springmvcmybatis.controller.common.ResponseData;
-import com.tian.springmvcmybatis.controller.util.JedisUtil;
-import com.tian.springmvcmybatis.controller.util.RandomUtil;
+import com.tian.springmvcmybatis.service.common.util.JedisUtil;
+import com.tian.springmvcmybatis.service.common.util.RandomUtil;
 import com.tian.springmvcmybatis.dao.common.validation.NotNull;
 import com.tian.springmvcmybatis.dao.common.validation.Regular;
 import com.tian.springmvcmybatis.dao.entity.User;

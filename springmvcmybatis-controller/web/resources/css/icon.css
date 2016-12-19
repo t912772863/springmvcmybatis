@@ -1,0 +1,161 @@
+
+.icon {
+    width: 90px;
+    height: 90px;
+    position: relative;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.icon i {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    background: url(../images/png.png) no-repeat;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -30px 0 0 -30px;
+}
+
+.icon.select {
+    border: 2px solid red;
+}
+
+.equiIcos {
+    background-color: #fd4848;
+}
+
+.equiIcos i {
+    background-position: 0 -67px;
+}
+
+.busIcos {
+    background-color: #4d5ac3;
+}
+
+.busIcos i {
+    background-position: -69px -67px;
+}
+
+.chanIcos {
+    background-color: #a3d802;
+}
+
+.chanIcos i {
+    background-position: -132px -67px;
+}
+
+.alipayIcos {
+    background-color: #3cbcff;
+}
+
+.alipayIcos i {
+    background-position: -195px -67px;
+}
+
+.weChatIcos {
+    background-color: #34dc2d;
+}
+
+.weChatIcos i {
+    background-position: -258px -67px;
+}
+
+.publicOneIcos {
+    background-color: #fea512;
+}
+
+.publicOneIcos i {
+    background-position: -321px -67px;
+}
+
+.meiTuanIcos {
+    background-color: #24b7aa;
+}
+
+.meiTuanIcos i {
+    background-position: -384px -67px;
+}
+
+.publicTwoIcos {
+    background-color: #fea512;
+}
+
+.publicTwoIcos i {
+    background-position: -384px -67px;
+}
+
+.meiTuanTIcos {
+    background-color: #ff6920;
+}
+
+.meiTuanTIcos i {
+    background-position: -384px -67px;
+}
+
+.smallIcon {
+    width: 23px;
+    height: 25px;
+    border-radius: 2px;
+}
+
+.smallIcon i {
+    width: 23px;
+    height: 25px;
+    display: inline-block;
+    background: url(../images/png.png) no-repeat;
+}
+
+.smallIcon.select {
+    border: 1px solid blue;
+}
+
+.businessIco i {
+    background-position: -37px 0;
+}
+
+.channelIco i {
+    background-position: -64px 0;
+}
+
+.accountIco i {
+    background-position: -91px 0;
+}
+
+.applicationIco i {
+    background-position: -117px 0;
+}
+
+.equipmentIco i {
+    background-position: -143px 0;
+}
+
+.systemIco i {
+    background-position: -169px 0;
+}
+
+.dataIco i {
+    background-position: -195px 0;
+}
+
+.statisticsIco i {
+    background-position: 0 -34px;
+}
+
+.busIco i {
+    background-position: -89px -34px;
+}
+
+.storeIco i {
+    background-position: -32px -34px;
+}
+
+.shopAssIco i {
+    background-position: -62px -34px;
+}
+
+.gatewayIco i {
+    background-position: -117px -34px;
+    width: 32px;
+}

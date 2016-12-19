@@ -1,0 +1,46 @@
+/* Elastislide Style */
+.es-carousel-wrapper {
+    padding: 0 32px;
+    position: relative;
+}
+
+.es-carousel {
+    overflow: hidden;
+}
+
+.es-carousel ul li {
+    height: 100%;
+    float: left;
+    display: block;
+}
+
+.es-carousel ul li a {
+    display: block;
+    border-style: solid;
+}
+
+.es-nav span {
+    position: absolute;
+    top: 50%;
+    left: 12px;
+    background: transparent url(../images/png.png) no-repeat top left;
+    width: 13px;
+    height: 23px;
+    margin-top: -12px;
+    text-indent: -9000px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.es-nav span .es-nav-prev {
+}
+
+.es-nav span.es-nav-next {
+    right: 12px;
+    left: auto;
+    background-position: -16px 0;
+}
+
+.es-nav span:hover {
+    opacity: 1.0;
+}

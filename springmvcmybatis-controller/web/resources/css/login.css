@@ -1,0 +1,975 @@
+@charset "utf-8";
+/* CSS Document */
+body, button, input, select, textarea {
+    font: 500 12px/1.5 "Microsoft YaHei", arial, Simsun, sans-serif;
+}
+
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, textarea, p, blockquote, th, td {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+fieldset, img {
+    border: 0;
+}
+
+input {
+    border: 1px solid #b0b0b0;
+    padding: 3px 5px 4px;
+    color: #979797;
+    width: 190px;
+}
+
+address, caption, cite, code, dfn, th, var {
+    font-style: normal;
+    font-weight: normal;
+}
+
+ol, ul {
+    list-style: none;
+}
+
+caption, th {
+    text-align: left;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-size: 100%;
+    font-weight: normal;
+}
+
+q:before, q:after {
+    content: '';
+}
+
+abbr, acronym {
+    border: 0;
+}
+
+.clearfix:after {
+    display: block;
+    clear: both;
+    visibility: hidden;
+    height: 0;
+    content: ''
+}
+
+body {
+    background-color: #f6f4f1;
+}
+
+.navbarTop {
+    width: 100%;
+    position: fixed;
+    right: 0;
+    left: 0;
+    top: 0;
+    height: 63px;
+    z-index: 1200;
+    background-color: #23262a;
+    border-top: solid 2px #ffa53b;
+}
+
+.navTopPa {
+    margin: 0 65px 0 268px;
+}
+
+.navTopPa .logoXdd {
+    float: left;
+    width: 153px;
+    height: 42px;
+    margin: 7px 0 0 -240px;
+    display: block;
+    background: url(../images/logo.png) no-repeat 0 0;
+}
+
+.navBox {
+    width: 100%;
+    height: 24px;
+    padding-top: 20px;
+    color: #f6f4f1;
+}
+
+.navListBox {
+    height: 24px;
+    line-height: 24px;
+}
+
+.navListBox ul {
+    float: left;
+    margin-left: -2px;
+}
+
+.navListBox li {
+    width: 120px;
+    font-size: 14px;
+    position: relative;
+}
+
+.navListBox li.open {
+    background-color: #000;
+}
+
+.navListBox li.open .dropdown-menu {
+    left: 0;
+    top: 63px;
+    background-color: #000;
+}
+
+.navListBox li a {
+    padding-left: 45px;
+    color: #f6f4f1;
+    display: block;
+    white-space: nowrap;
+    text-decoration: none;
+}
+
+.navListBox li a em {
+    width: 1px;
+    display: inline-block;
+    height: 24px;
+    background-color: #363636;
+    float: left;
+    margin-left: -45px;
+}
+
+.navListBox li:first-child a em {
+    display: none;
+}
+
+.navListBox li a i {
+    float: left;
+    height: 24px;
+    display: inline-block;
+    width: 20px;
+    margin-left: -30px;
+}
+
+.navListBox li a.businessIco i {
+    background-position: -37px 0;
+}
+
+.navListBox li a.channelIco i {
+    background-position: -64px 0;
+}
+
+.navListBox li a.accountIco i {
+    background-position: -91px 0;
+}
+
+.navListBox li a.applicationIco i {
+    background-position: -117px 0;
+}
+
+.navListBox li a.equipmentIco i {
+    background-position: -143px 0;
+}
+
+.navListBox li a.systemIco i {
+    background-position: -169px 0;
+}
+
+.navListBox li a.dataIco i {
+    background-position: -195px 0;
+}
+
+.mainBox {
+    padding-top: 88px;
+}
+
+.mainInBox {
+    min-width: 1200px;
+    padding: 0 20px;
+}
+
+.indexBoxBg {
+    background-color: #fff;
+    height: 100%;
+    padding: 15px 0 20px;
+}
+
+.mainHead {
+    height: 50px;
+    border-bottom: solid 2px #dcdcdc;
+}
+
+.mainHead ul {
+    float: left;
+    font-size: 16px;
+    color: #6f6f6f;
+}
+
+.mainHead ul li {
+    padding-left: 20px;
+    float: left;
+    margin-right: 20px;
+    height: 50px;
+    line-height: 50px;
+}
+
+.mainHead ul li em {
+    border-left: solid 1px #dcdcdc;
+    width: 1px;
+    height: 18px;
+    margin: 18px 0 0 -20px;
+    float: left;
+}
+
+.mainHead ul li:first-child em {
+    border-left: none;
+}
+
+.mainHead ul li a {
+    color: #6f6f6f;
+    text-decoration: none;
+    height: 50px;
+    line-height: 50px;
+    display: inline-block;
+    padding-left: 36px;
+}
+
+.mainHead ul li.active a {
+    color: #f08200;
+    border-bottom: solid 2px #f08200;
+    position: relative;
+}
+
+.mainHead ul li i {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    float: left;
+    margin: 13px 0 0 -36px;
+}
+
+.mainHead ul li i.statisticsIco {
+    background-position: 0 -34px;
+}
+
+.mainHead ul li i.busIco {
+    background-position: -89px -34px;
+}
+
+.mainHead ul li i.storeIco {
+    background-position: -32px -34px;
+}
+
+.mainHead ul li i.shopAssIco {
+    background-position: -62px -34px;
+}
+
+.mainHead ul li i.gatewayIco {
+    background-position: -117px -34px;
+    width: 32px;
+}
+
+.mainHead ul li i.mtIco {
+    background-position: -218px -34px;
+    width: 32px;
+}
+
+.mainHead ul li i.eleIco {
+    background-position: -247px -34px;
+    width: 32px;
+}
+
+.mainHead .userInfo {
+    float: right;
+    line-height: 50px;
+    margin-right: 18px;
+}
+
+.mainHead .userInfo a, .mainHead .userInfo span {
+    margin-left: 18px;
+}
+
+.mainHead .userInfo a.logoutTxt {
+    color: #a7aaae;
+}
+
+.mainHead .userInfo span {
+    color: #f08200;
+}
+
+.mainHead .userInfo a {
+    text-decoration: none;
+    color: #56585a;
+}
+
+.mainContent {
+    width: 100%;
+}
+
+.mainContent.deployCon {
+    padding: 42px 0 0;
+}
+
+.mainContent.deployCon .tab-pane {
+    padding-right: 20px;
+}
+
+.gatewayItem {
+    width: 33.33%;
+    float: left;
+}
+
+.gatewayItem .gatewayInner {
+    height: 260px;
+    margin-bottom: 30px;
+    padding: 0 0 0 20px;
+    overflow: hidden;
+}
+
+.gatewayItem .gatewayInner .gatewayHead {
+    height: 42px;
+    background-color: #f2f2f2;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .gatewayName {
+    width: 138px;
+    padding-left: 50px;
+    height: 42px;
+    float: left;
+    line-height: 42px;
+    color: #fff;
+    font-weight: bold;
+    font-size: 14px;
+    position: relative;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .gatewayName i {
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    float: left;
+    margin: 6px 0 0 -42px;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .gatewayName em {
+    width: 6px;
+    height: 11px;
+    position: absolute;
+    right: 0;
+    top: 50%;
+    margin-top: -6px;
+    display: inline-block;
+    background-position: 0 -203px;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .addBut {
+    width: 42px;
+    float: right;
+    height: 42px;
+    text-align: center;
+    line-height: 42px;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .addBut i {
+    cursor: pointer;
+    color: #f08200;
+    font-size: 14px;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .gatewayName.wechatBgColor {
+    background-color: #34dc2d;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .gatewayName.wechatBgColor i {
+    background-position: -8px -203px;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .gatewayName.alipayBgColor {
+    background-color: #3cbcff;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .gatewayName.alipayBgColor i {
+    background-position: -45px -203px;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .gatewayName.publicBgColor {
+    background-color: #fea512;
+}
+
+.gatewayItem .gatewayInner .gatewayHead .gatewayName.publicBgColor i {
+    background-position: -81px -203px;
+}
+
+.deployConList {
+    height: 217px;
+    border: solid 1px #f2f2f2;
+    border-top: none;
+    font-size: 14px;
+    overflow: auto;
+}
+
+.deployConList li {
+    height: 36px;
+    border-bottom: solid 1px #f2f2f2;
+    line-height: 36px;
+    padding: 0 145px 0 16px;
+}
+
+.deployConList li p {
+    float: right;
+    width: 145px;
+    margin-right: -145px;
+    height: 36px;
+    font-size: 14px;
+}
+
+.deployConList li p a {
+    text-decoration: none;
+}
+
+.deployConList li p a.editATxt {
+    color: #6eb1d4;
+}
+
+.deployConList li p a.disabledATxt {
+    color: #8c8c8c;
+}
+
+.deployConList li p a.deleteATxt {
+    color: #ff6969;
+}
+
+.deployConList li p i {
+    color: #e5e5e5;
+    padding: 0 10px;
+    font-style: normal;
+}
+
+li.deployListBg {
+    background-color: #fafafa;
+}
+
+li.deployListBgNo {
+    background-color: #fff;
+}
+
+.itemBox {
+    width: 100%;
+    padding-top: 30px;
+}
+
+.itemHead {
+    height: 16px;
+    background: url(../images/line.gif) repeat-x 0 8px;
+    margin: 0 20px;
+    line-height: 16px;
+    margin-bottom: 16px;
+    font-size: 14px;
+}
+
+.itemHead h2 {
+    padding: 0 8px;
+    border-left: solid 2px #f18101;
+    color: #bababa;
+    font-weight: bold;
+    float: left;
+    background-color: #fff;
+}
+
+.itemHead .arrowIco {
+    width: 22px;
+    height: 24px;
+    background-color: #fff;
+    float: right;
+    margin-right: 15px;
+}
+
+.itemHead .arrowIco .fa-angle-down {
+    margin-left: 6px;
+    color: #dfdedc;
+}
+
+.indexList {
+    width: 100%;
+}
+
+.indexList ul {
+    padding: 0 20px 0 0;
+}
+
+.indexList li {
+    width: 33.33%;
+    padding: 0;
+    float: left;
+    font-size: 14px;
+    text-align: center;
+}
+
+.indexList li .innerDivBox {
+    padding-left: 110px;
+    height: 110px;
+    background-color: #f6f6f6;
+    color: #8c8c8c;
+    line-height: 32px;
+    margin: 0 0 30px 20px;
+}
+
+.indexList li p {
+    float: left;
+    width: 33%;
+}
+
+.indexList li span {
+    color: #6c6c6c;
+    font-weight: bold;
+    padding-top: 22px;
+    font-size: 14px;
+    display: block;
+}
+
+.indexList li p:first-child {
+    width: 110px;
+    height: 110px;
+    margin-left: -110px;
+    position: relative;
+}
+
+.indexList li p:first-child i {
+    width: 63px;
+    height: 62px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -31px 0 0 -31px;
+    display: inline-block;
+}
+
+.indexList li p:first-child.equiIcos {
+    background-color: #fd4848;
+}
+
+.indexList li p:first-child.equiIcos i {
+    background-position: 0 -67px;
+}
+
+.indexList li p:first-child.busIcos {
+    background-color: #4d5ac3;
+}
+
+.indexList li p:first-child.busIcos i {
+    background-position: -69px -67px;
+}
+
+.indexList li p:first-child.chanIcos {
+    background-color: #a3d802;
+}
+
+.indexList li p:first-child.chanIcos i {
+    background-position: -132px -67px;
+}
+
+.indexList li p:first-child.alipayIcos {
+    background-color: #3cbcff;
+}
+
+.indexList li p:first-child.alipayIcos i {
+    background-position: -195px -67px;
+}
+
+.indexList li p:first-child.weChatIcos {
+    background-color: #34dc2d;
+}
+
+.indexList li p:first-child.weChatIcos i {
+    background-position: -258px -67px;
+}
+
+.indexList li p:first-child.publicOneIcos {
+    background-color: #fea512;
+}
+
+.indexList li p:first-child.publicOneIcos i {
+    background-position: -321px -67px;
+}
+
+.indexList li p:first-child.meiTuanIcos {
+    background-color: #24b7aa;
+}
+
+.indexList li p:first-child.meiTuanIcos i {
+    background-position: -384px -67px;
+}
+
+.indexList li p:first-child.publicTwoIcos {
+    background-color: #fea512;
+}
+
+.indexList li p:first-child.publicTwoIcos i {
+    background-position: -384px -67px;
+}
+
+.indexList li p:first-child.meiTuanTIcos {
+    background-color: #ff6920;
+}
+
+.indexList li p:first-child.meiTuanTIcos i {
+    background-position: -384px -67px;
+}
+
+.tableBox {
+    padding: 10px 20px;
+}
+
+.tableOperating {
+    height: 32px;
+    margin-bottom: 12px;
+    width: 100%;
+}
+
+.tableOperating .leftOperating {
+    float: left;
+}
+
+.tableOperating .leftOperating dd.batchLi .dropdown-menu {
+    left: 0;
+}
+
+.tableOperating .leftOperating dd {
+    float: left;
+    margin-right: 2px;
+}
+
+.tableOperating .rightOperating {
+    float: right;
+    width: 252px;
+}
+
+.tableListBox {
+    width: 100%;
+    height: auto;
+}
+
+.tableListBox .table-responsive .table {
+    font-size: 14px;
+}
+
+/* reg login */
+.headTop {
+    width: 100%;
+    border-top: solid 2px #f08200;
+    height: 90px;
+}
+
+.headTop .headLogo {
+    padding-top: 40px;
+    width: 1100px;
+    margin: 0 auto;
+}
+
+.headTop .headLogo img {
+    float: left;
+}
+
+.headTop .headLogo p {
+    border-left: solid 1px #464646;
+    height: 32px;
+    float: left;
+    margin: 11px 0 0 21px;
+    padding-left: 20px;
+    color: #f08200;
+    line-height: 32px;
+    font-size: 14px;
+}
+
+.headTop .headLogo p span {
+    cursor: pointer;
+}
+
+#body-background {
+    background-color: #f5f4f0;
+}
+
+.loginBox {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1100px;
+    height: 515px;
+    border-bottom: solid 2px #e7e6e2;
+    margin: -258px 0 0 -550px;
+    background-color: #fff;
+}
+
+.regButton {
+    position: absolute;
+    bottom: 30px;
+    text-align: center;
+    color: #7d7d7d;
+    width: 100%;
+}
+
+.logLeft {
+    width: 462px;
+    float: left;
+    height: 445px;
+    margin-top: 35px;
+    border-right: solid 1px #ededed;
+}
+
+.logRight {
+    float: left;
+    margin-top: 35px;
+}
+
+.loginHeadBox {
+    height: 28px;
+}
+
+.loginHeadBox h2 {
+    float: left;
+    height: 28px;
+    padding-left: 38px;
+    font-size: 16px;
+    border-left: solid 2px #f08200;
+    color: #f08200;
+    line-height: 28px;
+}
+
+.layerFormBox {
+    width: 350px;
+    margin: 0 auto;
+}
+
+.layerFormBox .formList {
+    padding-top: 72px;
+}
+
+.layerFormBox .formList ul {
+    height: 250px;
+}
+
+.layerFormBox .formList li {
+    margin-bottom: 6px;
+}
+
+.layerFormBox .formList li p {
+    height: 38px;
+    line-height: 38px;
+    color: #636363;
+    font-size: 14px;
+}
+
+.layerFormBox .formList li .form-control {
+    height: 42px;
+}
+
+.layerFormBox .formList li .form-control::-moz-placeholder {
+    color: #bfbfbf;
+    opacity: 1;
+}
+
+.layerFormBox .formList li .form-control:-ms-input-placeholder {
+    color: #bfbfbf;
+}
+
+.layerFormBox .formList li .form-control::-webkit-input-placeholder {
+    color: #bfbfbf;
+}
+
+.layerFormBox .formList li .input-icon > i,
+.layerFormBox .formList li .input-icon .icon {
+    margin: 15px 8px;
+    color: #d6d6d6;
+}
+
+.layerFormBox .formList li .btn {
+    padding: 10px 15px;
+    color: #f08200;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.layerFormBox .formList li .btn:hover, .btn-default:focus,
+.layerFormBox .formList li .btn-default:active,
+.layerFormBox .formList li .btn-default.active,
+.layerFormBox .formList li .open > .dropdown-toggle.btn-default {
+    background-color: #f5f4f0;
+    border: solid 1px #d6d6d6;
+}
+
+.layerFormBox .formList li .input-group .fa-lock {
+    position: absolute;
+    display: block;
+    margin: 15px 8px;
+    line-height: 14px;
+    color: #d6d6d6;
+    z-index: 1200;
+}
+
+.layerFormBox .formList li .input-group > .form-control {
+    padding-left: 35px;
+}
+
+.layerFormBox .formList li .form-control {
+    background-color: #fff;
+}
+
+.layerFormBox .formList li .input-group .form-control:not(:first-child):not(:last-child) {
+    border-radius: 3px 0 0 3px;
+}
+
+.layerFormBox .formList li .wechatImg {
+    text-align: center;
+}
+
+.layerFormBox .formList li .wechatImg img {
+    margin: 0 auto;
+}
+
+.regLogBut {
+    margin-bottom: 30px;
+}
+
+.regLogBut input {
+    height: 44px;
+    border: 0;
+    width: 100%;
+    background-color: #f08200;
+    color: #fff;
+    padding: 11px 0;
+    font-size: 16px;
+    border-radius: 3px;
+}
+
+.regLogTxt {
+    height: 20px;
+    width: 100%;
+    color: #636363;
+}
+
+.regLogTxt .leftTxt {
+    float: left;
+}
+
+.regLogTxt .leftTxt a {
+    color: #f08200;
+}
+
+.regLogTxt .rightTxt {
+    float: right;
+}
+
+.regLogTxt .rightTxt a {
+    color: #636363;
+}
+
+.wechatTxt {
+    height: 44px;
+}
+
+.wechatTxt p {
+    background-color: #f5f4f0;
+    height: 40px;
+    line-height: 40px;
+    color: #f08200;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.logTabs {
+    float: right;
+    width: 108px;
+    position: relative;
+}
+
+.logTabs li {
+    width: 108px;
+    text-align: right;
+    position: absolute;
+    margin-top: -24px;
+}
+
+.logTabs li a {
+    display: block;
+    color: #7c7c7c;
+}
+
+.logTabs li.active a {
+    display: none;
+}
+
+.logTabs li a span {
+    padding-left: 20px;
+    float: right;
+    height: 24px;
+    line-height: 24px;
+}
+
+.logTabs li a span i.wechatIco {
+    background-position: 0 0;
+}
+
+.logTabs li a span i.phoneIco {
+    background-position: -18px 0;
+}
+
+.logTabs li a span i {
+    width: 18px;
+    height: 18px;
+    float: left;
+    margin: 1px 0 0 -20px;
+    background-image: url(../images/logIco.png);
+    background-repeat: no-repeat;
+}
+
+.logTabs li a em {
+    width: 108px;
+    height: 108px;
+    display: inline-block;
+    background: url(../images/codeImg.png) no-repeat 0 0;
+}
+
+.formList.form-horizontal .checkbox {
+    min-height: 27px;
+    color: #bcbcbc;
+}
+
+.formList.form-horizontal .checkbox {
+    margin-top: 0;
+    margin-bottom: 0;
+    padding-top: 7px;
+}
+
+.formList.form-horizontal .checkbox label {
+    padding-left: 18px;
+}
+
+.formList.form-horizontal .checkbox input {
+    width: auto;
+    margin: 2px 0 0 -18px;
+}
+
+.icoBg, .es-nav span, .navListBox li a i, .mainHead ul li i, .indexList li p:first-child i, .gatewayItem .gatewayInner .gatewayHead .gatewayName i, .gatewayItem .gatewayInner .gatewayHead .gatewayName em {
+    background-image: url(../images/png.png);
+    background-repeat: no-repeat;
+}
+
+@media screen and (max-height: 700px) {
+    .headTop .headLogo {
+        padding-top: 15px;
+    }
+
+    .regButton {
+        bottom: 12px;
+        text-align: center;
+    }
+
+    .loginBox {
+        margin: -240px 0 0 -550px;
+    }
+}

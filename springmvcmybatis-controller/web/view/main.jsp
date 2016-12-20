@@ -7,32 +7,44 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
-    <title>登录页面</title>
-    <script src="resource/js/jquery-1.10.2.min.js"></script>
+    <title>菜单页面</title>
+    <script src="../resource/js/jquery-1.10.2.min.js"></script>
 </head>
 <body style="background: none;">
-    <form id="login_in">
-        <div>用户名: <input type="text" name="userName"/></div>
-        <div>密码: <input type="password" name="password"/></div>
-
-    </form>
-    <button onclick="login();">登录</button>
+    <div id = menu_list>
+        <div><a></a></div>
+    </div>
 </body>
 
 <script type="text/javascript">
-    function login(){
+    /**
+     * 查询系统菜单列表
+     */
+    $(function () {
         $.ajax({
-            url: '/login/login',
+            url: '/system_menu/query_system_menu',
             type:'post',
-            data: $("#login_in").serialize(),
             success: function (data) {
                 if(data.code == 200){
-                    window.location.href = "view/main.jsp"
+                    showMenu(data.data);
                 }else{
                     alert(data.message);
                 }
             }
         });
+    });
+
+    /**
+     * 动态显示菜单列表
+     */
+    function showMenu(data) {
+        var menuList = $("#menu_list");
+        menuList.html("");
+        var str="";
+        for(var i = 0;data.length>i;i++){
+           str = str+'<div><a href="'+data[i].url+'">'+data[i].name+'</a></div>';
+            menuList.html(str);
+        }
     }
 </script>
 </html>

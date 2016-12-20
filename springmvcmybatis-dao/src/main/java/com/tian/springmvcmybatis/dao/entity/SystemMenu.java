@@ -14,6 +14,8 @@ public class SystemMenu {
 
     private String icon;
 
+    private String url;
+
     private String remark;
 
     private Long parentId;
@@ -56,6 +58,14 @@ public class SystemMenu {
         this.icon = icon == null ? null : icon.trim();
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public String getRemark() {
         return remark;
     }
@@ -80,8 +90,6 @@ public class SystemMenu {
         this.status = status == null ? null : status.trim();
     }
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getCreateTime() {
         return createTime;
     }
@@ -90,13 +98,27 @@ public class SystemMenu {
         this.createTime = createTime;
     }
 
-    @DateTimeFormat(pattern="yyyy-MM-dd")
-    @JsonFormat(pattern="yyyy-MM-dd",timezone = "GMT+8")
     public Date getUpdateTime() {
         return updateTime;
     }
 
     public void setUpdateTime(Date updateTime) {
         this.updateTime = updateTime;
+    }
+
+    @Override
+    public String toString() {
+        return "SystemMenu{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", level=" + level +
+                ", icon='" + icon + '\'' +
+                ", url='" + url + '\'' +
+                ", remark='" + remark + '\'' +
+                ", parentId=" + parentId +
+                ", status='" + status + '\'' +
+                ", createTime=" + createTime +
+                ", updateTime=" + updateTime +
+                '}';
     }
 }

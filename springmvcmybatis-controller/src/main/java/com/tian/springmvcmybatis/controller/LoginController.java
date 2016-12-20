@@ -27,6 +27,8 @@ public class LoginController extends BaseController{
 
     /**
      * 跳转到登录页面
+     * 所有的跳转页面,直接在页面中用window.location.href实现
+     * 这个后端只返回json,不用再处理页面跳转等问题.
      * @return
      */
 //    @RequestMapping("to_login_view")

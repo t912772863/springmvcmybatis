@@ -6,6 +6,7 @@
     <result column="NAME" property="name" jdbcType="VARCHAR" />
     <result column="LEVEL" property="level" jdbcType="TINYINT" />
     <result column="ICON" property="icon" jdbcType="VARCHAR" />
+    <result column="URL" property="url" jdbcType="VARCHAR" />
     <result column="REMARK" property="remark" jdbcType="VARCHAR" />
     <result column="PARENT_ID" property="parentId" jdbcType="BIGINT" />
     <result column="STATUS" property="status" jdbcType="VARCHAR" />
@@ -13,7 +14,7 @@
     <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, NAME, LEVEL, ICON, REMARK, PARENT_ID, STATUS, CREATE_TIME, UPDATE_TIME
+    ID, NAME, LEVEL, ICON, URL, REMARK, PARENT_ID, STATUS, CREATE_TIME, UPDATE_TIME
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
@@ -25,16 +26,7 @@
     delete from system_menu
     where ID = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.tian.springmvcmybatis.dao.entity.SystemMenu" >
-    insert into system_menu (ID, NAME, LEVEL, 
-      ICON, REMARK, PARENT_ID, 
-      STATUS, CREATE_TIME, UPDATE_TIME
-      )
-    values (#{id,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{level,jdbcType=TINYINT}, 
-      #{icon,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{parentId,jdbcType=BIGINT}, 
-      #{status,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, #{updateTime,jdbcType=TIMESTAMP}
-      )
-  </insert>
+
   <insert id="insertSelective" parameterType="com.tian.springmvcmybatis.dao.entity.SystemMenu" >
     insert into system_menu
     <trim prefix="(" suffix=")" suffixOverrides="," >
@@ -49,6 +41,9 @@
       </if>
       <if test="icon != null" >
         ICON,
+      </if>
+      <if test="url != null" >
+        URL,
       </if>
       <if test="remark != null" >
         REMARK,
@@ -79,6 +74,9 @@
       <if test="icon != null" >
         #{icon,jdbcType=VARCHAR},
       </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
       </if>
@@ -108,6 +106,9 @@
       <if test="icon != null" >
         ICON = #{icon,jdbcType=VARCHAR},
       </if>
+      <if test="url != null" >
+        URL = #{url,jdbcType=VARCHAR},
+      </if>
       <if test="remark != null" >
         REMARK = #{remark,jdbcType=VARCHAR},
       </if>
@@ -124,18 +125,6 @@
         UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
       </if>
     </set>
-    where ID = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.tian.springmvcmybatis.dao.entity.SystemMenu" >
-    update system_menu
-    set NAME = #{name,jdbcType=VARCHAR},
-      LEVEL = #{level,jdbcType=TINYINT},
-      ICON = #{icon,jdbcType=VARCHAR},
-      REMARK = #{remark,jdbcType=VARCHAR},
-      PARENT_ID = #{parentId,jdbcType=BIGINT},
-      STATUS = #{status,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP}
     where ID = #{id,jdbcType=BIGINT}
   </update>
 

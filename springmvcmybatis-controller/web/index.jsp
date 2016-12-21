@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <meta name="renderer" content="webkit" />
     <title>登录页面</title>
-    <script src="resource/js/jquery-1.10.2.min.js"></script>
+    <script src="resource/js/common/jquery-1.10.2.min.js"></script>
 </head>
 <body style="background: none;">
     <form id="login_in">

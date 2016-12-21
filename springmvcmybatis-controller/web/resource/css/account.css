@@ -1,0 +1,25 @@
+.manager_p i {
+    color: #e5e5e5;
+    padding: 0 10px;
+    font-style: normal;
+}
+
+.manager_p a.editATxts {
+    color: #6eb1d4;
+}
+
+.manager_p a.disabledATxts {
+    color: #8c8c8c;
+}
+
+.manager_p a.deleteATxts {
+    color: #ff6969;
+}
+
+.manager table thead {
+    display: none;
+}
+
+.manager table tbody tr td {
+    font-size: 14px;
+}

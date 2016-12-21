@@ -1,0 +1,292 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+    color: #333;
+    background: #fff;
+}
+
+body, button, input, select, textarea {
+    font: 500 12px/1.5 "Microsoft YaHei", arial, Simsun, sans-serif;
+}
+
+.clearfix {
+    clear: both;
+}
+
+.datagridListBox {
+    width: auto;
+    max-width: 1440px;
+    margin: 0 auto 60px;
+    padding: 0 20px;
+}
+
+.datagridList {
+    margin-bottom: 20px;
+    width: 100%;
+    overflow-x: auto;
+}
+
+.datagridTable {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.datagridTable thead {
+    border-left: solid 1px #09f;
+    border-right: solid 1px #09f;
+}
+
+.datagridTable tbody {
+    border: solid 1px #f1f1f1;
+    border-top: none;
+}
+
+.datagridTable th {
+    color: #fff;
+    font-size: 14px;
+    background-color: #09f;
+    padding: 0 2px 0 8px;
+    border-top: solid 1px #f1f1f1;
+    font-weight: normal;
+    height: 40px;
+    line-height: 40px;
+    white-space: nowrap;
+}
+
+.datagridTable td {
+    height: 30px;
+    line-height: 30px;
+    padding: 0 2px 0 8px;
+    white-space: nowrap;
+}
+
+.datagridTable td.priceTd {
+    padding: 0 8px 0 2px;
+}
+
+.datagridTable.storesTable td {
+    height: 40px;
+    line-height: 40px;
+    padding: 0 5px;
+}
+
+.datagridTable.storesTable th {
+    padding: 0 5px;
+}
+
+.datagridList .tipBox {
+    text-align: center;
+    width: 100%;
+    background: url("../images/loadingPic.gif") center no-repeat;
+}
+
+.datagridList .tipBox img {
+    margin: 0 auto;
+}
+
+.myPager.default {
+    background-color: #FFFFFF;
+    color: #48B9EF;
+    font-family: arial, helvetica, sans-serif;
+    font-size: 13px;
+    padding: 10px 0;
+    text-align: center;
+    line-height: 22px;
+}
+
+.myPager.default a {
+    border-color: #F0F0F0;
+    border-right: 2px solid #F0F0F0;
+    border-style: solid;
+    border-width: 2px;
+    color: #48B9EF;
+    margin: 0 2px;
+    padding: 2px 5px;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.myPager.default a:hover {
+    border-color: #FF5A00;
+    border-right: 2px solid #FF5A00;
+    border-style: solid;
+    border-width: 2px;
+    color: #FF5A00;
+}
+
+.myPager.default a:active {
+    border-color: #FF5A00;
+    border-right: 2px solid #FF5A00;
+    border-style: solid;
+    border-width: 2px;
+    color: #FF5A00;
+}
+
+.myPager.default span.current {
+    background-color: #FF6C16;
+    border-color: #FF5A00;
+    border-right: 2px solid #FF5A00;
+    border-style: solid;
+    border-width: 2px;
+    color: #FFFFFF;
+    font-weight: bold;
+    padding: 2px 5px;
+}
+
+.myPager.default input.input {
+    font-size: 12px;
+    height: 14px;
+    line-height: 12px;
+    width: 22px;
+}
+
+.myPager.default .disabled {
+    margin-right: 2px;
+    padding: 2px 5px;
+    color: #ccc;
+}
+
+.myPager.default .disabled:hover {
+    background-color: white;
+    cursor: text;
+    color: #ccc;
+    border: 2px solid #F0F0F0;
+}
+
+.myPager.lightgreen {
+    margin: 3px;
+    padding: 3px;
+    text-align: center;
+    font-size: 13px;
+}
+
+.myPager.lightgreen a {
+    border-color: #DDDDDD;
+    border-right: 1px solid #DDDDDD;
+    border-style: solid;
+    border-width: 1px;
+    color: #88AF3F;
+    margin-right: 2px;
+    padding: 2px 5px;
+    text-decoration: none;
+}
+
+.myPager.lightgreen a:hover {
+    background-color: #F1FFD6;
+    border-color: #85BD1E;
+    border-right: 1px solid #85BD1E;
+    border-style: solid;
+    border-width: 1px;
+    color: #638425;
+    cursor: pointer;
+}
+
+.myPager.lightgreen a:active {
+    background-color: #F1FFD6;
+    border-color: #85BD1E;
+    border-right: 1px solid #85BD1E;
+    border-style: solid;
+    border-width: 1px;
+    color: #638425;
+}
+
+.myPager.lightgreen span.current {
+    background-color: #B2E05D;
+    border-color: #B2E05D;
+    border-right: 1px solid #B2E05D;
+    border-style: solid;
+    border-width: 1px;
+    color: #FFFFFF;
+    font-weight: bold;
+    margin-right: 2px;
+    padding: 2px 5px;
+}
+
+.myPager.lightgreen input.input {
+    font-size: 12px;
+    height: 14px;
+    line-height: 12px;
+    width: 22px;
+}
+
+.myPager.lightgreen .disabled {
+    border-color: #F3F3F3;
+    border-right: 1px solid #F3F3F3;
+    border-style: solid;
+    border-width: 1px;
+    color: #CCCCCC;
+    margin-right: 2px;
+    padding: 2px 5px;
+}
+
+.myPager.lightgreen .disabled:hover {
+    color: #CCCCCC;
+    background-color: white;
+    cursor: text;
+    border: 1px solid #ccc;
+}
+
+/**自动**/
+.myPager.bigBlue {
+    height: 38px;
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    color: #666;
+}
+
+.myPager.bigBlue a {
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    border: solid 1px #ccc;
+    margin: 0 6px;
+    background: #f7f7f7 url(../images/pageBg.jpg) repeat-x 0 0;
+    border-radius: 3px;
+    color: #666;
+}
+
+.myPager.bigBlue a:hover {
+    color: #09f;
+    cursor: pointer;
+}
+
+.myPager.bigBlue a:active {
+    color: #09f;
+}
+
+.myPager.bigBlue span.current {
+    color: #09f;
+    border: 1px solid #09f;
+    display: inline-block;
+    width: 36px;
+    height: 36px;
+    line-height: 36px;
+    margin: 0 6px;
+    background: #f7f7f7 url(../images/pageBg.jpg) repeat-x 0 0;
+    border-radius: 3px;
+}
+
+.myPager.bigBlue input.input {
+    width: 46px;
+    height: 36px;
+    border-radius: 3px;
+    border: solid 1px #ccc;
+    outline: none;
+    margin-left: 30px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+    font-weight: bold;
+}
+
+.myPager.bigBlue .disabled {
+    color: #ccc;
+}
+
+.myPager.bigBlue .disabled:hover {
+    color: #ccc;
+    cursor: default;
+}

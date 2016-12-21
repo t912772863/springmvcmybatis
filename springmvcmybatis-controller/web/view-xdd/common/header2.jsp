@@ -1,23 +1,17 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="shiro" uri="http://shiro.apache.org/tags" %>
-<%@ taglib uri="http://www.rapid-framework.org.cn/rapid" prefix="rapid" %>
-<%
-    String path = request.getContextPath();
-    String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path;
-    String shopPath = "http://sm.kf.xiangqianpos.com";
-%>
+
 <div class="navbarTop navbar-fixed-top clearfix fix-header">
     <div class="navTopPa hidden-sm hidden-xs">
-        <a class="logoXdd" href="<%=shopPath%>/index"></a>
+        <a class="logoXdd" href="/index"></a>
     </div>
     <ul class="navbar-nav toolbar pull-right" style="padding-top: 7px; padding-right: 18px;">
         <li class="text fix-news" style="position: relative;">
-            <a href="<%=shopPath%>/message/messageManager"><span>系统消息</span></a>
+            <a href="/message/messageManager"><span>系统消息</span></a>
             <i>...</i>
         </li>
 
-        <li class="text fix-manager"><a href="<%=request.getContextPath()%>/user/userInfo"><span><shiro:principal property="roleName"/>  [<shiro:principal property="userName"/>] </a>    |    <a href="<%=shopPath%>/recharge/rechargeRecordManager">余额</span><span style="color:#f08200;"> <shiro:principal property='remainingAmount'/> </span>元</a> </li>
+        <li class="text fix-manager"><a href="/user/userInfo"><span>  [] </a>    |    <a href="/recharge/rechargeRecordManager">余额</span><span style="color:#f08200;">  </span>元</a> </li>
         <li class="text fix-password">
             <span class="gray"><a data-toggle="modal" class="link" href="#modifyDlg">修改密码</a></span>
         </li>
@@ -136,11 +130,9 @@
         });
     });
     function logout(){
-        bootbox.confirm("您真的要注销吗？", function(result){
-            if(!result) return;
-           window.location.href = '${logoutUrl}/logout';
-            //window.location.href="http://192.168.190.102:8093/chapter14-server/logout?service=<%=basePath%>/logout";
-//            window.location.href= "http://admin.kf.xiangqianpos.com/shiroCas/logout?service=http://120.26.96.41:8088/cas";
-        });
+        <%--bootbox.confirm("您真的要注销吗？", function(result){--%>
+            <%--if(!result) return;--%>
+           <%--window.location.href = '${logoutUrl}/logout';--%>
+        <%--});--%>
     }
 </script>

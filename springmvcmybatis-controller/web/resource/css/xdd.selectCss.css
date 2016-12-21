@@ -1,0 +1,13 @@
+/* select */
+.selectBoxs {position:relative;height:28px;}
+.selectBoxs .tag_select {display:block;padding:0 26px 0 10px;border:solid 1px #ccc;height:28px;width:100%;position:relative;font-size:12px;color:#333;float:left;border-radius:3px;background:#fff url(../images/selectImg.jpg) no-repeat right top;white-space:nowrap;overflow:hidden; text-overflow:ellipsis;line-height:26px;cursor:pointer;}
+.selectBoxs .tag_select.disable{background-color: #ddd;}
+.selectBoxs .selectWidth .tag_select {width:150px;}
+.selectBoxs .tag_select_hover {background:#fff url(../images/selectImg.jpg) no-repeat right top; }
+.selectBoxs .tag_select_open {background:#fff url(../images/selectImg.jpg) no-repeat right top;}
+.selectBoxs dl.tag_options {overflow:hidden;cursor:pointer;border:solid 1px #ddd;position:absolute;top:34px;left:0;z-index:88888;border-radius:3px;background-color:#f8f8f8;display:none;padding:1px;width:100%;max-height:140px;overflow-y:auto !important;}
+.selectBoxs .selectWidth dl.tag_options {width:184px;}
+.selectBoxs dl.tag_options dd{height:26px;width: 100%;line-height:26px;cursor:pointer;border:solid 1px #f8f8f8;border-radius:3px;padding:0 5px;white-space:nowrap;overflow:hidden; margin-bottom: 2px;}
+.selectBoxs dl.tag_options dd.open_hover{background-color:#09f;border-color:#0071bc;color:#fff;}
+.selectBoxs dl.tag_options dd.open_selected {background-color:#ddd;}
+.selectBoxs dl.tag_options dd.open_selected:hover {background-color:#09f;}

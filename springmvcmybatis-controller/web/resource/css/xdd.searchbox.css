@@ -1,0 +1,173 @@
+@charset "utf-8";
+/* CSS Document */
+body {
+    color: #333;
+    background: #fff;
+}
+
+body, button, input, select, textarea {
+    font: 500 12px/1.5 "Microsoft YaHei", arial, Simsun, sans-serif;
+}
+
+.clearfix {
+    clear: both;
+}
+
+@media screen and (max-width: 600px) {
+    .searchListFilter li {
+        float: left;
+        padding-left: 20px;
+        margin-bottom: 10px;
+        margin-right: 32px;
+    }
+
+    .searchListFilter li em {
+        width: 66px;
+        padding-right: 4px;
+        text-align: right;
+        line-height: 28px;
+        float: left;
+        margin-left: -70px;
+    }
+
+    .usersearchFilter li {
+        padding-left: 48px;
+        margin-right: 0px;
+    }
+
+    .usersearchFilter li em {
+        width: 104px;
+        padding-right: 4px;
+        margin-left: -108px;
+    }
+}
+
+.searchListFilter {
+    width: auto;
+    max-width: 1440px;
+    margin: 0 auto 15px;
+    padding: 20px 20px 0;
+}
+
+.searchListFilter li {
+    float: left;
+    padding-left: 70px;
+    margin-bottom: 10px;
+    margin-right: 82px;
+}
+
+.searchListFilter li em {
+    width: 66px;
+    padding-right: 4px;
+    text-align: right;
+    line-height: 28px;
+    float: left;
+    margin-left: -70px;
+}
+
+.searchListFilter li input {
+    outline: none;
+}
+
+.filterText {
+    border: solid 1px #ccc;
+    height: 20px;
+    line-height: 20px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    background-color: #fff;
+    width: 188px;
+}
+
+.searchListFilter li.timeBox {
+    margin-right: 0;
+    width: 316px;
+    position: relative;
+}
+
+.searchListFilter li.timeBox .txtRemark {
+    position: absolute;
+    left: 6px;
+    top: 36px;
+    color: #666;
+}
+
+.searchListFilter li.timeBox .blankBox {
+    padding: 0 6px 0 8px;
+    color: #ccc;
+}
+
+.searchListFilter li.typeBox {
+    margin-right: 0;
+    vertical-align: middle;
+    line-height: 26px;
+}
+
+.searchListFilter li.typeBox input, .searchListFilter li.typeBox label, .searchListFilter li.modeBox input, .searchListFilter li.modeBox label {
+    vertical-align: middle;
+}
+
+.searchListFilter li.modeBox {
+    vertical-align: middle;
+    line-height: 26px;
+}
+
+.searchListFilter li.butBox input {
+    width: 98px;
+    height: 34px;
+    border: none;
+    font-size: 16px;
+    font-weight: bold;
+    color: #fff;
+    cursor: pointer;
+    border-radius: 3px;
+    background-position: 0 -98px;
+    background-color: #f8bd0a;
+}
+
+.searchListFilter li.butBox input:hover {
+    background-position: 0 -132px;
+}
+
+.searchListFilter li.butBox input {
+    background-image: url(../images/pageBg.png);
+    background-repeat: repeat-x;
+}
+
+.usersearchFilter li {
+    padding-left: 108px;
+    margin-right: 50px;
+}
+
+.usersearchFilter li em {
+    width: 104px;
+    padding-right: 4px;
+    margin-left: -108px;
+}
+
+.usersearchFilter .userBox li.timeBox {
+    padding-left: 70px;
+}
+
+.usersearchFilter li.butBox {
+    padding-left: 0px;
+}
+
+.searchListFilter div.group {
+    float: left
+}
+
+.searchListFilter li.quickSelection i {
+    color: #9a9a9a;
+    font-family: "Simsun";
+    padding: 0 5px;
+}
+
+.searchListFilter li.quickSelection a, .searchListFilter li.quickSelection span {
+    padding: 0 5px;
+}
+
+.searchListFilter li.quickSelection span.on {
+    background-color: #09f;
+    color: #fff;
+}

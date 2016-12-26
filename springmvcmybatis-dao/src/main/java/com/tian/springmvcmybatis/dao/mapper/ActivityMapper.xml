@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tian.springmvcmybatis.dao.mapper.ActivityMapper" >
+  <resultMap id="BaseResultMap" type="com.tian.springmvcmybatis.dao.entity.Activity" >
+    <id column="ID" property="id" />
+    <result column="NAME" property="name" jdbcType="VARCHAR" />
+    <result column="ADDRESS" property="address" jdbcType="VARCHAR" />
+    <result column="REMARK" property="remark" jdbcType="VARCHAR" />
+    <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="TIME1" property="time1" jdbcType="TIMESTAMP" />
+    <result column="TIME2" property="time2" jdbcType="TIMESTAMP" />
+    <result column="TIME3" property="time3" jdbcType="TIMESTAMP" />
+    <result column="UPDATE_TIME" property="updateTime" jdbcType="TIMESTAMP" />
+    <result column="ACTIVITY_STATUS" property="activityStatus"/>
+    <result column="STATUS" property="status" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    ID, NAME, ADDRESS, REMARK, CREATE_TIME, TIME1, TIME2, TIME3, UPDATE_TIME, ACTIVITY_STATUS, STATUS
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from activity
+    where ID = #{id}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from activity
+    where ID = #{id}
+  </delete>
+
+  <insert id="insertSelective" parameterType="com.tian.springmvcmybatis.dao.entity.Activity" >
+    insert into activity
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        ID,
+      </if>
+      <if test="name != null" >
+        NAME,
+      </if>
+      <if test="address != null" >
+        ADDRESS,
+      </if>
+      <if test="remark != null" >
+        REMARK,
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME,
+      </if>
+      <if test="time1 != null" >
+        TIME1,
+      </if>
+      <if test="time2 != null" >
+        TIME2,
+      </if>
+      <if test="time3 != null" >
+        TIME3,
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME,
+      </if>
+      <if test="activityStatus != null" >
+        ACTIVITY_STATUS,
+      </if>
+      <if test="status != null" >
+        STATUS,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time1 != null" >
+        #{time1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time2 != null" >
+        #{time2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time3 != null" >
+        #{time3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityStatus">
+        #{activityStatus},
+      </if>
+      <if test="status != null" >
+        #{status},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tian.springmvcmybatis.dao.entity.Activity" >
+    update activity
+    <set >
+      <if test="name != null" >
+        NAME = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        ADDRESS = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null" >
+        REMARK = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time1 != null" >
+        TIME1 = #{time1,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time2 != null" >
+        TIME2 = #{time2,jdbcType=TIMESTAMP},
+      </if>
+      <if test="time3 != null" >
+        TIME3 = #{time3,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateTime != null" >
+        UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="activityStatus != null" >
+        ACTIVITY_STATUS = #{activityStatus},
+      </if>
+      <if test="status != null" >
+        STATUS = #{status},
+      </if>
+    </set>
+    where ID = #{id}
+  </update>
+
+  <select id="queryNeedUpdateStatus" resultType="com.tian.springmvcmybatis.dao.dto.ActivityDto">
+     select ID,TIME1 theTime, 1 status from activity where TIME1 BETWEEN #{startTime} and #{endTime} union ALL
+     select ID,TIME2 theTime, 2 status from activity where TIME2 BETWEEN #{startTime} and #{endTime} union ALL
+     select ID,TIME3 theTime, 3 status from activity where TIME3 BETWEEN #{startTime} and #{endTime}
+
+  </select>
+
+</mapper>

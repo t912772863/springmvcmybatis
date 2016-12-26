@@ -60,6 +60,7 @@ public class PageParam<T> {
 
     public void setTotalNumber(int totalNumber) {
         this.totalNumber = totalNumber;
+        operationTotalPages();
     }
 
     public int getTotalPages() {
@@ -74,7 +75,7 @@ public class PageParam<T> {
      * 根据总记录数和每页记录数,运算总页数
      * @return
      */
-    public int operationTotalPages(){
+    private int operationTotalPages(){
         return this.totalNumber%this.pageSize == 0 ? this.totalNumber/this.pageSize : this.totalNumber/this.pageSize+1;
     }
 

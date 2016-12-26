@@ -104,7 +104,6 @@ public class UserServiceImpl implements IUserService {
         pageParam.setResult(userList);
         int total = userMapper.queryPageCount(pageParam);
         pageParam.setTotalNumber(total);
-        pageParam.operationTotalPages();
         return pageParam;
     }
 

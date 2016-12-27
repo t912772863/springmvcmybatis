@@ -10,9 +10,6 @@ import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
 import javax.annotation.PostConstruct;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -46,8 +43,8 @@ public class TimerTask {
     @Scheduled(cron = "0 0/59 * * * ?")
     public void updateActivityStatus(){
         // 从数据库中查询时间在60分钟后就要到的
-        String startTime = DateUtil.getDateBeforeHour(0,"yyyy-MM-dd HH:mm:ss");
-        String endTime = DateUtil.getDateBeforeHour(1,"yyyy-MM-dd HH:mm:ss");
+        String startTime = DateUtil.getDateAfterHour(0,"yyyy-MM-dd HH:mm:ss");
+        String endTime = DateUtil.getDateAfterHour(1,"yyyy-MM-dd HH:mm:ss");
         List<ActivityDto> list = activityService.queryActivityNeedUpdateStatus(startTime,endTime);
 
         // 将这些数据按自定义的规则,转换成key,并根据时间设置一个过期时间,存入缓存中

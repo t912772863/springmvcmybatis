@@ -16,18 +16,10 @@ public class ResponseData {
      */
     public static ResponseData failedData = new ResponseData(500,"failed");
 
-    public ResponseData(){}
     public ResponseData(int code,String message){
         this.code = code;
         this.message = message;
     }
-
-    public ResponseData(int code,String message,Object data){
-        this.code = code;
-        this.message = message;
-        this.data = data;
-    }
-
 
     private int code;
     private String message;
@@ -37,16 +29,8 @@ public class ResponseData {
         return code;
     }
 
-    public void setCode(int code) {
-        this.code = code;
-    }
-
     public String getMessage() {
         return message;
-    }
-
-    public void setMessage(String message) {
-        this.message = message;
     }
 
     public Object getData() {

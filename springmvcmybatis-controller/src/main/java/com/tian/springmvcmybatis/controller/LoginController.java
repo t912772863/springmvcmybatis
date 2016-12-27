@@ -1,17 +1,16 @@
 package com.tian.springmvcmybatis.controller;
 
 import com.tian.springmvcmybatis.controller.common.ResponseData;
-import com.tian.springmvcmybatis.service.common.util.JedisUtil;
-import com.tian.springmvcmybatis.service.common.util.RandomUtil;
 import com.tian.springmvcmybatis.dao.common.validation.NotNull;
 import com.tian.springmvcmybatis.dao.common.validation.Regular;
 import com.tian.springmvcmybatis.dao.entity.User;
 import com.tian.springmvcmybatis.service.IUserService;
+import com.tian.springmvcmybatis.service.common.util.JedisUtil;
+import com.tian.springmvcmybatis.service.common.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,7 +50,7 @@ public class LoginController extends BaseController{
             request.getSession().setAttribute("user",user);
             return success;
         }
-        return failed;
+        return failed.setData("登录失败");
     }
 
     /**

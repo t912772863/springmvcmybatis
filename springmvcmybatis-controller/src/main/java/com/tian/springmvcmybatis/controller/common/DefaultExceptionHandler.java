@@ -29,10 +29,10 @@ public class DefaultExceptionHandler implements HandlerExceptionResolver{
             if(e instanceof BusinessException){
                 BusinessException be = (BusinessException)e;
                 // 如果是我们返回的业务异常则进行封装
-                response.getWriter().write(JSONObject.toJSONString(new ResponseData(be.getErrorCode(),be.getErrorMessage())));
+                response.getWriter().write(JSONObject.toJSONString(new ResponseData(be.getErrorCode(),"failed",be.getErrorMessage())));
             }else{
                 //返回统一内部错误类型
-                response.getWriter().write(JSONObject.toJSONString(new ResponseData(500,e.getClass().getName())));
+                response.getWriter().write(JSONObject.toJSONString(new ResponseData(500,"failed",e.getClass().getName())));
                 // 返回特定页面
 //                mv.setViewName("index.jsp");
                 return mv;

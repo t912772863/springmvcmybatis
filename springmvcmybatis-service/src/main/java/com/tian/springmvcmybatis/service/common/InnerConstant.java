@@ -5,6 +5,11 @@ package com.tian.springmvcmybatis.service.common;
  * Created by Administrator on 2016/11/19 0019.
  */
 public class InnerConstant {
+
+    /**
+     * 构造方法私有化后,防止该类实例化
+     */
+    private InnerConstant(){}
     /**-------------------------------------------系统中所有表的数据状态----------------------------------------------------------------*/
     /**
      * 数据状态: 正常

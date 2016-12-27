@@ -68,7 +68,7 @@ public class LoginController extends BaseController{
             request.getSession().setAttribute("user",user);
             return success;
         }
-        return failed;
+        return failed.setData("验证码无效");
     }
 
     /**

@@ -11,25 +11,76 @@
     <script src="resource/js/common/jquery-1.10.2.min.js"></script>
 </head>
 <body style="background: none;">
-    <form id="login_in">
+    <div id="div_1">
+    <form id="login_in" >
         <div>用户名: <input type="text" name="userName"/></div>
         <div>密码: <input type="password" name="password"/></div>
-
+        <input onclick="changeLoginType();" type="button" value="切换为手机号登录"/>
     </form>
     <button onclick="login();">登录</button>
+    </div>
+
+    <div id="div_2" hidden>
+    <form id="login_in_2" >
+        <div>手机号: <input type="text" name="mobile"/></div>
+        <div>验证码: <input id="code" type="password" name="code"/><input type="button" value="获取验证码" onclick="getCode();"></div>
+        <input onclick="changeLoginType2();" type="button" value="切换为用户名登录"/>
+    </form>
+    <button onclick="login2();">登录</button>
+    </div>
 </body>
 
 <script type="text/javascript">
     function login(){
         $.ajax({
-            url: '/login/login',
+            url: "/login/login",
             type:'post',
             data: $("#login_in").serialize(),
             success: function (data) {
                 if(data.code == 200){
                     window.location.href = "view/main.jsp"
                 }else{
-                    alert(data.message);
+                    alert(data.data);
+                }
+            }
+        });
+    }
+
+    function login2(){
+        alert("login2");
+        $.ajax({
+            url: '/login/login_code',
+            type:'post',
+            data: $("#login_in_2").serialize(),
+            success: function (data) {
+                if(data.code == 200){
+                    window.location.href = "view/main.jsp"
+                }else{
+                    alert(data.data);
+                }
+            }
+        });
+    }
+
+    function changeLoginType() {
+        $("#div_1").hide();
+        $("#div_2").show();
+    }
+    function changeLoginType2() {
+        $("#div_1").show();
+        $("#div_2").hide();
+    }
+
+    function getCode() {
+        $.ajax({
+            url: '/login/get_check_code',
+            type:'post',
+            data: {mobile:$("input[name='mobile']").val()},
+            success: function (data) {
+                if(data.code == 200){
+                    alert(data.data);
+                }else{
+                    alert(data.data);
                 }
             }
         });

@@ -1,7 +1,6 @@
 package com.tian.springmvcmybatis.dao.common.validation;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
@@ -85,9 +84,9 @@ public class Validate {
         if(o == null || "".equals(o.toString())){
             return a.nullAble();
         }
-        int value = Integer.parseInt(o.toString());
-        int minValue = a.minValue();
-        int maxValue = a.maxValue();
+        long value = Long.parseLong(o.toString());
+        long minValue = a.minValue();
+        long maxValue = a.maxValue();
         if(value< minValue || value>maxValue){
             return false;
         }

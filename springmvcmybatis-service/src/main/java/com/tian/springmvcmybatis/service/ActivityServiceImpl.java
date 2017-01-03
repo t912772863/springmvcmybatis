@@ -53,9 +53,7 @@ public class ActivityServiceImpl implements IActivityService {
 
     public PageParam<Activity> queryActivityPage(PageParam<Activity> pageParam) {
         List<Activity> list = activityMapper.queryByPage(pageParam);
-        int totalPages = activityMapper.queryByPageCount(pageParam);
         pageParam.setResult(list);
-        pageParam.setTotalNumber(totalPages);
         return pageParam;
     }
 }

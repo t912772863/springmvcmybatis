@@ -8,8 +8,10 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <title>uesrList</title>
+    <title>活动列表</title>
     <link rel="stylesheet" type="text/css" href="/resource/plugin/datatables/media/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="/resource/plugin/datatables/media/js/jquery.js"></script>
+    <script type="text/javascript" charset="utf8" src="/resource/plugin/datatables/media/js/jquery.dataTables.js"></script>
 </head>
 <body>
     <table id="user_table" class="display">
@@ -20,9 +22,10 @@
             <th>活动地址</th>
             <th>当前状态</th>
             <th>备注信息</th>
+            <th>操作</th>
         </tr>
         </thead>
-        <tbody id="user_tbody">
+        <tbody id="activity_tbody">
         <tr>
             <td>Row 1 Data 1</td>
             <td>Row 1 Data 2</td>

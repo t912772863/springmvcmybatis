@@ -2,6 +2,7 @@ package com.tian.springmvcmybatis.controller;
 
 import com.tian.springmvcmybatis.controller.common.ResponseData;
 import com.tian.springmvcmybatis.dao.common.PageParam;
+import com.tian.springmvcmybatis.dao.common.validation.Number;
 import com.tian.springmvcmybatis.dao.entity.Activity;
 import com.tian.springmvcmybatis.service.IActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +33,12 @@ public class ActivityController extends BaseController {
         return success;
     }
 
+    /**
+     * 分页查询活动
+     * @param pageParam
+     * @param request
+     * @return
+     */
     @RequestMapping("query_activity_page")
     @ResponseBody
     public ResponseData queryActivityPage(PageParam<Activity> pageParam, HttpServletRequest request){
@@ -41,5 +48,16 @@ public class ActivityController extends BaseController {
         pageParam.getParams().put("status",request.getParameter("status"));
         activityService.queryActivityPage(pageParam);
         return successData.setData(pageParam);
+    }
+
+    /**
+     * 根据id查询单个活动详情
+    * @param id
+     * @return
+     */
+    @RequestMapping("query_activity_by_id")
+    @ResponseBody
+    public ResponseData queryActivityById(@Number Long id){
+        return successData.setData(activityService.queryById(id));
     }
 }

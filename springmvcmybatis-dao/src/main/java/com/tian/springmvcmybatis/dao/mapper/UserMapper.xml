@@ -108,10 +108,21 @@
 
   <select id = "queryByPage" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultMap="BaseResultMap">
       SELECT <include refid="Base_Column_List"/> from user
-  </select>
-
-  <select id="queryByPageCount" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultType="int">
-     select count(*) from user
+    <where>
+      <if test="params.name">
+        and USER_NAME like concat ('%',#{params.name,'%'})
+      </if>
+      <if test="params.status != null">
+        and STATUS = #{params.status}
+      </if>
+      <if test="params.startTime != null">
+        <![CDATA[ and CREATE_TIME >= #{params.startTime} ]]>
+      </if>
+      <if test="params.endTime != null">
+        <![CDATA[ and CREATE_TIME <=#{params.endTime} ]]>
+      </if>
+    </where>
+     order by CREATE_TIME desc
   </select>
 
   <select id="queryByUserNameAndPassword" resultMap="BaseResultMap">

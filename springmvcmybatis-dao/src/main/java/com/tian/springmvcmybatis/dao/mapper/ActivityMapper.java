@@ -33,10 +33,4 @@ public interface ActivityMapper {
      */
     List<Activity> queryByPage(PageParam<Activity> pageParam);
 
-    /**
-     * 分页查询总记录数
-     * @param pageParam
-     * @return
-     */
-    int queryByPageCount(PageParam<Activity> pageParam);
 }

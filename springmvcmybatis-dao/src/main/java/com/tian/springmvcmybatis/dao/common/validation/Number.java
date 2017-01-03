@@ -12,8 +12,8 @@ import java.lang.annotation.*;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface Number {
-    int minValue() default -100000000;
-    int maxValue() default 100000000;
+    long minValue() default Long.MIN_VALUE;
+    long maxValue() default Long.MAX_VALUE;
 
     /**
      * 是否可以为空

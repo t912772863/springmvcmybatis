@@ -6,10 +6,15 @@ import org.apache.ibatis.mapping.BoundSql;
 import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
+import org.apache.log4j.Logger;
 
 import java.sql.*;
 import java.util.Properties;
 /**
+ * 在sqlSessionFactory中注入一个默认的拦截器,在每一个sql执行前都会拦截,
+ * 在这里我们实现的逻辑是,获取到执行方法的参数,如果是我们自定义的PageParam对象,就说明这个
+ * 方法需要进行分页处理,然后获取参数进行组装,那么真正执行的sql语句,就是我们组装后的语句了.
+ * 如果参数类型不是PageParam类型,则不处理,直接放行,还是按照原来的逻辑处理
  * Created by Administrator on 2016/12/30 0030.
  */
 @Intercepts({
@@ -17,6 +22,7 @@ import java.util.Properties;
         @Signature(type = ResultSetHandler.class, method = "handleResultSets", args = {Statement.class})
 })
 public class PageInterceptor implements Interceptor {
+    Logger logger = Logger.getLogger(PageInterceptor.class);
     //插件运行的代码，它将代替原有的方法
     public Object intercept(Invocation invocation) throws Throwable {
         if (invocation.getTarget() instanceof StatementHandler) {
@@ -32,7 +38,9 @@ public class PageInterceptor implements Interceptor {
 
                 // 重写sql
                 String countSql=concatCountSql(sql);
+                logger.debug("组装的countSql: "+countSql);
                 String pageSql=concatPageSql(sql,pageParam);
+                logger.debug("组装的pageSql: "+pageSql);
 
                 Connection connection = (Connection) invocation.getArgs()[0];
 
@@ -44,15 +52,16 @@ public class PageInterceptor implements Interceptor {
                     rs = countStmt.executeQuery();
                     if (rs.next()) {
                         totalCount = rs.getInt(1);
+                        logger.debug("查询的总记录数为: "+totalCount);
                     }
                 } catch (SQLException e) {
-                    System.out.println("Ignore this exception"+e);
+                    logger.error(e);
                 } finally {
                     try {
                         rs.close();
                         countStmt.close();
                     } catch (SQLException e) {
-                        System.out.println("Ignore this exception"+ e);
+                        logger.error(e);
                     }
                 }
 

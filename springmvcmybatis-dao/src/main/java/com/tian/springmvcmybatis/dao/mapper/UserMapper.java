@@ -26,13 +26,6 @@ public interface UserMapper {
     List<User> queryByPage(PageParam<User> pageParam);
 
     /**
-     * 分页查询时统计总数
-     * @param pageParam
-     * @return
-     */
-    int queryByPageCount(PageParam<User> pageParam);
-
-    /**
      * 根据用户名和密码查询用户
      * @param userName
      * @param password

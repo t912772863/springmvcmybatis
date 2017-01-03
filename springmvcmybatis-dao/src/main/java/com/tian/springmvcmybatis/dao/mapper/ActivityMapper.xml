@@ -145,4 +145,34 @@
 
   </select>
 
+  <sql id="queryByPage_where">
+    <where>
+      <if test="params.status != null">
+        and STATUS = #{params.status}
+      </if>
+      <if test="params.startTime != null">
+        <![CDATA[ and CREATE_TIME >= #{params.startTime} ]]>
+      </if>
+      <if test="params.endTime != null">
+        <![CDATA[ and CREATE_TIME <=#{params.endTime} ]]>
+      </if>
+      <if test="params.name != null and params.name != ''">
+        and NAME like concat ('%',#{params.name},'%')
+      </if>
+    </where>
+  </sql>
+
+  <select id="queryByPage" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultMap="BaseResultMap">
+     select <include refid="Base_Column_List" /> from activity
+     <include refid="queryByPage_where"/>
+     order by CREATE_TIME desc
+     limit <![CDATA[ (#{pageNumber}-1)*#{pageSize}, #{pageSize} ]]>
+
+  </select>
+
+  <select id="queryByPageCount" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultType="int">
+    select count(*) from activity
+    <include refid="queryByPage_where"/>
+  </select>
+
 </mapper>

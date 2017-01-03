@@ -75,8 +75,9 @@ public class PageParam<T> {
      * 根据总记录数和每页记录数,运算总页数
      * @return
      */
-    private int operationTotalPages(){
-        return this.totalNumber%this.pageSize == 0 ? this.totalNumber/this.pageSize : this.totalNumber/this.pageSize+1;
+    private void operationTotalPages(){
+        int totalPage = this.totalNumber%this.pageSize == 0 ? this.totalNumber/this.pageSize : this.totalNumber/this.pageSize+1;
+        this.setTotalPages(totalPage);
     }
 
     @Override

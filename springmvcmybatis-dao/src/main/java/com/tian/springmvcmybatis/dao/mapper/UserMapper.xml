@@ -106,11 +106,11 @@
   </update>
 
 
-  <select id = "queryPage" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultMap="BaseResultMap">
+  <select id = "queryByPage" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultMap="BaseResultMap">
       SELECT <include refid="Base_Column_List"/> from user
   </select>
 
-  <select id="queryPageCount" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultType="int">
+  <select id="queryByPageCount" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultType="int">
      select count(*) from user
   </select>
 

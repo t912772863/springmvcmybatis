@@ -1,12 +1,15 @@
 package com.tian.springmvcmybatis.controller;
 
 import com.tian.springmvcmybatis.controller.common.ResponseData;
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.Activity;
 import com.tian.springmvcmybatis.service.IActivityService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * 活动控制层
@@ -27,5 +30,16 @@ public class ActivityController extends BaseController {
     public ResponseData insertActivity(Activity activity){
         activityService.insertActivity(activity);
         return success;
+    }
+
+    @RequestMapping("query_activity_page")
+    @ResponseBody
+    public ResponseData queryActivityPage(PageParam<Activity> pageParam, HttpServletRequest request){
+        pageParam.getParams().put("startTime",request.getParameter("startTime"));
+        pageParam.getParams().put("endTime",request.getParameter("endTime"));
+        pageParam.getParams().put("name",request.getParameter("name"));
+        pageParam.getParams().put("status",request.getParameter("status"));
+        activityService.queryActivityPage(pageParam);
+        return successData.setData(pageParam);
     }
 }

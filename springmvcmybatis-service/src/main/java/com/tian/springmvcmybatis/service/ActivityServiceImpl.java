@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.service;
 
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.dto.ActivityDto;
 import com.tian.springmvcmybatis.dao.entity.Activity;
 import com.tian.springmvcmybatis.dao.mapper.ActivityMapper;
@@ -48,5 +49,13 @@ public class ActivityServiceImpl implements IActivityService {
             return new ArrayList<ActivityDto>();
         }
         return list;
+    }
+
+    public PageParam<Activity> queryActivityPage(PageParam<Activity> pageParam) {
+        List<Activity> list = activityMapper.queryByPage(pageParam);
+        int totalPages = activityMapper.queryByPageCount(pageParam);
+        pageParam.setResult(list);
+        pageParam.setTotalNumber(totalPages);
+        return pageParam;
     }
 }

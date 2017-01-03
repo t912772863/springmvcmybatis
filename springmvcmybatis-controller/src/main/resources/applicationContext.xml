@@ -51,6 +51,18 @@
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations" value="classpath:com/tian/springmvcmybatis/dao/mapper/*.xml"></property>
+		<!--添加一个mybatis插件实现不同数据库的默认分页-->
+		<property name="plugins">
+			<array>
+				<bean class="com.tian.springmvcmybatis.dao.common.PageInterceptor">
+					<property name="properties">
+						<value>
+							property-key=property-value
+						</value>
+					</property>
+				</bean>
+			</array>
+		</property>
 	</bean>
 
 	<!--加载dao层 -->
@@ -142,7 +154,6 @@
 			</bean>
 		</mvc:interceptor>
 	</mvc:interceptors>-->
-
 
 
 </beans>

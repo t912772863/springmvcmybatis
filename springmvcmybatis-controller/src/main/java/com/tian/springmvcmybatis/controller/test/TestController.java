@@ -2,8 +2,8 @@ package com.tian.springmvcmybatis.controller.test;
 
 import com.tian.springmvcmybatis.controller.BaseController;
 import com.tian.springmvcmybatis.controller.common.ResponseData;
-import com.tian.springmvcmybatis.service.common.util.JedisUtil;
 import com.tian.springmvcmybatis.service.IUserService;
+import com.tian.springmvcmybatis.service.common.util.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;
@@ -14,6 +14,8 @@ import redis.clients.jedis.Jedis;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * 测试用的一些方法入口
@@ -90,5 +92,7 @@ public class TestController extends BaseController{
     public static void main(String[] args) {
         Jedis jedis = JedisUtil.getResource();
 //        jedis.psubscribe();
+        List<String> list = new ArrayList();
+        String[] strArr = list.toArray(new String[1]);
     }
 }

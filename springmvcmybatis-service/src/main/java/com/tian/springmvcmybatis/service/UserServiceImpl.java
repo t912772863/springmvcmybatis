@@ -100,10 +100,8 @@ public class UserServiceImpl implements IUserService {
     }
 
     public PageParam<User> queryUserPage(PageParam<User> pageParam) {
-        List<User> userList = userMapper.queryPage(pageParam);
+        List<User> userList = userMapper.queryByPage(pageParam);
         pageParam.setResult(userList);
-        int total = userMapper.queryPageCount(pageParam);
-        pageParam.setTotalNumber(total);
         return pageParam;
     }
 

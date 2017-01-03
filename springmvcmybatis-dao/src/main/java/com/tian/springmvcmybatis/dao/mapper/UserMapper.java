@@ -23,14 +23,14 @@ public interface UserMapper {
      * 分页查询用户信息
      * @param pageParam
      */
-    List<User> queryPage(PageParam<User> pageParam);
+    List<User> queryByPage(PageParam<User> pageParam);
 
     /**
      * 分页查询时统计总数
      * @param pageParam
      * @return
      */
-    int queryPageCount(PageParam<User> pageParam);
+    int queryByPageCount(PageParam<User> pageParam);
 
     /**
      * 根据用户名和密码查询用户

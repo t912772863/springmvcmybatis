@@ -1,10 +1,10 @@
 package com.tian.springmvcmybatis.service;
 
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.dto.ActivityDto;
 import com.tian.springmvcmybatis.dao.entity.Activity;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by Administrator on 2016/12/15 0015.
@@ -19,4 +19,11 @@ public interface IActivityService {
     Activity queryById(Long id);
 
     List<ActivityDto> queryActivityNeedUpdateStatus(String startTime, String endTime);
+
+    /**
+     * 分页查询活动
+     * @param pageParam
+     * @return
+     */
+    PageParam<Activity> queryActivityPage(PageParam<Activity> pageParam);
 }

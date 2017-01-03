@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.dao.mapper;
 
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.dto.ActivityDto;
 import com.tian.springmvcmybatis.dao.entity.Activity;
 import org.apache.ibatis.annotations.Param;
@@ -24,4 +25,18 @@ public interface ActivityMapper {
      * @return
      */
     List<ActivityDto> queryNeedUpdateStatus(@Param("startTime") String startTime, @Param("endTime") String endTime);
+
+    /**
+     * 分页查询活动列表(结果集)
+     * @param pageParam
+     * @return
+     */
+    List<Activity> queryByPage(PageParam<Activity> pageParam);
+
+    /**
+     * 分页查询总记录数
+     * @param pageParam
+     * @return
+     */
+    int queryByPageCount(PageParam<Activity> pageParam);
 }

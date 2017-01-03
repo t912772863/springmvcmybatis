@@ -1,8 +1,10 @@
 package com.tian.springmvcmybatis.dao.entity;
 
+import com.tian.springmvcmybatis.dao.common.validation.Common;
+
 import java.util.Date;
 
-public class Activity {
+public class Activity extends Common {
     private Long id;
 
     private String name;

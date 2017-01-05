@@ -7,14 +7,16 @@ import com.alibaba.fastjson.JSONObject;
  * Created by tian on 2016/11/2.
  */
 public class ResponseData {
+    public static final int FAILED_CODE = 500;
+    public static final int SUCCESS_CODE = 200;
     /**
      * 一个成功返回的实例
      */
-    public static ResponseData successData = new ResponseData(200,"success");
+    public static ResponseData successData = new ResponseData(SUCCESS_CODE,"success");
     /**
      * 一个失败返回的实例
      */
-    public static ResponseData failedData = new ResponseData(500,"failed");
+    public static ResponseData failedData = new ResponseData(FAILED_CODE,"failed");
 
     public ResponseData(int code,String message){
         this.code = code;

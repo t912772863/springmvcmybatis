@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2016-12-16 15:47:55
+Date: 2017-01-10 14:42:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -38,7 +38,7 @@ CREATE TABLE `activity` (
 -- Records of activity
 -- ----------------------------
 INSERT INTO `activity` VALUES ('1', 'test1', 'aaaaa', 'aaaaaa', '2016-12-15 19:11:52', '2016-12-16 11:38:57', '2016-12-16 11:40:00', '2016-12-16 15:12:25', '2016-12-16 15:12:24', '3', '1');
-INSERT INTO `activity` VALUES ('2', 'test2', 'bbbb', 'bbbbb', '2016-12-15 19:11:52', '2016-12-16 11:48:57', '2016-12-15 11:53:18', '2016-12-16 13:56:25', '2016-12-15 19:13:07', '0', '1');
+INSERT INTO `activity` VALUES ('2', 'test2', 'bbbb', 'bbbbb', '2016-12-15 19:11:52', '2016-12-16 11:48:57', '2016-12-15 11:53:18', '2016-12-16 17:59:25', '2016-12-16 17:59:25', '3', '1');
 
 -- ----------------------------
 -- Table structure for order
@@ -72,18 +72,21 @@ CREATE TABLE `system_menu` (
   `NAME` varchar(255) DEFAULT NULL COMMENT '菜单名',
   `LEVEL` tinyint(4) DEFAULT NULL COMMENT '菜单等级',
   `ICON` varchar(255) DEFAULT NULL COMMENT '菜单图标url',
+  `URL` varchar(255) DEFAULT NULL COMMENT '跳转路径',
   `REMARK` varchar(255) DEFAULT NULL COMMENT '菜单备注',
   `PARENT_ID` bigint(20) DEFAULT NULL COMMENT '父级菜单ID',
   `STATUS` varchar(255) DEFAULT NULL COMMENT '状态: -1删除,  1正常',
   `CREATE_TIME` datetime DEFAULT NULL COMMENT '创建时间',
   `UPDATE_TIME` datetime DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='系统菜单表';
 
 -- ----------------------------
 -- Records of system_menu
 -- ----------------------------
-INSERT INTO `system_menu` VALUES ('1', '测试菜单1', '1', '2213132', '这是一个测试用的菜单', null, '1', '2016-11-15 17:54:05', '2016-11-22 18:18:47');
+INSERT INTO `system_menu` VALUES ('1', '测试菜单1', '1', '2213132', null, '这是一个测试用的菜单', null, '1', '2016-11-15 17:54:05', '2016-11-22 18:18:47');
+INSERT INTO `system_menu` VALUES ('2', '用户管理', '1', 'aaa', 'user/userList.jsp', '用户管理模块', null, '1', '2016-12-20 16:38:54', '2016-12-20 16:38:56');
+INSERT INTO `system_menu` VALUES ('3', '活动管理', '1', 'aaa', 'activity/activityList.jsp', '活动管理管理模块', null, '1', '2016-12-20 16:38:54', '2016-12-20 16:38:56');
 
 -- ----------------------------
 -- Table structure for user
@@ -98,7 +101,7 @@ CREATE TABLE `user` (
   `UPDATE_TIME` datetime DEFAULT NULL,
   `STATUS` tinyint(2) DEFAULT NULL,
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=57 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of user

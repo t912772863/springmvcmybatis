@@ -25,9 +25,25 @@ function setData(data) {
             '<td>'+data[i].address+'</td>'+
             '<td>'+data[i].status+'</td>'+
             '<td>'+data[i].remark+'</td>'+
-            '<td><a >详情</a></td>'+
+            '<td><a onclick="showDetail('+data[i].id+');">详情</a></td>'+
             '</tr>';
         str += temp;
     }
     node.html(str);
+}
+
+function showDetail(id) {
+    alert(id);
+    $.ajax({
+        url: '/activity/query_activity_by_id',
+        data:{"id":id},
+        type:'post',
+        success: function (data) {
+            if(data.code == 200){
+                alert(JSON.stringify(data.data));
+            }else{
+                alert(data.message);
+            }
+        }
+    });
 }

@@ -3,6 +3,7 @@ package com.tian.springmvcmybatis.dao.dto;
 import java.util.Date;
 
 /**
+ * 活动状态变迁时用到的dto
  * Created by Administrator on 2016/12/15 0015.
  */
 public class ActivityDto {

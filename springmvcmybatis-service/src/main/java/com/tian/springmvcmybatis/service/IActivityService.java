@@ -1,6 +1,7 @@
 package com.tian.springmvcmybatis.service;
 
 import com.tian.springmvcmybatis.dao.common.PageParam;
+import com.tian.springmvcmybatis.dao.dto.ActivityDetailDto;
 import com.tian.springmvcmybatis.dao.dto.ActivityDto;
 import com.tian.springmvcmybatis.dao.entity.Activity;
 
@@ -16,7 +17,12 @@ public interface IActivityService {
 
     boolean updateActivityById(Activity activity);
 
-    Activity queryById(Long id);
+    /**
+     * 查询单个活动的详情
+     * @param id
+     * @return
+     */
+    ActivityDetailDto queryById(Long id);
 
     List<ActivityDto> queryActivityNeedUpdateStatus(String startTime, String endTime);
 

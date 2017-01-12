@@ -2,6 +2,8 @@ package com.tian.springmvcmybatis.service;
 
 import com.tian.springmvcmybatis.dao.entity.Image;
 
+import java.util.List;
+
 /**
  * 图片相关的业务层
  * Created by Administrator on 2017/1/10 0010.
@@ -33,4 +35,12 @@ public interface IImageService {
      * @return
      */
     Image queryImageById(Long id);
+
+    /**
+     * 查询系统中某一条记录关联的图片
+     * @param tableName
+     * @param dataId
+     * @return
+     */
+    List<String> queryImageByTableNameAndDataId(String tableName,Long dataId);
 }

@@ -1,10 +1,13 @@
 package com.tian.springmvcmybatis.service;
 
 import com.tian.springmvcmybatis.dao.common.PageParam;
+import com.tian.springmvcmybatis.dao.dto.ActivityDetailDto;
 import com.tian.springmvcmybatis.dao.dto.ActivityDto;
 import com.tian.springmvcmybatis.dao.entity.Activity;
+import com.tian.springmvcmybatis.dao.entity.Image;
 import com.tian.springmvcmybatis.dao.mapper.ActivityMapper;
 import com.tian.springmvcmybatis.service.common.InnerConstant;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ import java.util.List;
 public class ActivityServiceImpl implements IActivityService {
     @Autowired
     private ActivityMapper activityMapper;
+    @Autowired
+    private IImageService imageService;
 
     public boolean insertActivity(Activity activity) {
         activity.setCreateTime(new Date());
@@ -39,8 +44,14 @@ public class ActivityServiceImpl implements IActivityService {
         return true;
     }
 
-    public Activity queryById(Long id) {
-        return activityMapper.selectByPrimaryKey(id);
+    public ActivityDetailDto queryById(Long id) {
+        Activity activity = activityMapper.selectByPrimaryKey(id);
+        ActivityDetailDto detailDto = new ActivityDetailDto();
+        BeanUtils.copyProperties(activity,detailDto);
+        // 查询出活动的图片
+        List<String> imageList = imageService.queryImageByTableNameAndDataId("activity",id);
+        detailDto.setImages(imageList);
+        return detailDto;
     }
 
     public List<ActivityDto> queryActivityNeedUpdateStatus(String startTime, String endTime) {

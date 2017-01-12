@@ -33,17 +33,6 @@ function setData(data) {
 }
 
 function showDetail(id) {
-    alert(id);
-    $.ajax({
-        url: '/activity/query_activity_by_id',
-        data:{"id":id},
-        type:'post',
-        success: function (data) {
-            if(data.code == 200){
-                alert(JSON.stringify(data.data));
-            }else{
-                alert(data.message);
-            }
-        }
-    });
+    window.location.href='/view/activity/activityDetail.jsp?id='+id;
+
 }

@@ -60,4 +60,18 @@ public class ActivityController extends BaseController {
     public ResponseData queryActivityById(@Number Long id){
         return successData.setData(activityService.queryById(id));
     }
+
+    /**
+     * 根据id更新活动信息
+     * @param activity
+     * @return
+     */
+    @RequestMapping("update_activity_by_id")
+    @ResponseBody
+    public ResponseData updateActivityById(Activity activity){
+        activityService.updateActivityById(activity);
+        return success;
+    }
+
+
 }

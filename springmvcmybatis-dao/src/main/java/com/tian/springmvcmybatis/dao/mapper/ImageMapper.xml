@@ -126,4 +126,8 @@
     where ID = #{id,jdbcType=BIGINT}
   </update>
 
+  <select id="queryByTableNameAndDataId" resultMap="BaseResultMap">
+     SELECT <include refid="Base_Column_List"/> from image where TABLE_NAME = #{tableName} and DATA_ID = #{dataId}
+  </select>
+
 </mapper>

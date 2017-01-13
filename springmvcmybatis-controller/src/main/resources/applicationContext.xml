@@ -30,26 +30,9 @@
 		<property name="url" value="${data_source_url}"></property>
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
 	</bean>
-	<!--加载数据源2-->
-	<bean id="dbcpdatasource2" class="org.apache.commons.dbcp.BasicDataSource">
-		<property name="username" value="${data_source_username2}"></property>
-		<property name="password" value="${data_source_password2}"></property>
-		<property name="url" value="${data_source_url2}"></property>
-		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
-	</bean>
-	<!--数据源管理类-->
-	<bean id="dataSource" class="com.tian.springmvcmybatis.controller.common.ThreadLocalRountingDataSource">
-		<property name="defaultTargetDataSource" ref="dbcpdatasource" />
-		<property name="targetDataSources">
-			<map key-type="com.tian.springmvcmybatis.controller.common.DataSource">
-				<entry key="MASTER" value-ref="dbcpdatasource"/>
-				<entry key="SLAVE" value-ref="dbcpdatasource2"/>
-				<!-- 这里还可以加多个dataSource -->
-			</map>
-		</property>
-	</bean>
+
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dataSource" />
+		<property name="dataSource" ref="dbcpdatasource" />
 		<property name="mapperLocations" value="classpath:com/tian/springmvcmybatis/dao/mapper/*.xml"></property>
 		<!--添加一个mybatis插件实现不同数据库的默认分页-->
 		<property name="plugins">
@@ -121,7 +104,7 @@
 
 	<!-- 配置事务 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSource"  />
+		<property name="dataSource" ref="dbcpdatasource"  />
 	</bean>
 
 	<!-- 自动注入事物,也就是@Transaction注解的处理器-->

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50528
 File Encoding         : 65001
 
-Date: 2017-01-11 10:49:59
+Date: 2017-01-13 18:07:42
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -55,11 +55,12 @@ CREATE TABLE `image` (
   `STATUS` int(11) NOT NULL DEFAULT '1' COMMENT '数据状态:-1删除,   1正常',
   PRIMARY KEY (`ID`),
   KEY `表名_ID联合索引` (`DATA_ID`,`TABLE_NAME`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='系统图片表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='系统图片表';
 
 -- ----------------------------
 -- Records of image
 -- ----------------------------
+INSERT INTO `image` VALUES ('1', '1', 'activity', null, '/file/image/1484203347325.jpg', '2017-01-12 14:42:34', null, '1');
 
 -- ----------------------------
 -- Table structure for order
@@ -85,6 +86,25 @@ INSERT INTO `order` VALUES ('1', '321654646', '1', '10000', '手动插入的', '
 INSERT INTO `order` VALUES ('2', '345646', '1', '500', '500分...', '2', '2016-12-03 10:55:38', '2016-12-03 10:55:40', '1');
 
 -- ----------------------------
+-- Table structure for role
+-- ----------------------------
+DROP TABLE IF EXISTS `role`;
+CREATE TABLE `role` (
+  `ID` bigint(20) NOT NULL AUTO_INCREMENT,
+  `NAME` varchar(255) DEFAULT NULL COMMENT '角色名',
+  `REMARK` varchar(255) DEFAULT NULL COMMENT '备注信息',
+  `CREATE_TIME` datetime DEFAULT NULL,
+  `UPDATE_TIME` datetime DEFAULT NULL,
+  `STATUS` int(255) DEFAULT NULL COMMENT '数据状态: 1正常, -1删除',
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB AUTO_INCREMENT=13510272509 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of role
+-- ----------------------------
+INSERT INTO `role` VALUES ('1', '管理员', '我是管理员', '2017-01-13 17:48:39', null, '1');
+
+-- ----------------------------
 -- Table structure for system_menu
 -- ----------------------------
 DROP TABLE IF EXISTS `system_menu`;
@@ -105,7 +125,7 @@ CREATE TABLE `system_menu` (
 -- ----------------------------
 -- Records of system_menu
 -- ----------------------------
-INSERT INTO `system_menu` VALUES ('1', '测试菜单1', '1', '2213132', null, '这是一个测试用的菜单', null, '1', '2016-11-15 17:54:05', '2016-11-22 18:18:47');
+INSERT INTO `system_menu` VALUES ('1', '角色管理', '1', '2213132', 'role/roleList.jsp', '角色的菜单', null, '1', '2016-11-15 17:54:05', '2016-11-22 18:18:47');
 INSERT INTO `system_menu` VALUES ('2', '用户管理', '1', 'aaa', 'user/userList.jsp', '用户管理模块', null, '1', '2016-12-20 16:38:54', '2016-12-20 16:38:56');
 INSERT INTO `system_menu` VALUES ('3', '活动管理', '1', 'aaa', 'activity/activityList.jsp', '活动管理管理模块', null, '1', '2016-12-20 16:38:54', '2016-12-20 16:38:56');
 

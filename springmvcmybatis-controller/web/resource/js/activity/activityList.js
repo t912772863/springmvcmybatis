@@ -25,9 +25,14 @@ function setData(data) {
             '<td>'+data[i].address+'</td>'+
             '<td>'+data[i].status+'</td>'+
             '<td>'+data[i].remark+'</td>'+
-            '<td><a >详情</a></td>'+
+            '<td><a onclick="showDetail('+data[i].id+');">详情</a></td>'+
             '</tr>';
         str += temp;
     }
     node.html(str);
+}
+
+function showDetail(id) {
+    window.location.href='/view/activity/activityDetail.jsp?id='+id;
+
 }

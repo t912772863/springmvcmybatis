@@ -17,13 +17,13 @@
   <sql id="Base_Column_List" >
     ID, NAME, ADDRESS, REMARK, CREATE_TIME, TIME1, TIME2, TIME3, UPDATE_TIME, ACTIVITY_STATUS, STATUS
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="long" >
     select 
     <include refid="Base_Column_List" />
     from activity
     where ID = #{id}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="long" >
     delete from activity
     where ID = #{id}
   </delete>

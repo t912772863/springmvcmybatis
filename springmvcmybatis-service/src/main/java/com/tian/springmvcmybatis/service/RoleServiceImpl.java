@@ -5,6 +5,7 @@ import com.tian.springmvcmybatis.dao.mapper.RoleMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.Random;
 
 /**
@@ -21,10 +22,7 @@ public class RoleServiceImpl implements IRoleService {
      * @return
      */
     public boolean updateRoleById(Role role) {
-        // TODO: 2016/11/17 0017 测试选写死个数据
-        role = new Role();
-        role.setId(1L);
-        role.setStatus(new Random().nextInt(10));
+        role.setUpdateTime(new Date());
         roleMapper.updateByPrimaryKey(role);
         return true;
     }

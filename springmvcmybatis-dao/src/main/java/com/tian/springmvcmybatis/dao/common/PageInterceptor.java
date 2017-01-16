@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.dao.common;
 
+import org.apache.ibatis.executor.parameter.ParameterHandler;
 import org.apache.ibatis.executor.resultset.ResultSetHandler;
 import org.apache.ibatis.executor.statement.StatementHandler;
 import org.apache.ibatis.mapping.BoundSql;
@@ -43,22 +44,22 @@ public class PageInterceptor implements Interceptor {
                 logger.debug("组装的pageSql: "+pageSql);
 
                 Connection connection = (Connection) invocation.getArgs()[0];
-
-                PreparedStatement countStmt = null;
-                ResultSet rs = null;
-                int totalCount = 0;
+                //利用原始sql语句的方法执行
+                PreparedStatement countStmt = connection.prepareStatement(countSql);
+                //下面的这句话就是获取查询条件的参数
+                ParameterHandler parameterHandler = (ParameterHandler) metaStatementHandler.getValue("delegate.parameterHandler");
+                //经过set方法，就可以正确的执行sql语句
+                parameterHandler.setParameters(countStmt);
                 try {
-                    countStmt = connection.prepareStatement(countSql);
-                    rs = countStmt.executeQuery();
+                    ResultSet  rs = countStmt.executeQuery();
                     if (rs.next()) {
-                        totalCount = rs.getInt(1);
-                        logger.debug("查询的总记录数为: "+totalCount);
+                        pageParam.setTotalNumber(rs.getInt(1));
+                        logger.debug("查询的总记录数为: "+rs.getInt(1));
                     }
                 } catch (SQLException e) {
                     logger.error(e);
                 } finally {
                     try {
-                        rs.close();
                         countStmt.close();
                     } catch (SQLException e) {
                         logger.error(e);
@@ -66,9 +67,6 @@ public class PageInterceptor implements Interceptor {
                 }
 
                 metaStatementHandler.setValue("delegate.boundSql.sql", pageSql);
-
-                //绑定count
-                pageParam.setTotalNumber(totalCount);
             }
         }
 
@@ -94,12 +92,7 @@ public class PageInterceptor implements Interceptor {
     public String concatCountSql(String sql){
         StringBuffer sb=new StringBuffer("select count(*) from ");
         sql=sql.toLowerCase();
-
-        if(sql.lastIndexOf("order")>sql.lastIndexOf(")")){
-            sb.append(sql.substring(sql.indexOf("from")+4, sql.lastIndexOf("order")));
-        }else{
-            sb.append(sql.substring(sql.indexOf("from")+4));
-        }
+        sb.append(sql.substring(sql.indexOf("from")+4));
         return sb.toString();
     }
 

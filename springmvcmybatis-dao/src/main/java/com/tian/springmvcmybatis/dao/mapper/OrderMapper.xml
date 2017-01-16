@@ -148,4 +148,22 @@
         </if>
      </where>
   </select>
+
+  <select id="queryByPage" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultMap="BaseResultMap">
+    SELECT <include refid="Base_Column_List"/> from `order`
+    <where>
+      <if test="params.userId != null and params.userId !=''">
+        and USER_ID = #{params.userId}
+      </if>
+      <if test="params.startTime != null and params.startTime != ''">
+        <![CDATA[and START_TIME >= #{params.startTime}]]>
+      </if>
+      <if test="params.endTime != null and params.endTime != ''">
+        <![CDATA[and END_TIME <= #{params.endTime}]]>
+      </if>
+      <if test="params.status != null and params.status !=''">
+        and STATUS = #{params.status}
+      </if>
+    </where>
+  </select>
 </mapper>

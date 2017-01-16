@@ -1,7 +1,9 @@
 package com.tian.springmvcmybatis.service;
 
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.Order;
 import com.tian.springmvcmybatis.dao.mapper.OrderMapper;
+import org.apache.kahadb.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -26,5 +28,11 @@ public class OrderServiceImpl implements IOrderService {
             return new ArrayList<Order>();
         }
         return list;
+    }
+
+    public PageParam<Order> queryOrderByPage(PageParam<Order> pageParam) {
+        List<Order> list = orderMapper.queryByPage(pageParam);
+        pageParam.setResult(list);
+        return pageParam;
     }
 }

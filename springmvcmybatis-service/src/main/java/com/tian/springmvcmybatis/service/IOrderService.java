@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.service;
 
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.Order;
 
 import java.util.List;
@@ -22,4 +23,11 @@ public interface IOrderService {
      * @return
      */
     List<Order> queryOrderByRule(Long userId);
+
+    /**
+     * 分页查询订单信息
+     * @param pageParam
+     * @return
+     */
+    PageParam<Order> queryOrderByPage(PageParam<Order> pageParam);
 }

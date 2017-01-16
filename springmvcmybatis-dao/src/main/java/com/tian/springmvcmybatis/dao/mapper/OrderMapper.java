@@ -1,5 +1,6 @@
 package com.tian.springmvcmybatis.dao.mapper;
 
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.Order;
 import org.apache.ibatis.annotations.Param;
 
@@ -24,4 +25,11 @@ public interface OrderMapper {
      * @return
      */
     List<Order> queryByRule(@Param("userId") Long userId);
+
+    /**
+     * 分页查询订单信息
+     * @param pageParam
+     * @return
+     */
+    List<Order> queryByPage(PageParam<Order> pageParam);
 }

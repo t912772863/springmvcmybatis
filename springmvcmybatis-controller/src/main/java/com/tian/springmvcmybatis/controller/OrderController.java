@@ -1,6 +1,7 @@
 package com.tian.springmvcmybatis.controller;
 
 import com.tian.springmvcmybatis.controller.common.ResponseData;
+import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.common.validation.NotNull;
 import com.tian.springmvcmybatis.dao.entity.Order;
 import com.tian.springmvcmybatis.service.IOrderService;
@@ -38,6 +39,23 @@ public class OrderController extends BaseController{
     public ResponseData queryOrderById(@NotNull Long id){
         Order order = orderService.queryOrderById(id);
         return successData.setData(order);
+    }
+
+    /**
+     * 分页查询订单信息
+     * @param pageParam
+     * @param request
+     * @return
+     */
+    @RequestMapping("query_order_by_page")
+    @ResponseBody
+    public ResponseData queryOrderByPage(PageParam<Order> pageParam,HttpServletRequest request){
+        pageParam.getParams().put("status",request.getParameter("status"));
+        pageParam.getParams().put("startTime",request.getParameter("startTime"));
+        pageParam.getParams().put("endTime",request.getParameter("endTime"));
+        pageParam.getParams().put("userId",getSessionUser(request).getId());
+        orderService.queryOrderByPage(pageParam);
+        return successData.setData(pageParam);
     }
 
     /**

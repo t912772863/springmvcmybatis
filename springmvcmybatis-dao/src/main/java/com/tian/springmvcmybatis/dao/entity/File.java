@@ -2,13 +2,17 @@ package com.tian.springmvcmybatis.dao.entity;
 
 import java.util.Date;
 
-public class Image {
-    /** 系统图片ID*/
+public class File {
+    /** 系统文件ID*/
     private Long id;
     /** 所属记录的主键*/
     private Long dataId;
     /** 属于系统哪张表*/
     private String tableName;
+    /** 文件类型: 1图片文件, 2文本文件, 3视频文件, */
+    private Integer fileType;
+    /** 文件扩展名*/
+    private String suffix;
     /** 扩展属性,二级分类*/
     private String extendType;
     /** 图片的相对路径*/
@@ -42,6 +46,22 @@ public class Image {
 
     public void setTableName(String tableName) {
         this.tableName = tableName == null ? null : tableName.trim();
+    }
+
+    public Integer getFileType() {
+        return fileType;
+    }
+
+    public void setFileType(Integer fileType) {
+        this.fileType = fileType;
+    }
+
+    public String getSuffix() {
+        return suffix;
+    }
+
+    public void setSuffix(String suffix) {
+        this.suffix = suffix;
     }
 
     public String getExtendType() {
@@ -86,10 +106,12 @@ public class Image {
 
     @Override
     public String toString() {
-        return "Image{" +
+        return "File{" +
                 "id=" + id +
                 ", dataId=" + dataId +
                 ", tableName='" + tableName + '\'' +
+                ", fileType=" + fileType +
+                ", suffix='" + suffix + '\'' +
                 ", extendType='" + extendType + '\'' +
                 ", url='" + url + '\'' +
                 ", createTime=" + createTime +

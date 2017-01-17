@@ -4,7 +4,6 @@ import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.dto.ActivityDetailDto;
 import com.tian.springmvcmybatis.dao.dto.ActivityDto;
 import com.tian.springmvcmybatis.dao.entity.Activity;
-import com.tian.springmvcmybatis.dao.entity.Image;
 import com.tian.springmvcmybatis.dao.mapper.ActivityMapper;
 import com.tian.springmvcmybatis.service.common.InnerConstant;
 import org.springframework.beans.BeanUtils;
@@ -23,7 +22,7 @@ public class ActivityServiceImpl implements IActivityService {
     @Autowired
     private ActivityMapper activityMapper;
     @Autowired
-    private IImageService imageService;
+    private IFileService fileService;
 
     public boolean insertActivity(Activity activity) {
         activity.setCreateTime(new Date());
@@ -49,8 +48,8 @@ public class ActivityServiceImpl implements IActivityService {
         ActivityDetailDto detailDto = new ActivityDetailDto();
         BeanUtils.copyProperties(activity,detailDto);
         // 查询出活动的图片
-        List<String> imageList = imageService.queryImageByTableNameAndDataId("activity",id);
-        detailDto.setImages(imageList);
+        List<String> fileList = fileService.queryFileByTableNameAndDataId("activity",id);
+        detailDto.setImages(fileList);
         return detailDto;
     }
 

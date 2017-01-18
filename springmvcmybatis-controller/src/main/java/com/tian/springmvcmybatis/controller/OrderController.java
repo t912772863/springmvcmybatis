@@ -78,9 +78,15 @@ public class OrderController extends BaseController{
     public void exportExcel(HttpServletRequest request, HttpServletResponse response) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         // 查询出数据
         List<Order> list = orderService.queryOrderByRule(getSessionUser(request).getId());
+        for(int i =0;i<200000;i++){
+            Order order = new Order();
+            order.setId(i+1L);
+            order.setRemark("test"+i);
+            list.add(order);
+        }
         OutputStream out = response.getOutputStream();
 
-        String fileName = "演示文件.xls";
+        String fileName = "演示文件.xlsx";
         // 区分是否为ie浏览器,解决中文乱码问题
         String header = request.getHeader("User-Agent").toUpperCase();
         if (header.contains("MSIE") || header.contains("TRIDENT") || header.contains("EDGE")) {
@@ -96,6 +102,8 @@ public class OrderController extends BaseController{
         //写入excel文件中
         String[] strings = new String[]{"订单ID","第三方订单ID","用户ID","总金额(单位分)","备注","订单状态","创建时间","更新时间","数据状态"};
         DocumentExport.exportExcel("title",strings,list,out,"yyyy-MM-dd HH:mm:ss");
+        // 关闭流
+        out.close();
     }
 
 }

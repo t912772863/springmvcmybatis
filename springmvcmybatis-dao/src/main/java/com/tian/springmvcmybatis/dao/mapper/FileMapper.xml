@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.tian.springmvcmybatis.dao.mapper.ImageMapper" >
-  <resultMap id="BaseResultMap" type="com.tian.springmvcmybatis.dao.entity.Image" >
+<mapper namespace="com.tian.springmvcmybatis.dao.mapper.FileMapper" >
+  <resultMap id="BaseResultMap" type="com.tian.springmvcmybatis.dao.entity.File" >
     <id column="ID" property="id" jdbcType="BIGINT" />
     <result column="DATA_ID" property="dataId" jdbcType="BIGINT" />
     <result column="TABLE_NAME" property="tableName" jdbcType="VARCHAR" />
+    <result column="FILE_TYPE" property="fileType" />
+    <result column="SUFFIX" property="suffix" />
     <result column="EXTEND_TYPE" property="extendType" jdbcType="VARCHAR" />
     <result column="URL" property="url" jdbcType="VARCHAR" />
     <result column="CREATE_TIME" property="createTime" jdbcType="TIMESTAMP" />
@@ -12,28 +14,28 @@
     <result column="STATUS" property="status" jdbcType="INTEGER" />
   </resultMap>
   <sql id="Base_Column_List" >
-    ID, DATA_ID, TABLE_NAME, EXTEND_TYPE, URL, CREATE_TIME, UPDATE_TIME, STATUS
+    ID, DATA_ID, TABLE_NAME, FILE_TYPE, SUFFIX, EXTEND_TYPE, URL, CREATE_TIME, UPDATE_TIME, STATUS
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from image
+    from file
     where ID = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from image
+    delete from file
     where ID = #{id,jdbcType=BIGINT}
   </delete>
-  <insert id="insert" parameterType="com.tian.springmvcmybatis.dao.entity.Image" >
-    insert into image (ID, DATA_ID, TABLE_NAME, 
+  <insert id="insert" parameterType="com.tian.springmvcmybatis.dao.entity.File" >
+    insert into file (ID, DATA_ID, TABLE_NAME, FILE_TYPE, SUFFIX,
       EXTEND_TYPE, URL, CREATE_TIME, 
       UPDATE_TIME, STATUS)
-    values (#{id,jdbcType=BIGINT}, #{dataId,jdbcType=BIGINT}, #{tableName,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=BIGINT}, #{dataId,jdbcType=BIGINT}, #{tableName,jdbcType=VARCHAR}, #{fileType}, #{suffix},
       #{extendType,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.tian.springmvcmybatis.dao.entity.Image" >
-    insert into image
+  <insert id="insertSelective" parameterType="com.tian.springmvcmybatis.dao.entity.File" >
+    insert into file
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
         ID,
@@ -43,6 +45,12 @@
       </if>
       <if test="tableName != null" >
         TABLE_NAME,
+      </if>
+      <if test="fileType != null" >
+        FILE_TYPE,
+      </if>
+      <if test="suffix != null" >
+        SUFFIX,
       </if>
       <if test="extendType != null" >
         EXTEND_TYPE,
@@ -70,6 +78,12 @@
       <if test="tableName != null" >
         #{tableName,jdbcType=VARCHAR},
       </if>
+      <if test="fileType != null" >
+        #{fileType},
+      </if>
+      <if test="suffix != null" >
+        #{suffix,jdbcType=VARCHAR},
+      </if>
       <if test="extendType != null" >
         #{extendType,jdbcType=VARCHAR},
       </if>
@@ -87,14 +101,20 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.tian.springmvcmybatis.dao.entity.Image" >
-    update image
+  <update id="updateByPrimaryKeySelective" parameterType="com.tian.springmvcmybatis.dao.entity.File" >
+    update file
     <set >
       <if test="dataId != null" >
         DATA_ID = #{dataId,jdbcType=BIGINT},
       </if>
       <if test="tableName != null" >
         TABLE_NAME = #{tableName,jdbcType=VARCHAR},
+      </if>
+      <if test="fileType != null" >
+        FILE_TYPE = #{fileType},
+      </if>
+      <if test="suffix != null" >
+        SUFFIX = #{suffix,jdbcType=VARCHAR},
       </if>
       <if test="extendType != null" >
         EXTEND_TYPE = #{extendType,jdbcType=VARCHAR},
@@ -114,20 +134,10 @@
     </set>
     where ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.tian.springmvcmybatis.dao.entity.Image" >
-    update image
-    set DATA_ID = #{dataId,jdbcType=BIGINT},
-      TABLE_NAME = #{tableName,jdbcType=VARCHAR},
-      EXTEND_TYPE = #{extendType,jdbcType=VARCHAR},
-      URL = #{url,jdbcType=VARCHAR},
-      CREATE_TIME = #{createTime,jdbcType=TIMESTAMP},
-      UPDATE_TIME = #{updateTime,jdbcType=TIMESTAMP},
-      STATUS = #{status,jdbcType=INTEGER}
-    where ID = #{id,jdbcType=BIGINT}
-  </update>
+
 
   <select id="queryByTableNameAndDataId" resultMap="BaseResultMap">
-     SELECT <include refid="Base_Column_List"/> from image where TABLE_NAME = #{tableName} and DATA_ID = #{dataId}
+     SELECT <include refid="Base_Column_List"/> from file where TABLE_NAME = #{tableName} and DATA_ID = #{dataId}
   </select>
 
 </mapper>

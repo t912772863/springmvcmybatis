@@ -26,7 +26,7 @@
         </thead>
         <tbody id="user_tbody">
         <tr>
-            <td>Row 1 Data 1</td>
+            <td>R1 Data 1</td>
             <td>Row 1 Data 2</td>
             <td>Row 1 Data 2</td>
             <td>Row 1 Data 2</td>

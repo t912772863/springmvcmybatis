@@ -3,6 +3,9 @@ package com.tian.springmvcmybatis.service;
 import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.SendMessage;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * 发送消息相关业务层
  * Created by Administrator on 2017/1/18 0018.
@@ -17,5 +20,11 @@ public interface ISendMessageService {
     SendMessage querySendMessageById(Long id);
 
     PageParam<SendMessage> querySendMessageByPage(PageParam<SendMessage> pageParam);
+
+    /**
+     * 条件查询发送消息
+     * @return
+     */
+    List<SendMessage> querySendMessageByRule(Map<String,Object> map);
 
 }

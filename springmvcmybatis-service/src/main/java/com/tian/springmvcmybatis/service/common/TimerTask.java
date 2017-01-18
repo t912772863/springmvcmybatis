@@ -40,6 +40,9 @@ public class TimerTask {
         System.out.println("--------------定时任务运行结束了");
     }
 
+    /**
+     * 把快要到定时变更活动状态的数据加入到内存中,通过redis的键过期通知事件,调用方法.
+     */
     @Scheduled(cron = "0 0/59 * * * ?")
     public void updateActivityStatus(){
         // 从数据库中查询时间在60分钟后就要到的
@@ -61,5 +64,15 @@ public class TimerTask {
             jedis.setex(key,s,key);
             JedisUtil.returnResource(jedis);
         }
+    }
+
+    /**
+     * 加载发送消息的号码集
+     */
+    @Scheduled(cron = "0 0/59 * * * ?")
+    public void loadSendMessageNumber(){
+        // 从数据库中查询时间在60分钟后就要到的
+        String startTime = DateUtil.getDateAfterHour(0,"yyyy-MM-dd HH:mm:ss");
+        String endTime = DateUtil.getDateAfterHour(1,"yyyy-MM-dd HH:mm:ss");
     }
 }

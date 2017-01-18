@@ -9,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Administrator on 2017/1/18 0018.
@@ -59,5 +61,13 @@ public class SendMessageServiceImpl implements ISendMessageService {
         List<SendMessage> list = sendMessageMapper.queryByPage(pageParam);
         pageParam.setResult(list);
         return pageParam;
+    }
+
+    public List<SendMessage> querySendMessageByRule(Map<String, Object> map) {
+        List<SendMessage> list = sendMessageMapper.queryByRule(map);
+        if(list == null){
+            return new ArrayList<SendMessage>();
+        }
+        return list;
     }
 }

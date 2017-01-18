@@ -139,4 +139,29 @@
     <include refid="queryByPage_where"/>
     order by CREATE_TIME desc
   </select>
+
+  <select id="queryByRule" parameterType="map" resultMap="BaseResultMap">
+    select <include refid="Base_Column_List" /> from send_message
+    <where>
+       <if test="status != null">
+          and STATUS = #{status}
+       </if>
+      <if test="startTime != null">
+        <![CDATA[ and CREATE_TIME >= #{startTime} ]]>
+      </if>
+      <if test="endTime != null">
+        <![CDATA[ and CREATE_TIME <=#{endTime} ]]>
+      </if>
+      <if test="title != null and title != ''">
+        and TITLE like concat ('%',#{title},'%')
+      </if>
+      <if test="sendStartTime != null">
+        <![CDATA[ and SEND_TIME >= #{sendStartTime} ]]>
+      </if>
+      <if test="sendEndTime != null">
+        <![CDATA[ and SEND_TIME <=#{endTime} ]]>
+      </if>
+
+    </where>
+  </select>
 </mapper>

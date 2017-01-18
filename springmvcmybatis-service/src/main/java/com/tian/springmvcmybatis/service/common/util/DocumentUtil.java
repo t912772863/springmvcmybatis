@@ -1,16 +1,21 @@
 package com.tian.springmvcmybatis.service.common.util;
 
+import org.apache.commons.collections4.map.HashedMap;
 import org.apache.poi.ss.usermodel.RichTextString;
 import org.apache.poi.xssf.usermodel.*;
 
+import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.OutputStream;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -88,6 +93,53 @@ public class DocumentUtil {
             }
         }
         workbook.write(out);
+    }
+
+
+    /**
+     * 读取上传手机号的模版,把里面的手机号放入一个集合中
+     *
+     * @param path the path of the excel file
+     * @return
+     * @throws IOException
+     */
+    public static Map<String,Object> readXlsx(String path) throws IOException {
+        InputStream is = new FileInputStream(path); //通过文件的物理路径,拿到文件对象,放入到一个输入流中
+        XSSFWorkbook xssfWorkbook = new XSSFWorkbook(is); //创建一个Excel文件对象
+        //有效号码集合
+        List list = new ArrayList();
+        //总号码个数
+        int total = 0;
+        //无效号码个数
+        int invalid = 0;
+        for (int numSheet = 0; numSheet < xssfWorkbook.getNumberOfSheets(); numSheet++) {
+            XSSFSheet xssfSheet = xssfWorkbook.getSheetAt(numSheet); //一个Excel文件中的一个Sheet页
+            if (xssfSheet == null) {
+                continue;
+            }
+            // Read the Row
+            for (int rowNum = 1; rowNum <= xssfSheet.getLastRowNum(); rowNum++) {
+                XSSFRow xssfRow = xssfSheet.getRow(rowNum); //sheet页中的每一行
+                if (xssfRow != null) {
+                    total++;
+                    //对行中的每一个单元格进行赋值
+                    XSSFCell value = xssfRow.getCell(0);
+                    //判断是否为有效的手机号
+                    Pattern pattern = Pattern.compile("^(1[0-9]{10})$");
+                    if(!(pattern.matcher(value.toString()).find())){
+                        // 不是手机号
+                        invalid++;
+                        continue;
+                    }
+                    list.add(value);
+                }
+            }
+        }
+        Map<String,Object> map = new HashedMap();
+        map.put("total",total);
+        map.put("invalid",invalid);
+        map.put("list",list);
+        return map;
     }
 
 }

@@ -117,10 +117,12 @@
      */
     function insertImage(){
         $.ajax({
-            url: '/common/insert_image',
+            url: '/common/insert_file',
             data:{
                 "dataId":params.id,
                 "tableName":"activity",
+                "type":"IMAGE",
+                "suffix":"jpg",
                 "url":params.imageUrl,
             },
             type:'post',

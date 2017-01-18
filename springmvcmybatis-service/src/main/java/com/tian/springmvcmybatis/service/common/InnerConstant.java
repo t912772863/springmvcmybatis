@@ -39,4 +39,26 @@ public class InnerConstant {
      */
     public static final int ACTIVITY_STATUS_OVER = 3;
 
+    /**-------------------------------------------------------文件类型----------------------------------------------------------------*/
+    /**
+     * 图片文件
+     */
+    public static final int FILE_TYPE_IMAGE = 1;
+    /**
+     * 文本文件
+     */
+    public static final int FILE_TYPE_DOCUMENT = 2;
+    /**
+     * 视频文件
+     */
+    public static final int FILE_TYPE_VIDEO = 3;
+    /**
+     * 音频文件
+     */
+    public static final int FILE_TYPE_AUDIO = 4;
+    /**
+     * 其它文件
+     */
+    public static final int FILE_TYPE_OTHER = 5;
+
 }

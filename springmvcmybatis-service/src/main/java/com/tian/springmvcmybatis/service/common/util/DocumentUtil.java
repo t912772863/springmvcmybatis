@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
  * 文档导出工具类
  * Created by Administrator on 2016/12/3 0003.
  */
-public class DocumentExport {
+public class DocumentUtil {
 
     /**
      * excel表格的导出

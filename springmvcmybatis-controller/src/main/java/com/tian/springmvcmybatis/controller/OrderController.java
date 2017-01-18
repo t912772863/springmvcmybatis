@@ -5,7 +5,7 @@ import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.common.validation.NotNull;
 import com.tian.springmvcmybatis.dao.entity.Order;
 import com.tian.springmvcmybatis.service.IOrderService;
-import com.tian.springmvcmybatis.service.common.util.DocumentExport;
+import com.tian.springmvcmybatis.service.common.util.DocumentUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -101,7 +101,7 @@ public class OrderController extends BaseController{
         response.setContentType("application/octet-stream");
         //写入excel文件中
         String[] strings = new String[]{"订单ID","第三方订单ID","用户ID","总金额(单位分)","备注","订单状态","创建时间","更新时间","数据状态"};
-        DocumentExport.exportExcel("title",strings,list,out,"yyyy-MM-dd HH:mm:ss");
+        DocumentUtil.exportExcel("title",strings,list,out,"yyyy-MM-dd HH:mm:ss");
         // 关闭流
         out.close();
     }

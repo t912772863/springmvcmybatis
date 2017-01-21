@@ -78,12 +78,6 @@ public class OrderController extends BaseController{
     public void exportExcel(HttpServletRequest request, HttpServletResponse response) throws IOException, NoSuchMethodException, IllegalAccessException, InvocationTargetException {
         // 查询出数据
         List<Order> list = orderService.queryOrderByRule(getSessionUser(request).getId());
-        for(int i =0;i<200000;i++){
-            Order order = new Order();
-            order.setId(i+1L);
-            order.setRemark("test"+i);
-            list.add(order);
-        }
         OutputStream out = response.getOutputStream();
 
         String fileName = "演示文件.xlsx";

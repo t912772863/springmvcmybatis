@@ -1,6 +1,7 @@
 package com.tian.springmvcmybatis.controller.common;
 import com.tian.springmvcmybatis.dao.entity.Activity;
 import com.tian.springmvcmybatis.service.IActivityService;
+import com.tian.springmvcmybatis.service.common.TimerTask;
 import com.tian.springmvcmybatis.service.common.util.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -8,6 +9,9 @@ import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
 
 import javax.annotation.PostConstruct;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.LinkedBlockingQueue;
 
 /**
  * redis中key事件监听器
@@ -15,6 +19,8 @@ import javax.annotation.PostConstruct;
  */
 @Component
 public class RedisListener extends JedisPubSub {
+
+    private static final ExecutorService executor = Executors.newSingleThreadExecutor();
     @Autowired
     IActivityService activityService;
 
@@ -61,13 +67,23 @@ public class RedisListener extends JedisPubSub {
     // 取得按表达式的方式订阅的消息后的处理
     public void onPMessage(String pattern, String channel, String message) {
         // 这里的message就是设置的key
-        String[] strArr = message.split("_");
-        Activity activity = new Activity();
-        activity.setId(Long.parseLong(strArr[0]));
-        activity.setActivityStatus(Integer.parseInt(strArr[1]));
+        if(message.startsWith("sendMessage")){
+            // 发送消息任务开始
 
-        // 更新状态
-        activityService.updateActivityById(activity);
-        System.out.println(pattern + "=" + channel + "=" + message);
+            // 拿到要开始发送的号码集合
+            LinkedBlockingQueue queue = TimerTask.sendMessageMap.get(message);
+
+        }else {
+            // 活动状态变迁
+            String[] strArr = message.split("_");
+            Activity activity = new Activity();
+            activity.setId(Long.parseLong(strArr[0]));
+            activity.setActivityStatus(Integer.parseInt(strArr[1]));
+
+            // 更新状态
+            activityService.updateActivityById(activity);
+            System.out.println(pattern + "=" + channel + "=" + message);
+        }
+
     }
 }

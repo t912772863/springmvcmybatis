@@ -9,6 +9,7 @@ import com.tian.springmvcmybatis.service.common.util.DateUtil;
 import com.tian.springmvcmybatis.service.common.util.DocumentUtil;
 import com.tian.springmvcmybatis.service.common.util.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;
 
@@ -69,8 +70,7 @@ public class TimerTask {
     /**
      * 把快要到定时变更活动状态的数据加入到内存中,通过redis的键过期通知事件,调用方法.
      */
-//    @Scheduled(cron = "0 0/59 * * * ?")
-//    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0/59 * * * ?")
     public void updateActivityStatus(){
         // 从数据库中查询时间在60分钟后就要到的
         String startTime = DateUtil.getDateAfterHour(0,"yyyy-MM-dd HH:mm:ss");
@@ -96,7 +96,7 @@ public class TimerTask {
     /**
      * 加载发送消息的号码集
      */
-//    @Scheduled(cron = "0 0/1 * * * ?")
+    @Scheduled(cron = "0 0/59 * * * ?")
     public void loadSendMessageNumber() throws IOException {
         // 从数据库中查询时间在60分钟后就要到的
         String startTime = DateUtil.getDateAfterHour(0,"yyyy-MM-dd HH:mm:ss");

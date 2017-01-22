@@ -159,7 +159,7 @@
         <![CDATA[ and SEND_TIME >= #{sendStartTime} ]]>
       </if>
       <if test="sendEndTime != null">
-        <![CDATA[ and SEND_TIME <=#{endTime} ]]>
+        <![CDATA[ and SEND_TIME <=#{sendEndTime} ]]>
       </if>
 
     </where>

@@ -96,7 +96,8 @@ public class TimerTask {
     /**
      * 加载发送消息的号码集
      */
-    @Scheduled(cron = "0 0/59 * * * ?")
+//    @Scheduled(cron = "0 0/59 * * * ?")
+    @Scheduled(cron = "0 0/1 * * * ?")
     public void loadSendMessageNumber() throws IOException {
         // 从数据库中查询时间在60分钟后就要到的
         String startTime = DateUtil.getDateAfterHour(0,"yyyy-MM-dd HH:mm:ss");
@@ -144,7 +145,7 @@ public class TimerTask {
                         }
                         System.out.println(obj+"发送成功");
                         try {
-                            Thread.sleep(1000);
+                            Thread.sleep(10000);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }

@@ -4,6 +4,7 @@ import com.tian.springmvcmybatis.controller.common.ResponseData;
 import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.SendMessage;
 import com.tian.springmvcmybatis.service.ISendMessageService;
+import com.tian.springmvcmybatis.service.common.TimerTask;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -52,6 +53,26 @@ public class SendMessageController extends BaseController{
 
         sendMessageService.querySendMessageByPage(pageParam);
         return successData.setData(pageParam);
+    }
+
+    /**
+     * 消息正在发送的过程中,暂停,恢复发送功能
+     * @return
+     */
+    @RequestMapping("pause_send_message")
+    @ResponseBody
+    public ResponseData pauseSendMessage(Long id,String state){
+        boolean index = false;
+        if("PAUSE".equals(state)){
+            index = false;
+        }else if("DO".equals(state)){
+            index = true;
+        }
+        // 设置状态
+        TimerTask.switchMap.put("sendMessage_"+id,new Boolean(index));
+        // 执行任务
+        TimerTask.sendMessageMap.get("sendMessage_"+id).run();
+        return success;
     }
 
 }

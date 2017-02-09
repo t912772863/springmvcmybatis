@@ -48,7 +48,7 @@ public class LoginController extends BaseController{
         if(user != null){
             // 用户登录成功,把当前登录用户信息放入Session中管理
             request.getSession().setAttribute("user",user);
-            return success;
+            return successData.setData(user);
         }
         return failed.setData("登录失败");
     }
@@ -66,7 +66,7 @@ public class LoginController extends BaseController{
         if(c != null && c.equals(code)){
             User user = userService.queryUserByMobile(mobile);
             request.getSession().setAttribute("user",user);
-            return success;
+            return successData.setData(user);
         }
         return failed.setData("验证码无效");
     }

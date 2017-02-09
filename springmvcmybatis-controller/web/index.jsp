@@ -9,6 +9,7 @@
     <meta name="renderer" content="webkit" />
     <title>登录页面</title>
     <script src="resource/js/common/jquery-1.10.2.min.js"></script>
+    <script src="resource/js/common/cookieTool.js"></script>
 </head>
 <body style="background: none;">
     <div id="div_1">
@@ -38,6 +39,9 @@
             data: $("#login_in").serialize(),
             success: function (data) {
                 if(data.code == 200){
+                    setCookie("user_id",data.data.id.toString());
+                    alert(getCookie("user_id").toString());
+                    user = data.data;
                     window.location.href = "view/main.jsp"
                 }else{
                     alert(data.data);
@@ -54,6 +58,9 @@
             data: $("#login_in_2").serialize(),
             success: function (data) {
                 if(data.code == 200){
+                    // 把userId放入cookie中,方便不同的页面共享数据
+                    setCookie("user_id",data.data.id);
+                    user = data.data;
                     window.location.href = "view/main.jsp"
                 }else{
                     alert(data.data);
@@ -85,5 +92,8 @@
             }
         });
     }
+
+
 </script>
+<%@include file="/view/common/common.jsp"%>
 </html>

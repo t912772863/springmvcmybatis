@@ -9,13 +9,14 @@
     <meta name="renderer" content="webkit" />
     <title>菜单页面</title>
     <script src="../resource/js/common/jquery-1.10.2.min.js"></script>
+    <script src="../resource/js/common/cookieTool.js"></script>
 </head>
 <body style="background: none;">
     <div id = menu_list>
         <div><a></a></div>
     </div>
 </body>
-
+<%@include file="/view/common/common.jsp"%>
 <script type="text/javascript">
     /**
      * 查询系统菜单列表
@@ -45,6 +46,9 @@
            str = str+'<div><a href="'+data[i].url+'">'+data[i].name+'</a></div>';
             menuList.html(str);
         }
+        alert(getCookie("user_id"));
     }
+
 </script>
+
 </html>

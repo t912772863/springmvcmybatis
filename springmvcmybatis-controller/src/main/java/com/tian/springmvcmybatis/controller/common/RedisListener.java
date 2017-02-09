@@ -1,6 +1,7 @@
 package com.tian.springmvcmybatis.controller.common;
 import com.tian.springmvcmybatis.dao.entity.Activity;
 import com.tian.springmvcmybatis.service.IActivityService;
+import com.tian.springmvcmybatis.service.common.InnerConstant;
 import com.tian.springmvcmybatis.service.common.TimerTask;
 import com.tian.springmvcmybatis.service.common.util.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -84,7 +85,13 @@ public class RedisListener extends JedisPubSub {
 
                 // 更新状态
                 activityService.updateActivityById(activity);
-                System.out.println(pattern + "=" + channel + "=" + message);
+                Activity activity1 = activityService.queryById(Long.parseLong(strArr[0]));
+                //如果是活动开始,把消息推送给所有的用户,如果是活动结束,则把消息推送给发起人
+                if(Integer.parseInt(strArr[1]) == InnerConstant.ACTIVITY_STATUS_DOING){
+                    MessagePush.push(activity1.getName()+"活动开始啦,快来围观吧","channel_all");
+                }else if(Integer.parseInt(strArr[1]) == InnerConstant.ACTIVITY_STATUS_OVER){
+                    MessagePush.push(activity1.getName()+"活动圆满结束","channel_"+activity1.getId());
+                }
             }
 
         }catch (Exception e){

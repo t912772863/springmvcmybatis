@@ -1,27 +1,29 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" pageEncoding="UTF-8" %>
+<script type="text/javascript" src="http://cdn.goeasy.io/goeasy.js"></script>
+<script type="text/javascript" src="resource/js/common/cookieTool.js"></script>
+<script type="text/javascript">
+    var goEasy = new GoEasy({
+        appkey: '256648b7-adc4-4235-b994-3c543898ad54'
 
-<!DOCTYPE html>
-<html lang="zh_cn">
-<head>
-    <c:import url="/view/common/links.jsp"/>
+    });
 
-</head>
-<body class="infobar-offcanvas" style="height: auto !important; overflow-x: hidden;">
-<div class="">
-    <c:import url="/view/common/header2.jsp"/>
-    <div class="g-mainBox">
-        <div  class="g-left sidebar-default fix-sidebar-default" id="g-left">
-            <c:import url="/view/common/left.jsp"/>
-        </div>
-        <div class="g-right" style="min-height: 750px;" id="g-right">
-        </div>
-    </div>
-</div>
-<div style="text-align: center;background-color: #F6F4F1;margin-top: 10px;margin-bottom: 10px;">Tian`s code 学习中...</div>
-<div class="c-success"></div>
-</body>
-<script>
+    var userId = getCookie("user_id");
+    /**
+     * 订阅所有消息
+     */
+    goEasy.subscribe({
+        channel: 'channel_all',
+        onMessage: function(message){
+            alert(message.content);
+        }
+    });
 
+    /**
+     * 订阅当前用户的消息
+     */
+    goEasy.subscribe({
+        channel: "channel_"+userId,
+        onMessage: function(message){
+            alert(message.content);
+        }
+    });
 </script>
-</html>

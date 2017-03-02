@@ -3,6 +3,8 @@ package com.tian.springmvcmybatis.controller.test;
 import com.tian.springmvcmybatis.controller.BaseController;
 import com.tian.springmvcmybatis.controller.common.ResponseData;
 import com.tian.springmvcmybatis.service.IUserService;
+import com.tian.springmvcmybatis.service.common.ConsumerService;
+import com.tian.springmvcmybatis.service.common.ProducerService;
 import com.tian.springmvcmybatis.service.common.util.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
@@ -12,6 +14,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 import redis.clients.jedis.Jedis;
 
+import javax.annotation.Resource;
+import javax.jms.Destination;
+import javax.jms.TextMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.ArrayList;
@@ -26,6 +31,13 @@ import java.util.List;
 public class TestController extends BaseController{
     @Autowired
     private IUserService userService;
+    //队列名gzframe.demo
+    @Resource(name="demoQueueDestination")
+    private Destination demoQueueDestination;
+    @Autowired
+    private ProducerService producerService;
+    @Autowired
+    private ConsumerService consumerService;
     /**
      * 测试getBean
      * @param request
@@ -87,6 +99,36 @@ public class TestController extends BaseController{
         System.out.println(request.getSession().getAttributeNames());
         System.out.println(request.getSession().toString());
         return successData.setData(request.getSession().getId());
+    }
+
+    /**
+     * 测试通过activemq发送消息
+     * @param message
+     * @return
+     */
+    @RequestMapping("test_send_message")
+    @ResponseBody
+    public ResponseData testSendMessage(String message){
+        producerService.sendMessage(demoQueueDestination,message);
+        return successData.setData("成功发送消息到:"+demoQueueDestination.toString()+message);
+    }
+
+    /**
+     * 测试通过activemq接收消息
+     *
+     * 在没有配置监听器的时候,消息需要主动去获取
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("test_receive_message")
+    @ResponseBody
+    public ResponseData testReceiveMessage() throws Exception{
+        TextMessage textMessage = consumerService.receive(demoQueueDestination);
+        if(textMessage == null){
+            return successData.setData("没有消息了");
+        }
+        System.out.println("从通道"+demoQueueDestination.toString()+"收到消息:"+textMessage.getText());
+        return successData.setData("从通道"+demoQueueDestination.toString()+"收到消息:"+textMessage.getText());
     }
 
     public static void main(String[] args) {

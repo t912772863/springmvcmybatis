@@ -83,7 +83,13 @@ public class LogAspect {
 
     private void checkLogin() {
         // 获取httpServletRequest对象
-        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+        HttpServletRequest request ;
+        ServletRequestAttributes servletRequestAttributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        if(servletRequestAttributes == null ){
+            logger.info("非页面请求,没有request对象,不拦截");
+            return;
+        }
+        request = servletRequestAttributes.getRequest();
         String uri = request.getRequestURI();
         // ,如果本次方法就是登录方法则,直接放行
         if(uri.contains("login")){

@@ -1,0 +1,126 @@
+.selectpicker {
+    text-align: left;
+    position: relative
+}
+
+.selectpicker .dropdown-toggle {
+    position: relative;
+    text-align: left;
+}
+
+.selectpicker .dropdown-toggle.filled {
+    padding-left: 30px
+}
+
+.selectpicker .dropdown-toggle span.placeholder, .selectpicker .dropdown-toggle span.text {
+    float: left
+}
+
+.selectpicker .dropdown-toggle span.placeholder {
+    color: #959595
+}
+
+.selectpicker .dropdown-toggle span.caret {
+    float: right;
+    margin-top: 5px;
+    margin-right: 5px;
+}
+
+.selectpicker .reset {
+    margin: 3px 0
+}
+
+.selectpicker .reset a {
+    color: #333;
+    display: block;
+    padding: 4px 0 4px 20px
+}
+
+.selectpicker .reset a, .selectpicker .reset a:hover {
+    text-decoration: none
+}
+
+.selectpicker .reset a:hover {
+    background: #e6e6e6
+}
+
+.selectpicker .clear {
+    display: none;
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    z-index: 12;
+    padding: 5px;
+    color: #959595
+}
+
+.selectpicker .list-to-filter {
+    max-height: 250px;
+    overflow-y: scroll;
+    border-top: 1px solid #e6e6e6
+}
+
+.selectpicker .dropdown-menu {
+    width: 100%;
+    padding: 5px 0 0
+}
+
+.selectpicker .dropdown-menu ul {
+    margin-top: 4px
+}
+
+.selectpicker .dropdown-menu ul > li {
+    display: block;
+    padding: 4px 0 4px 20px;
+    cursor: pointer
+}
+
+.selectpicker .dropdown-menu ul > li:hover {
+    background: #e6e6e6
+}
+
+.selectpicker .dropdown-menu ul > li.selected {
+    color: #fff;
+    background: #1e90ff
+}
+
+.selectpicker .dropdown-menu ul > li.optgroup {
+    cursor: default;
+    padding: 0;
+    border-top: 1px solid #e6e6e6
+}
+
+.selectpicker .dropdown-menu ul > li.optgroup:first-child {
+    border-top: none
+}
+
+.selectpicker .dropdown-menu ul > li.optgroup:hover {
+    background: 0 0
+}
+
+.selectpicker .dropdown-menu ul > li.optgroup .optgroup-header {
+    display: block;
+    color: #959595;
+    font-size: 14px;
+    margin-bottom: 4px;
+    padding: 5px 8px 5px 20px
+}
+
+.selectpicker .dropdown-menu ul > li.optgroup > ul > li {
+    display: block;
+    padding: 4px 0 4px 40px;
+    cursor: pointer
+}
+
+.selectpicker .dropdown-menu ul > li.optgroup > ul > li:hover {
+    background: #e6e6e6
+}
+
+.selectpicker .dropdown-menu ul > li.optgroup > ul > li.selected {
+    color: #fff;
+    background: #1e90ff
+}
+
+.selectpicker .dropdown-menu .search-box {
+    padding: 5px 8px
+}

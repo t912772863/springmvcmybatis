@@ -57,9 +57,7 @@ public class ApacheFtpUtil {
 			ftpClient.enterLocalPassiveMode();
 			//切换FTP目录  
 			ftpClient.changeWorkingDirectory(remotePath);
-			//判斷目標文件夾是否存在,沒有則創建
-			checkTargetPath(remotePath);
-			//下载压缩文件到本地 
+			//下载压缩文件到本地
 			File Localfile = new File(localFullPath);
 			FTPFile[]fs = ftpClient.listFiles();
             for(FTPFile f:fs)
@@ -90,35 +88,13 @@ public class ApacheFtpUtil {
 		return flag; 
 	}
 	
-	/**
-	 * 检查文件夹是否存在并且创建文件夹
-	 * @param dirpath
-	 */
-	public static void checkTargetPath(String dirpath) {
-		File file=new File(dirpath);
-		mkDir(file);
-	}
-	
-    public static void mkDir(File file) {
-        if (file.getParentFile().exists()) {  
-            file.mkdir();  
-			file.setReadable(true, false);
-			file.setExecutable(true, false); 
-        } else {    
-            mkDir(file.getParentFile());  
-            file.mkdir();  
-			file.setReadable(true, false);
-			file.setExecutable(true, false);  
-        }  
-	}  
-    
     public static void main(String[] args){
     	String filePath = "/home/richmail/dmp_dataservers/ftp/Files/20170112/22.5657870000,113.8696260000/100";
     	downloadFromFtp("10.153.93.101",//ip地址
 				"etonfile",// 用户名
 				"etonfile",// 密码
-				"/home/richmail/dmp_dataservers/ftp/Files/20170112/22.5657870000,113.8696260000/100",// 文件夹路径
-				"E:/test001.txt", // 本地路径+文件名
+				"/home/richmail/dmp_dataservers/ftp/Files/20170112/22.5657870000,113.8696260000/100",// 远程文件夹路径
+				"E:/test002.txt", // 本地路径+文件名
 				21, //端口号
 				"用户常驻地_1484181501045_99_1484181700.txt" //目标文件名
 		);

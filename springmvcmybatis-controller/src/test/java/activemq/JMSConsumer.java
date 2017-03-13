@@ -5,7 +5,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
 
-/**消息消费者
+/**消息消费者: 点对点模式,不停的去查询,这种方式在生产中不建议使用
  * Created by tian on 2016/11/1.
  */
 public class JMSConsumer {

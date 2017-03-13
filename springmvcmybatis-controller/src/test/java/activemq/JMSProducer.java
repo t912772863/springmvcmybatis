@@ -8,7 +8,7 @@ import javax.jms.*;
 
 
 /**
- * 消息生产者
+ * 消息生产者: 点对点模式
  * Created by tian on 2016/11/1.
  */
 public class JMSProducer {
@@ -55,6 +55,7 @@ public class JMSProducer {
             //创建消息生产者
             messageProducer = session.createProducer(destination);
             sendMessage(session,messageProducer);
+            // 创建session的时候添加的有事务,所以这里要commit
             session.commit();
         }catch (Exception e){
             e.printStackTrace();

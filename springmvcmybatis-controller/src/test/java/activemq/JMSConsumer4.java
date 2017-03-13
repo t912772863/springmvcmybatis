@@ -9,7 +9,7 @@ import javax.jms.*;
  * 消费消费者: 点对点模式,通过一个监听器,生产中用这种方式
  * Created by tian on 2016/11/1.
  */
-public class JMSConsumer2 {
+public class JMSConsumer4 {
     /**
      * 默认用户名
      */
@@ -40,21 +40,12 @@ public class JMSConsumer2 {
             connection = connectionFactory.createConnection();
             connection.start();
             session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);//消费方不加事务,所以用false
-            destination = session.createQueue("FirstQueue1");//创建连接的消息队列,要与发送消息方名字一致
+            destination = session.createTopic("FirstTopic");//创建连接的消息队列,要与发送消息方名字一致
             messageConsumer = session.createConsumer(destination); //创建消息消费者
 
             //注册一个消息监听器,一有消息就会通知
-            messageConsumer.setMessageListener(new MessageListener() {
-                public void onMessage(Message message) {
-                    try {
-                        System.out.println("收到消息: "+((TextMessage)message).getText());
-                    } catch (JMSException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-
-            Thread.sleep(10000000);
+            messageConsumer.setMessageListener(new Listener2());
+            Thread.sleep(100000);
         }catch (Exception e){
             e.printStackTrace();
         }finally {

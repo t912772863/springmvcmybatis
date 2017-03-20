@@ -8,10 +8,10 @@ import javax.jms.*;
 
 
 /**
- * 消息生产者: 点对点模式
+ * 消息生产者: 订阅模式
  * Created by tian on 2016/11/1.
  */
-public class JMSProducer {
+public class JMSProducer2 {
     /**
      * 默认用户名
      */
@@ -51,7 +51,8 @@ public class JMSProducer {
             connection.start();
             session = connection.createSession(true,Session.AUTO_ACKNOWLEDGE);//创建方,要加事务,所以用true
             //创建消息队列
-            destination = session.createQueue("Queue139");
+//            destination = session.createQueue("FirstQueue1");
+            destination = session.createTopic("FirstTopic");
             //创建消息生产者
             messageProducer = session.createProducer(destination);
             sendMessage(session,messageProducer);
@@ -73,8 +74,8 @@ public class JMSProducer {
     }
 
     public static void sendMessage(Session session,MessageProducer producer) throws Exception{
-        for(int i = 0;i<JMSProducer.NUMBER;i++){
-            TextMessage message = session.createTextMessage("{ \"code\": \"S_OK\", \"summary\": \"\",\"var\": [ {\"smsId\": \"123\",\"receiveNumber\": \"13510272496\" }, {\"smsId\": \"124\", \"receiveNumber\": \"13510272496\" } ]}");
+        for(int i = 0; i< JMSProducer2.NUMBER; i++){
+            TextMessage message = session.createTextMessage("activemq发送的消息"+i);
             System.out.println("发送消息: "+"activemq发送的消息"+i);
             producer.send(message);
         }

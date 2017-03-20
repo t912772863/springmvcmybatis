@@ -6,6 +6,7 @@ import org.apache.activemq.ActiveMQConnectionFactory;
 import javax.jms.*;
 
 /**
+ * 消费消费者: 点对点模式,通过一个监听器,生产中用这种方式
  * Created by tian on 2016/11/1.
  */
 public class JMSConsumer2 {
@@ -43,8 +44,17 @@ public class JMSConsumer2 {
             messageConsumer = session.createConsumer(destination); //创建消息消费者
 
             //注册一个消息监听器,一有消息就会通知
-            messageConsumer.setMessageListener(new Listener());
+            messageConsumer.setMessageListener(new MessageListener() {
+                public void onMessage(Message message) {
+                    try {
+                        System.out.println("收到消息: "+((TextMessage)message).getText());
+                    } catch (JMSException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
 
+            Thread.sleep(10000000);
         }catch (Exception e){
             e.printStackTrace();
         }finally {

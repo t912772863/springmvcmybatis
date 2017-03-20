@@ -56,7 +56,7 @@ public class LogAspect {
     }
 
 
-    @Before(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
+//    @Before(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
     public void before(JoinPoint jp) throws Throwable {
         //调用方法前先进行登录验证
         checkLogin();

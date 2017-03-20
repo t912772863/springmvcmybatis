@@ -1,6 +1,5 @@
 package activemq;
 
-import org.apache.activemq.ActiveMQConnection;
 import org.apache.activemq.ActiveMQConnectionFactory;
 
 import javax.jms.*;
@@ -12,15 +11,17 @@ public class JMSConsumer {
     /**
      * 默认用户名
      */
-    private static final String USERNAME = ActiveMQConnection.DEFAULT_USER;
+    private static final String USERNAME = "admin";
     /**
      * 默认密码
      */
-    private static final String PASSWORD = ActiveMQConnection.DEFAULT_PASSWORD;
+//    private static final String PASSWORD = "admin";
+    private static final String PASSWORD = "richinfo";
     /**
      * 默认连接地址
      */
-    private static final String BROKEURL = ActiveMQConnection.DEFAULT_BROKER_URL;
+//    private static final String BROKEURL = ActiveMQConnection.DEFAULT_BROKER_URL;
+    private static final String BROKEURL = "failover://tcp://192.168.8.239:61616";
     public static void main(String[] args) {
         //连接工厂
         ConnectionFactory connectionFactory;
@@ -39,12 +40,13 @@ public class JMSConsumer {
             connection = connectionFactory.createConnection();
             connection.start();
             session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);//消费方不加事务,所以用false
-            destination = session.createQueue("FirstQueue1");//创建连接的消息队列,要与发送消息方名字一致
+            destination = session.createQueue("Queue139");//创建连接的消息队列,要与发送消息方名字一致
             messageConsumer = session.createConsumer(destination); //创建消息消费者
             while (true){
-                TextMessage textMessage = (TextMessage) messageConsumer.receive(100000);
+                TextMessage textMessage = (TextMessage) messageConsumer.receive(1000);
                 if(textMessage !=null){
                     System.out.println("收到的消息: "+textMessage.getText());
+                    // {"createTime":"2017-03-14 12:20:59","receiveNumber":"","sendNumber":"","smsContent":"","smsId":"35489860854147ce8d0075e8a9bcf5af","state":"0","summary":"","type":"0"}
                 }else {
                     break;
                 }

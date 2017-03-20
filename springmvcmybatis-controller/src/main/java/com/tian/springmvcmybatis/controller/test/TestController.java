@@ -19,6 +19,8 @@ import javax.jms.Destination;
 import javax.jms.TextMessage;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -129,6 +131,33 @@ public class TestController extends BaseController{
         }
         System.out.println("从通道"+demoQueueDestination.toString()+"收到消息:"+textMessage.getText());
         return successData.setData("从通道"+demoQueueDestination.toString()+"收到消息:"+textMessage.getText());
+    }
+
+    /**
+     * 测试通过request获取的BufferReader都有哪些内容
+     * @param request
+     * @param response
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("test_bufferReader")
+    @ResponseBody
+    public ResponseData testBufferReader(HttpServletRequest request,HttpServletResponse response) throws Exception{
+        BufferedReader bufferedReader = request.getReader();
+        StringBuffer stringBuffer = new StringBuffer();
+        String line;
+        while ((line = bufferedReader.readLine()) != null){
+            stringBuffer.append(line);
+        }
+        return successData.setData(stringBuffer.toString());
+    }
+
+    @RequestMapping("testPush")
+    @ResponseBody
+    public ResponseData testPush(HttpServletRequest request) throws IOException {
+        System.out.println("请示参数"+request.getReader().readLine());
+
+        return success;
     }
 
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.tian.springmvcmybatis.controller.common;
+package com.tian.springmvcmybatis.service.common;
 
 import com.alibaba.fastjson.JSONObject;
 
@@ -18,12 +18,12 @@ public class ResponseData {
      */
     public static ResponseData failedData = new ResponseData(FAILED_CODE,"failed");
 
-    public ResponseData(int code,String message){
+    public ResponseData(int code, String message){
         this.code = code;
         this.message = message;
     }
 
-    public ResponseData(int code,String message,Object data){
+    public ResponseData(int code, String message, Object data){
         this.code = code;
         this.message = message;
         this.data = data;

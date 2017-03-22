@@ -1,9 +1,13 @@
 package com.tian.springmvcmybatis.service.common.util;
+
+import com.sun.net.ssl.internal.ssl.Provider;
+
 import javax.mail.Message;
 import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.security.Security;
 import java.util.Date;
 import java.util.Properties;
 
@@ -19,6 +23,13 @@ public class MailUtil {
         // 使用smtp：简单邮件传输协议
         props.put("mail.smtp.host", "smtp.qq.com");//存储发送邮件服务器的信息
         props.put("mail.smtp.auth", "true");//同时通过验证
+
+        Security.addProvider(new Provider());
+        props.setProperty("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        props.setProperty("mail.smtp.port", "465");
+        props.setProperty("mail.smtp.socketFactory.port", "465");
+
+
 
         Session session = Session.getInstance(props);//根据属性新建一个邮件会话
 //        session.setDebug(true); //有他会打印一些调试信息。
@@ -42,8 +53,8 @@ public class MailUtil {
     }
 
     public static void main(String[] args) throws Exception {
-        sendMail("912772863@qq.com", "912772863@qq.com", "Tt912772863",
-                "tianxiong@richinfo.cn",
+        sendMail("912772863@qq.com", "912772863@qq.com", "QEPWQlllldcwy",
+                "294013436@qq.com",
                 "Java Mail 测试邮件",
                 "<a>html 元素</a>：<b>邮件内容</b>");
     }

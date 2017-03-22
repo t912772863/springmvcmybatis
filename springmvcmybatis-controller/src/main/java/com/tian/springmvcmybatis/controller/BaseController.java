@@ -1,8 +1,7 @@
 package com.tian.springmvcmybatis.controller;
 
-import com.tian.springmvcmybatis.controller.common.ResponseData;
 import com.tian.springmvcmybatis.dao.entity.User;
-import org.springframework.beans.factory.annotation.Value;
+import com.tian.springmvcmybatis.service.common.ResponseData;
 
 import javax.servlet.http.HttpServletRequest;
 

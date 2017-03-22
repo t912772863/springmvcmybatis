@@ -1,7 +1,7 @@
 package com.tian.springmvcmybatis.controller.test;
 
 import com.tian.springmvcmybatis.controller.BaseController;
-import com.tian.springmvcmybatis.controller.common.ResponseData;
+import com.tian.springmvcmybatis.service.common.ResponseData;
 import com.tian.springmvcmybatis.service.IUserService;
 import com.tian.springmvcmybatis.service.common.ConsumerService;
 import com.tian.springmvcmybatis.service.common.ProducerService;

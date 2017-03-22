@@ -1,6 +1,6 @@
 package com.tian.springmvcmybatis.controller;
 
-import com.tian.springmvcmybatis.controller.common.ResponseData;
+import com.tian.springmvcmybatis.service.common.ResponseData;
 import com.tian.springmvcmybatis.dao.common.PageParam;
 import com.tian.springmvcmybatis.dao.entity.SendMessage;
 import com.tian.springmvcmybatis.service.ISendMessageService;

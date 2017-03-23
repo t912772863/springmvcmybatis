@@ -1,7 +1,7 @@
 package com.tian.springmvcmybatis.controller;
 
 import com.tian.springmvcmybatis.dao.entity.User;
-import com.tian.springmvcmybatis.service.common.ResponseData;
+import com.tian.common.other.ResponseData;
 
 import javax.servlet.http.HttpServletRequest;
 

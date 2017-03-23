@@ -1,7 +1,7 @@
 package com.tian.springmvcmybatis.controller;
 
+import com.tian.common.other.ResponseData;
 import com.tian.springmvcmybatis.dao.entity.SystemMenu;
-import com.tian.springmvcmybatis.service.common.ResponseData;
 import com.tian.springmvcmybatis.service.common.SystemInitData;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

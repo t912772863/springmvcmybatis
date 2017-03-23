@@ -1,7 +1,7 @@
 package com.tian.springmvcmybatis.controller;
 
-import com.tian.springmvcmybatis.service.common.ResponseData;
-import com.tian.springmvcmybatis.dao.common.PageParam;
+import com.tian.common.other.PageParam;
+import com.tian.common.other.ResponseData;
 import com.tian.springmvcmybatis.dao.entity.SendMessage;
 import com.tian.springmvcmybatis.service.ISendMessageService;
 import com.tian.springmvcmybatis.service.common.TimerTask;
@@ -30,7 +30,7 @@ public class SendMessageController extends BaseController{
      */
     @RequestMapping("insert_send_message")
     @ResponseBody
-    public ResponseData insertSendMessage(SendMessage sendMessage,String fileUrl){
+    public ResponseData insertSendMessage(SendMessage sendMessage, String fileUrl){
         // TODO: 2017/1/18 0018  默认发送时间就为当前时间
         sendMessage.setSendTime(new Date());
         sendMessageService.insertSendMessage(sendMessage,fileUrl);

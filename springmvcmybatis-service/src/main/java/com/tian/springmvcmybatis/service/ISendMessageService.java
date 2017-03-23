@@ -1,6 +1,6 @@
 package com.tian.springmvcmybatis.service;
 
-import com.tian.springmvcmybatis.dao.common.PageParam;
+import com.tian.common.other.PageParam;
 import com.tian.springmvcmybatis.dao.entity.SendMessage;
 
 import java.util.List;

@@ -12,6 +12,7 @@
         <module>springmvcmybatis-service</module>
         <module>springmvcmybatis-dao</module>
         <module>springmvcmybatis-controller</module>
+        <module>springmvcmybatis-remote</module>
     </modules>
 
 

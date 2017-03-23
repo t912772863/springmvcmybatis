@@ -1,9 +1,8 @@
 package com.tian.springmvcmybatis.service;
 
-import com.tian.springmvcmybatis.dao.common.PageParam;
+import com.tian.common.other.PageParam;
 import com.tian.springmvcmybatis.dao.entity.Order;
 import com.tian.springmvcmybatis.dao.mapper.OrderMapper;
-import org.apache.kahadb.page.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -1,10 +1,10 @@
 package com.tian.springmvcmybatis.service;
 
-import com.tian.springmvcmybatis.dao.common.PageParam;
+import com.tian.common.other.PageParam;
 import com.tian.springmvcmybatis.dao.entity.Role;
 import com.tian.springmvcmybatis.dao.entity.User;
 import com.tian.springmvcmybatis.dao.mapper.UserMapper;
-import com.tian.springmvcmybatis.service.common.BusinessException;
+import com.tian.common.other.BusinessException;
 import com.tian.springmvcmybatis.service.common.InnerConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,6 +1,6 @@
 package com.tian.springmvcmybatis.service;
 
-import com.tian.springmvcmybatis.dao.common.PageParam;
+import com.tian.common.other.PageParam;
 import com.tian.springmvcmybatis.dao.dto.ActivityDetailDto;
 import com.tian.springmvcmybatis.dao.dto.ActivityDto;
 import com.tian.springmvcmybatis.dao.entity.Activity;

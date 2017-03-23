@@ -1,7 +1,7 @@
 package temp;
 
 import com.tian.springmvcmybatis.dao.entity.File;
-import com.tian.springmvcmybatis.service.common.util.FileUtil;
+import com.tian.common.util.FileUtil;
 
 import java.io.FileReader;
 import java.io.FileWriter;

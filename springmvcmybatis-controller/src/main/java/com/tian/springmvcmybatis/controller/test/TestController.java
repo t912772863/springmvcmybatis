@@ -1,11 +1,11 @@
 package com.tian.springmvcmybatis.controller.test;
 
+import com.tian.common.other.ResponseData;
+import com.tian.common.util.JedisUtil;
 import com.tian.springmvcmybatis.controller.BaseController;
-import com.tian.springmvcmybatis.service.common.ResponseData;
 import com.tian.springmvcmybatis.service.IUserService;
 import com.tian.springmvcmybatis.service.common.ConsumerService;
 import com.tian.springmvcmybatis.service.common.ProducerService;
-import com.tian.springmvcmybatis.service.common.util.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Controller;

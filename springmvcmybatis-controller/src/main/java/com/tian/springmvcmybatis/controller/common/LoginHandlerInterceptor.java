@@ -1,12 +1,11 @@
 package com.tian.springmvcmybatis.controller.common;
 
-import com.tian.springmvcmybatis.service.common.BusinessException;
+import com.tian.common.other.BusinessException;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.util.List;
 
 /**
  * Created by Administrator on 2016/11/30 0030.

@@ -1,12 +1,12 @@
 package com.tian.springmvcmybatis.controller;
 
-import com.tian.springmvcmybatis.service.common.ResponseData;
-import com.tian.springmvcmybatis.dao.common.validation.NotNull;
-import com.tian.springmvcmybatis.dao.common.validation.Regular;
+import com.tian.common.other.ResponseData;
+import com.tian.common.validation.NotNull;
+import com.tian.common.validation.Regular;
 import com.tian.springmvcmybatis.dao.entity.User;
 import com.tian.springmvcmybatis.service.IUserService;
-import com.tian.springmvcmybatis.service.common.util.JedisUtil;
-import com.tian.springmvcmybatis.service.common.util.RandomUtil;
+import com.tian.common.util.JedisUtil;
+import com.tian.common.util.RandomUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

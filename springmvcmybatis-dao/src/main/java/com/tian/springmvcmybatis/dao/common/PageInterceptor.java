@@ -8,6 +8,7 @@ import org.apache.ibatis.plugin.*;
 import org.apache.ibatis.reflection.MetaObject;
 import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.log4j.Logger;
+import com.tian.common.other.PageParam;
 
 import java.sql.*;
 import java.util.Properties;

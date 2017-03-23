@@ -134,7 +134,7 @@
     </where>
   </sql>
 
-  <select id="queryByPage" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultMap="BaseResultMap">
+  <select id="queryByPage" parameterType="com.tian.common.other.PageParam" resultMap="BaseResultMap">
     select <include refid="Base_Column_List" /> from send_message
     <include refid="queryByPage_where"/>
     order by CREATE_TIME desc

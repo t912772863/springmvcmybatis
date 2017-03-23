@@ -149,7 +149,7 @@
      </where>
   </select>
 
-  <select id="queryByPage" parameterType="com.tian.springmvcmybatis.dao.common.PageParam" resultMap="BaseResultMap">
+  <select id="queryByPage" parameterType="com.tian.common.other.PageParam" resultMap="BaseResultMap">
     SELECT <include refid="Base_Column_List"/> from `order`
     <where>
       <if test="params.userId != null and params.userId !=''">

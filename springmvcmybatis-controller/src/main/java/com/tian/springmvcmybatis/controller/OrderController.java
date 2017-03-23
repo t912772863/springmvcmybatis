@@ -1,11 +1,11 @@
 package com.tian.springmvcmybatis.controller;
 
-import com.tian.springmvcmybatis.service.common.ResponseData;
-import com.tian.springmvcmybatis.dao.common.PageParam;
-import com.tian.springmvcmybatis.dao.common.validation.NotNull;
+import com.tian.common.other.PageParam;
+import com.tian.common.other.ResponseData;
+import com.tian.common.util.DocumentUtil;
+import com.tian.common.validation.NotNull;
 import com.tian.springmvcmybatis.dao.entity.Order;
 import com.tian.springmvcmybatis.service.IOrderService;
-import com.tian.springmvcmybatis.service.common.util.DocumentUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

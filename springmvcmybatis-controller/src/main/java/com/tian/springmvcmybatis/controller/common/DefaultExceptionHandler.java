@@ -1,12 +1,13 @@
 package com.tian.springmvcmybatis.controller.common;
 
 import com.alibaba.fastjson.JSONObject;
-import com.tian.springmvcmybatis.service.common.BusinessException;
+import com.tian.common.other.BusinessException;
+import com.tian.common.other.ResponseData;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.servlet.HandlerExceptionResolver;
 import org.springframework.web.servlet.ModelAndView;
-import com.tian.springmvcmybatis.service.common.ResponseData;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 

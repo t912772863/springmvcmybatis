@@ -1,7 +1,7 @@
 package com.tian.springmvcmybatis.controller.common;
 
-import com.tian.springmvcmybatis.dao.common.validation.Validate;
-import com.tian.springmvcmybatis.service.common.BusinessException;
+import com.tian.common.validation.Validate;
+import com.tian.common.other.BusinessException;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
@@ -11,6 +11,8 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.*;
@@ -56,7 +58,7 @@ public class LogAspect {
     }
 
 
-//    @Before(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
+    @Before(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
     public void before(JoinPoint jp) throws Throwable {
         //调用方法前先进行登录验证
         checkLogin();
@@ -97,7 +99,24 @@ public class LogAspect {
         }
         if(request.getSession(true).getAttribute("user")==null){
             // 为什么这里的异常会返回给页面,
-            throw new BusinessException(501,"请先登录");
+//            throw new BusinessException(501,"请先登录");
+
+            // 重定向到登录页面
+            try {
+                HttpServletResponse response = servletRequestAttributes.getResponse();
+                // 项目配置的访问路径
+                String s =request.getContextPath();
+                // 当前请求的访问路径,包括了项目访问路径,但是不包括ip和端口号
+                String s2 = request.getRequestURI();
+                // 本次请求的完整路径,也就是浏览器地址栏中看到的.
+                String s3 = request.getRequestURL().toString();
+
+                // 处理上面几个路径,得到项目启动默认访问的路径,一般为登录页面.
+                response.sendRedirect(s3.replace(s2,"")+s);
+            } catch (IOException e) {
+                e.printStackTrace();
+                throw new BusinessException(501,"请先登录");
+            }
         }
     }
 

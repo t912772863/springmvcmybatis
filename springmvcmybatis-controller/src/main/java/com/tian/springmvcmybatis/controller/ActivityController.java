@@ -1,8 +1,8 @@
 package com.tian.springmvcmybatis.controller;
 
-import com.tian.springmvcmybatis.service.common.ResponseData;
-import com.tian.springmvcmybatis.dao.common.PageParam;
-import com.tian.springmvcmybatis.dao.common.validation.Number;
+import com.tian.common.other.PageParam;
+import com.tian.common.other.ResponseData;
+import com.tian.common.validation.Number;
 import com.tian.springmvcmybatis.dao.entity.Activity;
 import com.tian.springmvcmybatis.service.IActivityService;
 import org.springframework.beans.factory.annotation.Autowired;

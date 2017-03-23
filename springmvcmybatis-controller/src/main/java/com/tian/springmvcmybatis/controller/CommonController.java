@@ -1,9 +1,9 @@
 package com.tian.springmvcmybatis.controller;
 
-import com.tian.springmvcmybatis.service.common.ResponseData;
-import com.tian.springmvcmybatis.dao.common.validation.Enum;
+import com.tian.common.other.BusinessException;
+import com.tian.common.other.ResponseData;
+import com.tian.common.validation.Enum;
 import com.tian.springmvcmybatis.service.IFileService;
-import com.tian.springmvcmybatis.service.common.BusinessException;
 import com.tian.springmvcmybatis.service.common.InnerConstant;
 import com.tian.springmvcmybatis.service.common.OuterConstant;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,7 +37,7 @@ public class CommonController extends BaseController{
      */
     @RequestMapping("upload_file")
     @ResponseBody
-    public ResponseData uploadFile(@RequestParam MultipartFile file,String type){
+    public ResponseData uploadFile(@RequestParam MultipartFile file, String type){
         if(file == null){
             return failedData.setData("文件参数错误");
         }

@@ -3,7 +3,7 @@ import com.tian.springmvcmybatis.dao.entity.Activity;
 import com.tian.springmvcmybatis.service.IActivityService;
 import com.tian.springmvcmybatis.service.common.InnerConstant;
 import com.tian.springmvcmybatis.service.common.TimerTask;
-import com.tian.springmvcmybatis.service.common.util.JedisUtil;
+import com.tian.common.util.JedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import redis.clients.jedis.Jedis;

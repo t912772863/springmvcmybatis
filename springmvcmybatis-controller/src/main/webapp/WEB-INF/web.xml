@@ -10,7 +10,8 @@
         通过上下文获取到的.-->
         <param-value>
             classpath:applicationContext.xml,
-            classpath:activemq.xml
+            classpath:activemq.xml,
+            classpath:dubbo.xml
         </param-value>
     </context-param>
 

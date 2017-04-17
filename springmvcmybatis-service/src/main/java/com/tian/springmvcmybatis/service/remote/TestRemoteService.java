@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 @Service("testRemoteService")
 public class TestRemoteService implements ITestRemoteService {
     public String print(String str) {
+        System.out.println(str);
         return "the string receive from remote is: "+str;
     }
 }

@@ -19,7 +19,7 @@ public class GetPathTest {
         String path1 = GetPathTest.class.getResource("").toString();
         System.out.println("path1: "+path1);
 
-        // 根路径
+        // 根路径, jar中无效
         String path8 = GetPathTest.class.getResource("/").toString();
         System.out.println("path8: "+path8);
 

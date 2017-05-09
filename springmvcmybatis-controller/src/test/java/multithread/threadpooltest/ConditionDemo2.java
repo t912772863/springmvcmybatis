@@ -50,8 +50,6 @@ public class ConditionDemo2 {
 
         public void do1(int j){
             try{
-                lock.lock();
-
                 // 上锁
                 lock.lock();
                 while(temp != 1){
@@ -68,14 +66,6 @@ public class ConditionDemo2 {
                 // 正常执行完成后, 则唤醒下一个执行的线程
                 temp = 2;
 
-                /*
-                  需要注意的一点是, 本示例虽然每个线程都循环了7次, 不过由于下面这一行代码,
-                  也就是唤醒线程的方法是在lock.unlock方法之前, 那么就会导致唤醒的线程, 进入
-                  lock.lock方法时, 发现锁是锁着的, 会进行等待, 直到下一个lock.unlock方法执行,
-                  导致的结果就是do2和do3方法的最后一次循环, 会卡在lock.lock方法那里, 所以不
-                  会输出这两个方法的最后一次循环内容. 而线程也不会结束, 俗称死锁, 需要外部
-                  条件来打破.
-                 */
                 condition2.signal();
             }finally {
                 lock.unlock();

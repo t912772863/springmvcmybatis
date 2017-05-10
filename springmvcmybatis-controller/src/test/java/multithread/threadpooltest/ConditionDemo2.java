@@ -45,7 +45,7 @@ public class ConditionDemo2 {
         Condition condition2 = lock.newCondition();
         /** 通讯对象3*/
         Condition condition3 = lock.newCondition();
-        /** 默认1, 也就是每一个任务可以运行*/
+        /** 默认1, 也就是第一个任务可以运行*/
         int temp = 1;
 
         public void do1(int j){

@@ -40,14 +40,20 @@ public class JMSConsumer2 {
             connection = connectionFactory.createConnection();
             connection.start();
             session = connection.createSession(false,Session.AUTO_ACKNOWLEDGE);//消费方不加事务,所以用false
-            destination = session.createQueue("FirstQueue1");//创建连接的消息队列,要与发送消息方名字一致
-            messageConsumer = session.createConsumer(destination); //创建消息消费者
+            destination = session.createQueue("Queue139");//创建连接的消息队列,要与发送消息方名字一致
+            String condition = "age >= 20"; // 创建消息选择器的条件
+            //创建消息消费者
+//            messageConsumer = session.createConsumer(destination, condition);
+            messageConsumer = session.createConsumer(destination);
 
             //注册一个消息监听器,一有消息就会通知
             messageConsumer.setMessageListener(new MessageListener() {
                 public void onMessage(Message message) {
                     try {
-                        System.out.println("收到消息: "+((TextMessage)message).getText());
+//                        System.out.println("收到消息: "+((TextMessage)message).getText());
+                        System.out.println("收到消息: "+((MapMessage)message).getString("name")+", "+((MapMessage)message).getString("age"));
+
+                        message.acknowledge();
                     } catch (JMSException e) {
                         e.printStackTrace();
                     }

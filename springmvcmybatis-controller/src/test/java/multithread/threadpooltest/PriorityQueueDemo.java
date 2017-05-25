@@ -1,8 +1,8 @@
 package multithread.threadpooltest;
 
-import java.util.PriorityQueue;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.PriorityBlockingQueue;
 
 /**
  * 优先级队列学习
@@ -11,7 +11,7 @@ import java.util.concurrent.Executors;
 public class PriorityQueueDemo {
     public static void main(String[] args) {
         // 创建珍上优先级队列
-        PriorityQueue<Task001> queue = new PriorityQueue<Task001>();
+        PriorityBlockingQueue<Task001> queue = new PriorityBlockingQueue<Task001>();
         // 创建一个线程池执行任务
         ExecutorService service = Executors.newFixedThreadPool(1);
 

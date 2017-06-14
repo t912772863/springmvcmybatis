@@ -58,7 +58,7 @@ public class LogAspect {
     }
 
 
-    @Before(value = "execution(* com.tian.springmvcmybatis.controller..*.*(..))")
+    @Before(value = "execution(* com.tian.springmvcmybatis.controller..*Controller.*(..))")
     public void before(JoinPoint jp) throws Throwable {
         //调用方法前先进行登录验证
         checkLogin();
@@ -100,17 +100,7 @@ public class LogAspect {
         if (request.getSession(true).getAttribute("user") == null) {
             try {
                 HttpServletResponse response = servletRequestAttributes.getResponse();
-                // TODO: 2017/3/25 0025 这里验证token?
-                Object token = request.getSession(true).getAttribute("token");
-                if (token != null) {
-                    //验证token是否合法
-                    response.sendRedirect("http://localhost:8086/login/check_token?token="+token.toString());
-                    return;
-                }
-
                 // 重定向到登录页面
-
-
                 // 项目配置的访问路径
                 String s = request.getContextPath();
                 // 当前请求的访问路径,包括了项目访问路径,但是不包括ip和端口号
@@ -119,8 +109,7 @@ public class LogAspect {
                 String s3 = request.getRequestURL().toString();
 
                 // 处理上面几个路径,得到项目启动默认访问的路径,一般为登录页面.
-//                response.sendRedirect(s3.replace(s2,"")+s);
-                response.sendRedirect("http://localhost:8086/login/check_login?url=" + s3);
+                response.sendRedirect(s3.replace(s2,"")+s);
                 throw new BusinessException(501, "请先登录");
             } catch (IOException e) {
                 e.printStackTrace();

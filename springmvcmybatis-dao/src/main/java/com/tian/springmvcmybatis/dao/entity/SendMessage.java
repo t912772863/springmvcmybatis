@@ -1,5 +1,7 @@
 package com.tian.springmvcmybatis.dao.entity;
 
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.util.Date;
 
 public class SendMessage {
@@ -11,6 +13,8 @@ public class SendMessage {
 
     private String content;
 
+    //下面这个注解, 当页面请求过来的参数在进行参数绑定的时候,会把指定格式的时间参数从String转成Date
+    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date sendTime;
 
     private Integer sendStatus;

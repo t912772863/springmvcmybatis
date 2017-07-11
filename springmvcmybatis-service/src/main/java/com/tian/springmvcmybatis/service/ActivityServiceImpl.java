@@ -46,16 +46,16 @@ public class ActivityServiceImpl implements IActivityService {
     public ActivityDetailDto queryById(Long id) {
         Activity activity = activityMapper.selectByPrimaryKey(id);
         ActivityDetailDto detailDto = new ActivityDetailDto();
-        BeanUtils.copyProperties(activity,detailDto);
+        BeanUtils.copyProperties(activity, detailDto);
         // 查询出活动的图片
-        List<String> fileList = fileService.queryFileByTableNameAndDataId("activity",id);
+        List<String> fileList = fileService.queryFileByTableNameAndDataId("activity", id);
         detailDto.setImages(fileList);
         return detailDto;
     }
 
     public List<ActivityDto> queryActivityNeedUpdateStatus(String startTime, String endTime) {
-        List<ActivityDto> list =  activityMapper.queryNeedUpdateStatus(startTime,endTime);
-        if(list == null){
+        List<ActivityDto> list = activityMapper.queryNeedUpdateStatus(startTime, endTime);
+        if (list == null) {
             return new ArrayList<ActivityDto>();
         }
         return list;

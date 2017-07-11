@@ -29,6 +29,16 @@
 		<property name="password" value="${data_source_password}"></property>
 		<property name="url" value="${data_source_url}"></property>
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<!--池启动时创建的连接数-->
+		<property name="initialSize" value="1"></property>
+		<!--最大连接数, 设为0表示不限制-->
+		<property name="maxActive" value="20"></property>
+		<!--最多不释放的空闲连接-->
+		<property name="maxIdle" value="2"></property>
+		<!--同一时间能够分配的preparedStatement数量-->
+		<property name="maxOpenPreparedStatements" value="5"></property>
+		<!--获取连接时最大等待时间, -1表示无限等待-->
+		<property name="maxWait" value="60"></property>
 	</bean>
 
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">

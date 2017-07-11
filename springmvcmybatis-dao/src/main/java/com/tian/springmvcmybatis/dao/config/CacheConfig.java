@@ -9,6 +9,9 @@ import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * 通过java的方式注入Bean,该配置文件主要配置缓存相关
  * Created by Administrator on 2017/7/11 0011.
@@ -23,7 +26,13 @@ public class CacheConfig{
      */
     @Bean
     public CacheManager cacheManager(RedisTemplate redisTemplate){
-        return new RedisCacheManager(redisTemplate);
+        RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate);
+        // 设置指定条目(区域)的key的过期时间,单位秒
+        Map<String,Long> map = new HashMap<String, Long>();
+        map.put("activityCache",100L);
+
+        redisCacheManager.setExpires(map);
+        return redisCacheManager;
     }
 
     @Bean
@@ -38,7 +47,6 @@ public class CacheConfig{
         RedisTemplate<String,Object> redisTemplate = new RedisTemplate<String, Object>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.afterPropertiesSet();
-//        redisTemplate.setValueSerializer(new GenericToStringSerializer<Object>(Object.class));
         return redisTemplate;
     }
 }

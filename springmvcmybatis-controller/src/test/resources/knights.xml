@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:util="http://www.springframework.org/schema/util" xmlns:jee="http://www.springframework.org/schema/jee"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:task="http://www.springframework.org/schema/task"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:aop="http://www.springframework.org/schema/aop"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
+		http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee-3.2.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+		http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-2.5.xsd">
+
+	<bean id="quest" class="springstudy.knights.SlayDragonQuest">
+		<!--Spring表达式语言: spring expression language-->
+		<constructor-arg value="#{T(System).out}"/>
+	</bean>
+
+	<bean id="knight" class="springstudy.knights.BraveKnight">
+		<!--构造函数中传入引用-->
+		<constructor-arg ref="quest"/>
+	</bean>
+
+	<bean id="minstrel" class="springstudy.knights.Minstrel">
+		<constructor-arg value="#{T(System).out}"/>
+	</bean>
+
+    <bean class="springstudy.aop.EncoreableIntroducer"/>
+
+	<!--定义一个切面-->
+	<aop:config>
+		<!--指定切面类-->
+		<aop:aspect ref="minstrel">
+			<!--定义切入点-->
+			<aop:pointcut id="embark" expression="execution(* *.embarkOnQuest(..))"/>
+			<!--声明前置通知-->
+			<aop:before pointcut-ref="embark" method="singBeforeQuest"/>
+			<!--声明后置通知-->
+			<aop:after pointcut-ref="embark" method="singAfterQuest"/>
+		</aop:aspect>
+	</aop:config>
+
+	<!--组件扫描配置, 如果用java配置,可以配置多个基础包路径-->
+	<context:component-scan base-package="springstudy"></context:component-scan>
+
+	<!--在xml配置中引入java配置-->
+	<bean class="springstudy.config.JavaConfig"></bean>
+
+	<!--通过import元素可以引入其它xml文件-->
+	<!--<import resource="test.xml"/>-->
+
+</beans>

@@ -1,8 +1,10 @@
 package com.tian.springmvcmybatis.dao.entity;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Activity {
+public class Activity implements Serializable {
+    private static final long serialVersionUID = 5604464426541526306L;
     private Long id;
 
     private String name;

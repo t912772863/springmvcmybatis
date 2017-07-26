@@ -10,6 +10,8 @@
 <head>
     <title>活动列表</title>
     <link rel="stylesheet" type="text/css" href="/resource/plugin/datatables/media/css/jquery.dataTables.css">
+    <script type="text/javascript" src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+    <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
     <script type="text/javascript" charset="utf8" src="/resource/plugin/datatables/media/js/jquery.js"></script>
     <script type="text/javascript" charset="utf8" src="/resource/plugin/datatables/media/js/jquery.dataTables.js"></script>
 </head>

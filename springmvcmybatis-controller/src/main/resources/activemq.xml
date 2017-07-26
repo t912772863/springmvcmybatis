@@ -6,7 +6,7 @@
         http://www.springframework.org/schema/beans
         http://www.springframework.org/schema/beans/spring-beans-4.1.xsd
         http://activemq.apache.org/schema/core
-        http://activemq.apache.org/schema/core/activemq-core-5.12.1.xsd">
+        http://activemq.apache.org/schema/core/activemq-core-5.8.0.xsd">
 
     <!--注意下面的url不要写成http://localhost:8161/, 这个是admin管理页面的地址.activemq用的是tcp协议-->
     <amq:connectionFactory id="amqConnectionFactory"

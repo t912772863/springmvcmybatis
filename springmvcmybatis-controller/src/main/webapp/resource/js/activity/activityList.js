@@ -12,6 +12,30 @@ $(function () {
             }
         }
     });
+
+    var url = "http://"+window.location.host+"/marcopolo";
+    // 创建SocketJS连接
+    var sock = new SockJS(url);
+    // 创建stomp客户端
+    var stomp= Stomp.over(sock);
+    var payload = JSON.stringify({'message':'Marco!'});
+    // 连接stomp端点, 发送消息
+    stomp.connect('guest', 'guest', function (frame) {
+        stomp.send("/app/marco",{},payload);
+    });
+
+
+    stomp.connect('guest', 'guest', function (frame) {
+        stomp.send("/app/marco2",{},payload);
+        // 订阅主题,可以接收该主题的消息
+        stomp.subscribe("/topic/shout",handleShout);
+    });
+
+    function handleShout(incoming) {
+        var data = JSON.parse(incoming.body);
+        alert("receive: "+data.message);
+    }
+
 });
 
 function setData(data) {

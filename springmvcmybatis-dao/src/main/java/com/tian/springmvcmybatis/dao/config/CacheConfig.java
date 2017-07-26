@@ -13,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
+ * service层和Controller层可以不关注数据持久层的缓存,所以该配置文件放在dao层
  * 通过java的方式注入Bean,该配置文件主要配置缓存相关
  * Created by Administrator on 2017/7/11 0011.
  */

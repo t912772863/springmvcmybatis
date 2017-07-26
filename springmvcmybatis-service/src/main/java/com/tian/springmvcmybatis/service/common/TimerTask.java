@@ -1,13 +1,14 @@
 package com.tian.springmvcmybatis.service.common;
 
+import com.tian.common.util.DateUtil;
+import com.tian.common.util.DocumentUtil;
+import com.tian.common.util.JedisUtil;
 import com.tian.springmvcmybatis.dao.dto.ActivityDto;
 import com.tian.springmvcmybatis.dao.entity.SendMessage;
 import com.tian.springmvcmybatis.service.IActivityService;
 import com.tian.springmvcmybatis.service.IFileService;
 import com.tian.springmvcmybatis.service.ISendMessageService;
-import com.tian.common.util.DateUtil;
-import com.tian.common.util.DocumentUtil;
-import com.tian.common.util.JedisUtil;
+import com.tian.springmvcmybatis.service.MessageServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
@@ -18,6 +19,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
@@ -47,6 +49,8 @@ public class TimerTask {
     ISendMessageService sendMessageService;
     @Autowired
     IFileService fileService;
+    @Autowired
+    MessageServiceImpl messageService;
 
     @PostConstruct
     public void init(){
@@ -183,5 +187,21 @@ public class TimerTask {
         if(switchMap.get(id)){
             executor.execute(runnable);
         }
+    }
+
+    /**
+     * 测试发送消息到web页面的功能
+     */
+    @Scheduled(cron = "0 0/1 * * * ?")
+    public void testSendMessageToWeb(){
+        messageService.sendMessage("/topic/message","test send message");
+
+        String userId = null;
+        if(new Random().nextBoolean()){
+            userId = "1";
+        }else{
+            userId = "2";
+        }
+        messageService.sendMessageToUser(userId,"/message","only for you!"+userId);
     }
 }

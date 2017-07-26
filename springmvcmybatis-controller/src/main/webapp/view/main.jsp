@@ -10,6 +10,8 @@
     <title>菜单页面</title>
     <script src="../resource/js/common/jquery-1.10.2.min.js"></script>
     <script src="../resource/js/common/cookieTool.js"></script>
+    <script type="text/javascript" src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
+    <script src="https://cdn.bootcss.com/stomp.js/2.3.3/stomp.js"></script>
 </head>
 <body style="background: none;">
     <div id = menu_list>
@@ -33,6 +35,31 @@
                 }
             }
         });
+
+        // webSocket通信
+        var url = "http://"+window.location.host+"/marcopolo";
+        // 创建SocketJS连接
+        var sock = new SockJS(url);
+        // 创建stomp客户端
+        var stomp= Stomp.over(sock);
+
+        stomp.connect('guest', 'guest', function (frame) {
+            // 订阅主题,可以接收该主题的消息
+            stomp.subscribe("/topic/message",handleMessage);
+
+            // 订阅当前用户
+            stomp.subscribe('/user/' + getCookie("user_id") + '/message',function (incoming) {
+                alert("用户订阅: "+incoming.body);
+            });
+        });
+
+        /**
+         * 处理接收到的消息内容的方法
+         * @param incoming 从后台接收到的消息内容
+         */
+        function handleMessage(incoming) {
+            alert("receive message: "+incoming.body);
+        }
     });
 
     /**

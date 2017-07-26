@@ -10,6 +10,8 @@
 <head>
     <title>订单管理页面</title>
     <link rel="stylesheet" type="text/css" href="/resource/plugin/datatables/media/css/jquery.dataTables.css">
+    <%--引入socketjs, 实现后台与web页面的通讯功能--%>
+    <script type="text/javascript" src="http://cdn.sockjs.org/sockjs-0.3.min.js"></script>
     <script type="text/javascript" charset="utf8" src="/resource/plugin/datatables/media/js/jquery.js"></script>
     <script type="text/javascript" charset="utf8" src="/resource/plugin/datatables/media/js/jquery.dataTables.js"></script>
 </head>

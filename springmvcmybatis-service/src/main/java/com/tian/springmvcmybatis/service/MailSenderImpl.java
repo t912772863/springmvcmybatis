@@ -35,8 +35,6 @@ public class MailSenderImpl {
         simpleMailMessage.setText(message);
         // 发送
         javaMailSender.send(simpleMailMessage);
-        System.out.println("=====");
-
     }
 
 }

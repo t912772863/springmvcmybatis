@@ -3,7 +3,7 @@ package com.tian.springmvcmybatis.service.config;
 import com.sun.mail.util.MailSSLSocketFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.mail.MailSender;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class CommonConfig {
      * @return
      */
     @Bean
-    public MailSender mailSender(){
+    public JavaMailSender mailSender(){
         Properties prop = new Properties();
         try {
             // 读取配置文件

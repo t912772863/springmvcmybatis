@@ -1,6 +1,7 @@
 package com.tian.springmvcmybatis.controller;
 
 import com.tian.common.other.ResponseData;
+import com.tian.common.validation.NotNull;
 import com.tian.springmvcmybatis.service.MailSenderImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -29,9 +30,26 @@ public class SendMailController extends BaseController{
      */
     @RequestMapping("send_mail")
     @ResponseBody
-    public ResponseData sendMail(String subject, String message, String receivers){
+    public ResponseData sendMail(@NotNull String subject,@NotNull String message,@NotNull String receivers){
         String[] receiversArr = receivers.split(",");
-        mailSender.sendMail(mailSenderAccount,subject,message,receiversArr);
+        mailSender.sendTextMail(mailSenderAccount,subject,message,receiversArr);
+        return success;
+    }
+
+    /**
+     * 发送带有附件的邮件
+     * @param subject
+     * @param message
+     * @param receivers
+     * @param filePath
+     * @return
+     * @throws Exception
+     */
+    @RequestMapping("send_multipart_mail")
+    @ResponseBody
+    public ResponseData sendMultipartMail(@NotNull String subject,@NotNull String message,@NotNull String receivers,@NotNull String filePath) throws Exception{
+        String[] receiversArr = receivers.split(",");
+        mailSender.sendMultipartMail(mailSenderAccount,subject,message,filePath,receiversArr);
         return success;
     }
 }

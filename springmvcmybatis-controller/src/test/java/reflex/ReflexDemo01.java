@@ -1,13 +1,14 @@
 package reflex;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 /**
  * Created by Administrator on 2016/11/23 0023.
  */
 public class ReflexDemo01 {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
         ReflexDemo01 reflexDemo = new ReflexDemo01();
         // 属性获取, 该方法,只能获取到非private的属性, 比如本示例中的test属性.
         Field[] fields = ReflexDemo01.class.getFields();
@@ -22,9 +23,15 @@ public class ReflexDemo01 {
             System.out.println(f.getName());
             // 属性的类型
             System.out.println(f.getGenericType().toString());
+
+            // 获取属性的值
+            String fieldName = f.getName();
+            String getMethodName = "get"+ fieldName.substring(0, 1).toUpperCase() + fieldName.substring(1);
+            Method getMethod = o.getClass().getMethod(getMethodName, new Class[] {});
+            Object value = getMethod.invoke(o, new Object[] {});
+            System.out.println(value.toString());
+
         }
-
-
 
         // 方法获取
         Method[] methods = ReflexDemo01.class.getMethods();
@@ -44,8 +51,8 @@ public class ReflexDemo01 {
     }
 
 
-    private int age;
-    private String name;
+    private int age=100;
+    private String name = "tian";
     public String test;
 
     public String getTest() {

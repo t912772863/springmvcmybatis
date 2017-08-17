@@ -133,20 +133,20 @@
 	</bean>
 
 	<!--拦截器配置-->
-	<!--<mvc:interceptors>
+	<mvc:interceptors>
 		<mvc:interceptor>
 			<mvc:mapping path="/*/*"/>
-			<mvc:exclude-mapping path="/user/login"/>
+			<mvc:exclude-mapping path="/login/*"/>
 			<bean class="com.tian.springmvcmybatis.controller.common.LoginHandlerInterceptor">
-				&lt;!&ndash;低版本的spring不支付exclude-mapping,所在可以通过注入值的方式,在拦截器里面处理相关的逻辑 &ndash;&gt;
-				&lt;!&ndash;<property name="uncheckUrls">
+				<!--低版本的spring不支付exclude-mapping,所在可以通过注入值的方式,在拦截器里面处理相关的逻辑-->
+				<!--<property name="uncheckUrls">
 					<list>
 						<value>/user/login</value>
 					</list>
-				</property>&ndash;&gt;
+				</property>-->
 			</bean>
 		</mvc:interceptor>
-	</mvc:interceptors>-->
+	</mvc:interceptors>
 
 	<!--文件上传-->
 	<bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">

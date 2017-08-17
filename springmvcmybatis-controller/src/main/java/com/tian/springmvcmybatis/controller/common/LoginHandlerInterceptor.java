@@ -1,11 +1,13 @@
 package com.tian.springmvcmybatis.controller.common;
 
-import com.tian.common.other.BusinessException;
+import com.tian.common.util.HttpUtils;
+import org.json.JSONObject;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * 登录拦截器, 已经弃用, 改用切面实现,对所有调用controller的方法都拦截,进行是否登录的检验
@@ -34,11 +36,31 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
 //            return true;
 //        }
         // 先查看用户是否为登录状态
-        if (httpServletRequest.getSession(true).getAttribute("user")!=null){
+        HttpSession session = httpServletRequest.getSession(true);
+        if (session.getAttribute("user")!=null){
             return true;
+        }else{
+            String token = httpServletRequest.getParameter("token");
+            if(token != null){
+                // 验证token
+                String result = HttpUtils.doGet("http://localhost:8086/singlesign/login/check_token?token="+token);
+                JSONObject jsonObject = new JSONObject(result);
+                boolean index = jsonObject.getBoolean("data");
+                if(index){
+                    // 验证通过, 创建session
+                    session.setAttribute("user", token);
+                    return true;
+                }
+            }
+
+            // 没有登录, 重定向到登录页面  http://localhost:8082/singlesign/   http://localhost:8086/singlesign/
+            String uri = httpServletRequest.getRequestURL().toString();
+            // 带着本次请求的url, 跳转到认证中心去
+            httpServletResponse.sendRedirect("http://localhost:8086/singlesign/login/to_index?url="+uri);
+            return false;
         }
         // 不能放行.说明未登录
-        throw new BusinessException(501,"请先登录");
+//        throw new BusinessException(501,"请先登录");
     }
 
     public void postHandle(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, Object o, ModelAndView modelAndView) throws Exception {

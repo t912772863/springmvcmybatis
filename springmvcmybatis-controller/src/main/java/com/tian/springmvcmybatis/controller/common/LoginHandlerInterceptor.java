@@ -8,6 +8,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.util.Map;
 
 /**
  * 登录拦截器, 已经弃用, 改用切面实现,对所有调用controller的方法都拦截,进行是否登录的检验
@@ -54,9 +55,16 @@ public class LoginHandlerInterceptor implements HandlerInterceptor {
             }
 
             // 没有登录, 重定向到登录页面  http://localhost:8082/singlesign/   http://localhost:8086/singlesign/
-            String uri = httpServletRequest.getRequestURL().toString();
+            String url = httpServletRequest.getRequestURL().toString()+"?";
+            Map<String ,String[]> map = httpServletRequest.getParameterMap();
+            for (Map.Entry<String , String[]> entry:map.entrySet()) {
+                url += entry.getKey()+"="+(entry.getValue())[0]+"&";
+            }
+            url = url.substring(0, url.length()-1);
+
+
             // 带着本次请求的url, 跳转到认证中心去
-            httpServletResponse.sendRedirect("http://localhost:8086/singlesign/login/to_index?url="+uri);
+            httpServletResponse.sendRedirect("http://localhost:8086/singlesign/login/to_index?url="+url);
             return false;
         }
         // 不能放行.说明未登录

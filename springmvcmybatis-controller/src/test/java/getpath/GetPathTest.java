@@ -16,11 +16,11 @@ public class GetPathTest {
         获取到class文件的绝对路径
         方法获得当前生成的class的绝对路径(此方法在jar包中无效，因为他获得的是生成的class的路径，返回的内容最后包含/)
          */
-        String path1 = GetPathTest.class.getResource("").toString();
+        String path1 = GetPathTest.class.getResource("").getPath();
         System.out.println("path1: "+path1);
 
         // 根路径, jar中无效
-        String path8 = GetPathTest.class.getResource("/").toString();
+        String path8 = GetPathTest.class.getResource("/").getPath();
         System.out.println("path8: "+path8);
 
 

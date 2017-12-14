@@ -14,7 +14,7 @@
         </commentGenerator>
         <!--数据库链接URL，用户名、密码 -->
         <jdbcConnection driverClass="com.mysql.jdbc.Driver"
-                        connectionURL="jdbc:mysql://localhost:3306/springmvc_mybatis2?characterEncoding=UTF-8" userId="root"
+                        connectionURL="jdbc:mysql://localhost:3306/springmvc_mybatis?characterEncoding=UTF-8" userId="root"
                         password="06220724">
         </jdbcConnection>
         <javaTypeResolver >
@@ -36,8 +36,8 @@
                              targetPackage="com.tian.springmvcmybatis.dao.mapper" targetProject="./src/main/java">
             <property name="enableSubPackages" value="true" />
         </javaClientGenerator>
-        <table tableName="role" schema="louis"
-               domainObjectName="Role" enableCountByExample="false"
+        <table tableName="send_message" schema="louis"
+               domainObjectName="SendMessage" enableCountByExample="false"
                enableUpdateByExample="false" enableDeleteByExample="false"
                enableSelectByExample="false" selectByExampleQueryId="false">
         </table>

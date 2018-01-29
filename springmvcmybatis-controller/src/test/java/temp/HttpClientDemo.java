@@ -27,17 +27,18 @@ import java.util.List;
 public class HttpClientDemo {
     public static void main(String[] args) throws Exception {
         testPostOfJson();
+
     }
 
     /**
      * get请求
      */
     public static void testGet() {
-        String urlNameString = "http://localhost:8080/common/refreshSystemCache";
+        String urlNameString = "http://183.56.132.30:28018/sms/smgsend/messageuser/sendMoibleMessageBnetWithCount?";
         String result = "";
         try {
             // 根据地址获取请求
-            HttpGet request = new HttpGet(urlNameString);//这里发送get请求
+            HttpGet request = new HttpGet(urlNameString+"CD2BC35D380050D7645AC0B504CF9CF918EF94799CCC6B2062DC17EE3D7AE50DA9508272249BB7C9F55300D68636EF4105AFFFEEA59C62F853FFED9A3589E5EC75FC2A44543CF8513978CB57F37952A9C9BCFD2B1ACA44352B9B3B87C6CE27523B432F4B3B52B802B47393B15448ED94435AFFF7A9C7EF150FAD6E464DB93C2C");//这里发送get请求
             // 获取当前客户端对象
             HttpClient httpClient = new DefaultHttpClient();
             // 通过请求对象获取响应对象
@@ -59,7 +60,7 @@ public class HttpClientDemo {
      * @throws Exception
      */
     public static void testPost() throws Exception {
-        String url = "http://192.168.8.236:40295/smsgw/sms";
+        String url = "http://183.56.132.30:28018/sms/smgsend/messageuser/sendMoibleMessageBnetWithCount?";
 //POST的URL
         HttpPost httppost = new HttpPost(url);
 //建立HttpPost对象
@@ -83,7 +84,10 @@ public class HttpClientDemo {
      * @throws Exception
      */
     public static void testPostOfJson() throws Exception {
-        HttpPost httpPost = new HttpPost("http://localhost:8083/test/testPush");
+//        String url = "http://localhost:8083/test/testPush";
+        String url = "http://121.15.167.229:18080/SendMailModule/SMSUplinkServlet";
+//        String url = "http://localhost:8085/SendMailModule/SMSUplinkServlet";
+        HttpPost httpPost = new HttpPost(url);
         CloseableHttpClient client = HttpClients.createDefault();
         String respContent = null;
 
@@ -94,8 +98,9 @@ public class HttpClientDemo {
         obj.put("power", 0);
         obj.put("shorNumber", 12345678);
         System.out.println(obj.toJSONString());
-
-        StringEntity entity = new StringEntity(obj.toJSONString(), "utf-8");//解决中文乱码问题
+        //解决中文乱码问题
+        StringEntity entity = new StringEntity(obj.toJSONString(), "utf-8");
+//        StringEntity entity = new StringEntity("<?xml version=\"1.0\" encoding=\"GBK\"?><delivers><deliver><corp_id>moSMS</corp_id><mobile>13510272498</mobile><ext>10658139991937</ext><time>2017-04-13 06:28:21</time><content></content></deliver></delivers>", "utf-8");
         entity.setContentEncoding("UTF-8");
         entity.setContentType("application/json");
         httpPost.setEntity(entity);
@@ -107,7 +112,6 @@ public class HttpClientDemo {
             HttpEntity he = resp.getEntity();
             respContent = EntityUtils.toString(he, "UTF-8");
         }
-        System.out.println("http://localhost:8083/test/testPush");
         System.out.println(respContent);
     }
 }

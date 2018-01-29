@@ -1,3 +1,8 @@
-讲解jstat -gcutil的
+1. 讲解jstat -gcutil的
 命令: jstat -gcutil $(pgrep java|head -1) 1s
+      jstat -gc 进程号 5s
 参考文章:http://www.mamicode.com/info-detail-1839781.html
+         http://blog.csdn.net/zlzlei/article/details/46471627
+
+2. jvm调优常用配置
+   参考文章: http://www.importnew.com/19264.html

@@ -13,7 +13,7 @@ public class Demo01 {
             }
         }).start();
         // java8以后, 可以一个Lambda表达式简化  () ->代表了整个匿名类
-        new Thread(() -> System.out.print("In Java8, Lambda expression rocks !!")).start();
+//        new Thread(() -> System.out.print("In Java8, Lambda expression rocks !!")).start();
 
 
 

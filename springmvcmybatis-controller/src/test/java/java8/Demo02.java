@@ -17,7 +17,7 @@ public class Demo02 {
         }
 
         // 现在可以简化为.  使用Java 8的方法引用更方便，方法引用由::双冒号操作符标示
-        list.forEach(System.out :: println);
+//        list.forEach(System.out :: println);
 
 
 

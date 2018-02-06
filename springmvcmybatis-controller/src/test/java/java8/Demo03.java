@@ -19,21 +19,21 @@ public class Demo03 {
 //        filter(languages, (str)->str.endsWith("a"));
 
         System.out.println("Print all languages :");
-        filter(languages, (str)->true);
+//        filter(languages, (str)->true);
 
         System.out.println("Print no language : ");
-        filter(languages, (str)->false);
+//        filter(languages, (str)->false);
 
 //        System.out.println("Print language whose length greater than 4:");
 //        filter(languages, (str)->str.length() > 4);
     }
 
 
-    public static void filter(List<String> names, Predicate condition) {
-        for(String name: names)  {
-            if(condition.test(name)) {
-                System.out.println(name + " ");
-            }
-        }
-    }
+//    public static void filter(List<String> names, Predicate condition) {
+//        for(String name: names)  {
+//            if(condition.test(name)) {
+//                System.out.println(name + " ");
+//            }
+//        }
+//    }
 }

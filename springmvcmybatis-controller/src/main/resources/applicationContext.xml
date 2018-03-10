@@ -120,6 +120,7 @@
 	<!-- 自动注入事物,也就是@Transaction注解的处理器-->
 	<tx:annotation-driven transaction-manager="transactionManager" />
 
+	<!--启用定时任务注解-->
 	<task:annotation-driven />
 
 	<!--配置使可以通过注解简化读取配置文件 -->

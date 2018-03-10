@@ -96,6 +96,7 @@ public class TestController extends BaseController{
     @RequestMapping("test_session")
     @ResponseBody
     public ResponseData testSession(HttpServletRequest request, HttpServletResponse response){
+
         System.out.println(request.getSession());
         System.out.println(request.getSession().getId());
         System.out.println(request.getSession().getAttributeNames());

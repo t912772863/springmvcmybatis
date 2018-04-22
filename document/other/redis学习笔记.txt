@@ -1,0 +1,240 @@
+redis是什么?
+Redis: remote dictionary server(远程字典服务器), 是完全开源免费的,用C语言写的,遵守BSD协议,是一个高性能的K/V分布式内在数据库,基于内存运行,并支持持久化的NoSql数据库. 是当前最热门的NoSql数据库之一.也被人们称为数据结构服务器
+
+redis特点:
+redis支持数据的持久化,可以将内存中的数据保持在磁盘中,重启的时候可以再次加载进行使用.
+redis不仅仅支持简单的K/V类型的数据,同时还提供list.set.zset.hash等数据结构的存储.
+redis支持数据的备份,即master-slave模式的数据备份.
+
+redis能干嘛:
+内存存储和持久化,redis支持异步将内存中的数据写到硬盘上,同时不影响继续服务.
+取最新N个的操作,如:可以将最新的10条评论的id放在redis的list集合里面.
+模拟类似于httpSession这种需要设定过期时间的功能
+发布,订阅消息系统
+定时器,计数器
+
+redis怎么玩:
+数据类型,基本操作和配置, 持久化和复制, RDB/AOF, 事务的控制, 复制,......
+
+redis安装:
+1. 解压:tar -xzvf redis.tar.gz
+2. 在解压后的目录执行: make命令
+3. 如果步骤2中出现错误, gcc命令未找到. 因为redis是c语言写的. 而gcc是c语言的一个编译工具,
+   所以要先安装gcc. (yum install gcc-c++)
+4. make命令.
+
+redis指定配置文件启动.
+一般不修改默认的配置文件, 复制一份然后修改配置,指定路径启动
+redis-server /path/redis.conf  启动服务端
+redis-cli -p 6379  启动一个客户端
+(可以通过修改端口号,同时启动多个redis服务)
+
+
+
+常用命令:
+redis-cli -p 6379  启动客户端
+ping 查看是否能连通
+set k1 hello 设置一个变量名为k1值为hello, 如果k1之前已经存在, 会被覆盖
+get k1 获取k1的值
+select 1 切换到1号库.
+
+
+redis默认有16个库,下标从0到15.
+
+dbsize 查看当前库的key的个数
+keys * 查看当前库的所有key值
+flushdb 清除当前库所有值
+flushall 清除所有库的值
+
+redis的五大数据类型:
+String字符串, Hash哈希,类似java里面的map; List列表; set集合; Zset有序集合
+     string是redis最基本的类型,你可以理解成与Memcached一模一样的类型, 一个key对应一个value.
+     string类型是二进制安全的, 意思是redis的string可以包含任何数据. 比如jpg图片或者序列化对象.
+
+
+
+redis参考命令地址: http://redisdoc.com/
+-------------string
+exists tian 查看是否有k为tian的值存在. 返回1表示有,0表示没有.
+move tian 2 把当前库中, key为tian的值,移动到2号库中去
+ttl tian 查看tian这个值还有多久过期, -1表示永不过期, -2表示已经过期
+expire tian 10 给tian这个值设定一个过期时间(10秒)
+del tian 删除tian这个key
+append tian 123 在key为tian的值后面拼上123字符串
+strlen tian 返回tian这个值的长度
+incr k2 让k2的值加1(返回增加后的值)
+decr k2 让k2的值减1(返回减少后的值)
+incrby k2 3 让k2的值加3
+decrby k2 3 让k2的值减3
+getrange tian 0 -1 获取tian的从开到结尾的值
+getrange tian 0 1 获取tian的从0到1的值,含头含尾
+setrange tian 0 xxx 修改tian的值, 从0位开始,修改3个位置为xxx
+setex k4 10 v4 设置k4的值为v4,过期时间为10
+setnx tian tt 设置一个tian的值为tt,如果数据库中不存在tian,存在则相当于没执行
+mset k1 v1 k2 v2 k3 v3 一次性设置了3个值
+mget k1 k2 k3 一次性获取三个值
+msetnx k3 v3 k4 v4 (操作之前存在k3,不存在k4)该操作会失败, 相当于什么也没执行
+
+
+------------List
+redis中的list有点类似于双端队列, 可以选择从左, 或者右边放入, 只能从左边取元素
+它是一个字符串链表, left,right都可以插入添加.
+如果键不存在, 创建亲的链表.
+如果键已存在, 新增内容
+如果值已移除, 对应的键也就消失了.
+链表的操作无论是头和尾效率都极高, 但假如是对是间的元素进行操作,效率就比较低了.
+
+lpush list 1 2 3 4 5 在集合list1中从左边放入5个元素(1,2,3,4,5)
+lrange list 0 -1 获取集合list中从0到最后的元素
+rpush list 1 2 3 4 5 在集合list中从右边放入5个元素(1,2,3,4,5)
+lpop list 从左边弹出一个元素 (弹出后队列中就不存在了,获取可以重复取)
+rpop list 从右边弹出一个元素
+lindex list 0 获取list集合中从左边的第0个元素
+llen list 查看list中有多少个元素
+lrem list 2 3 在list集合中,从左边开始,删除两个元素值为3的元素,返回实际删除的个数.
+ltrim list 3 5 截取list集合中,从左边开始3到5这三个元素做为一个子集合,再赋值给list
+rpoplpush list1 list2 从list1集合的右边取出一个元素, 放入到list2集合的左边
+linsert list before(after) a java 中list集合中从左边找a元素,在前面(后面)插入一个java元素
+
+-----------set
+set中只能放不重复的元素
+
+sadd set1 1 1 2 3 在set1集合添加不重复的元素
+smembers set1 查看set1中所有的元素
+sismember set1 6 查看set1集合中是否有元素6, 有返回1, 没有返回0
+srem set1 3 从set1集合中删除元素3,返回0或者1
+srandmember set1 3 从set1集合中随机取出3个元素
+spop set1 从set1集合中随机弹出一个元素
+smove set1 set2 8 从set1集合中取出元素8放入set2集合中
+sdiff set1 set2 获取在set1,但是不在set2中的元素
+
+-----------hash
+KV模式不变, 但v是一个键值对
+hset user id 11 添加一个元素, k为user,这个元素中有一个id属性,值为11
+hget user id 获取user中id属性的值
+hmset user2 id 1 name tian age 18 添加一个元素user2,其中id属性1,name属性tian,age属性18
+hmget user2 id name age 获取user2中id,name,age的属性值
+hgetall user 获取user中所有的属性,以及属性的值
+hdel user id 删除user中id属性
+hexists user name 判断user中是否有name属性,1有,0没有
+hkeys user 得到user中所有的属性名
+hvals user 得到uesr中所有的属性值
+hincrby user age 2 给user中age属性的值增加2,返回的增加后的值
+hincrbyfloat user score 0.5 给user中score属性的值添加0.5(操作的是小数)
+
+
+-----------zset
+在set的基础上加了一个score值.
+比如之前set的语法: sadd set1 v1 v2 v3.
+现在zset的语法: zadd zset1 60 v1 70 v2
+zadd zset1 60 v1 70 v2 添加一个zset1集合, 其中两个元素v1为60分,v2为70分
+zrangebyscore zset1 60 (80 从zset1集合中获取分数大于等于60,小于80的元素
+zrem zset1 v1 从zset1集合中删除v1元素
+zrange zset1 0 -1 遍历zset1中所有的元素(不带分值)
+zrange zset1 0 -1 withscores 遍历zset1中所有的元素(包含分值)
+zcount zset1 60 (70 统计zset1中大于等于60,小于70分的元素的个数
+zrank zset1 v3 返回有序集合zset1中v3元素的排名.其中有序集成员按 score 值递增(从小到大)顺序排列。排名以 0 为底，也       就是说， score 值最小的成员排名为 0 。
+ZREVRANK 与上面的命令用法相似,区别在于排名是相反的.
+zscore zset1 v3 得到zset1集合中v3元素的分值
+
+
+-----------配置文件简介
+config get requirepass 获取当前redis的密码
+config set requirepass 123456 给redis设置一个密码,这样每一个访问命令都要求输入密码
+config get dir 获取redis的安装路径
+
+
+-----------redis持久化
+rdb(Redis DataBase)
+在指定的时间间隔内, 将内在中的数据集快照写入磁盘.也就是行话Snapshot快照,它恢复时是将
+快照文件支接读取到内存中. Redis会单独创建(fork)一个子进程来进行持久化, 会先将数据写入
+到一个临时文件中, 主进程是不进行任何IO操作的,这就确保了极高的性能.如果需要大规模的数据
+恢复,且对于数据恢复的完整性不是非常敏感,那RDB方式要比AOF方式更加的高效,RDB的缺点就是最
+后一次持久化的数据可能丢失.
+
+fork: 作用是复制一个与当前进程一样的进程, 就进程的所有数据(变量, 环境变量, 程序计数器等)
+      数值都和原进程一致, 但是是一个全新的进程, 并作为原进程的子进程.
+
+rdb保存的是dump.rdb文件. 启动时默认会加加载这个文件来恢复之前的数据.
+save 命令,立刻生成一个新的dump.rdb文件(这个时候redis暂停访问)
+bgsave 后台进行备份,同时不影响数据备份
+
+
+aof(Append Only File)
+以日志的形式来记录每个写操作,将redis执行过的所有写指令记录下来(读操作不记录),只许追加文件,
+不可以改写文件, redis启动之初会读取该文件重新构建数据, 换言之, redis重启的话就根据日志文件
+的内容将写指令从前到后执行一次以完成数据的恢复工作.
+
+rdb文件和aof文件可以共存, 默认加载的是aof文件,当aof文件格式异常时, 会无法启动服务
+当aof文件出现异常时,可以用redis自带的修复工具进行修复: redis-check-aof --fix appendonly.aof
+会把不符合规范的内容删除
+
+rewrite: 由于AOF采用的是文件追加的方式,文件会起来越大, 为了避免这种情况, 新增了重写机制,
+         当AOF文件超过了设定的域值时, 会进行压缩,只保留可以恢复数据的最小指令集, 可以通过
+         命令bgrewriteaof来人工触发.
+
+---------------------redis事务
+可以一次执行多个命令,本质是一组命令的集合, 一个事务中的所有命令都会序列化,按顺序地串行化
+执行而不会被其它命令插入, 不许加塞.
+Redis事务的几个命令:
+DISCARD: 取消事务, 放弃执行事务块内的所有命令.
+EXEC:  执行所有事务块内的命令.
+MULTI: 标记一个事务块的开始.
+UNWATH: 取消WATCH命令对所有key的监视.
+WATCH key [key ...] 监视一个或多个key, 如果在事务执行之前这个(这些)key被其它命令所改动,那么事务将被打断
+
+全体连坐: 如果在添加命令的过程中出现异常(比如异常命令), 后面再执行exec也全部失败.
+冤头债主: 如果在添加命令的时候没有异常, 执行的时候才出现异常(比如让一个非数据的值自增), 则扫行失败的不影响, 其它
+正常的命令还是会执行
+
+---------------------消息发布简介
+线程间, 发布与订阅的一种消息通知机制.
+1. 可以一次性订阅多个,subscribe c1 c2 c3
+2. 消息发布, publisth c2 hello-redis
+3. 订阅多个, 通配符, psubscribe new*
+4. 收取消息, publish new1 redis2018
+
+
+---------------------主从复制
+也就是我们所说的主从复制, 主机数据更新后根据配置和策略,自动同步到备机的master/slaver机制.
+master以写为主, slaver以读为主.
+怎么玩:1. 配从不配主
+       2. 从库配置: slvaeof主库ip主库端口
+       3. 修改配置文件细节操作
+       4. 常用3招: 一主二仆, 薪火相传, 反客为主
+
+一主二仆:
+    info replicaton 查看当前服务的信息(是主还是从机)
+    启动3个机子79,80,81默认都是master(主机).
+    SLAVEOF 127.0.0.1 6379 (在80,81机子上执行,则让定79机子为主, 自己为从slave, 会把主机上数据同步过来)
+    设定为从机的机子,只能读不能写, 写数据会出现异常
+
+    这个模式下, 如果主机挂了, 两个从机还是从机,原地待命,可以读.
+    主机再回来, 就像什么都没发生一样, 从机还是可以同步数据.
+    如果一个从机挂了, 不影响另一个从机的使用.
+    如果从机再重启, 它会变成一个与其它机子没有关系的主机.(因为之前设定主从关系是通过命令设置的)
+    每次与master断开之后, 都需要重新连接, 除非配置进redis.conf中
+
+薪火相传:
+    让80机子从79机子, 81机子从80机子.链状结构
+    这个时候,79显示主, 80,81都显示从, 不过80上也会显示他的从库.
+    链状的中间断了会影响后面所有的机子
+
+反客为主:
+    slaveof no one  当主机挂了时, 给某一个从库执行这个命令,它就成了新的主库.
+
+哨兵模式: 重点
+    可以理解为反客为主模式的主动版本, 够后台监控主机是否故障,如果主机挂了, 会自动从从机中选出一个新
+    主机, 并把其它从机,挂在新的主机下面.
+    如果之前的主机又恢复了, 也会被设为从机.
+    添加一个名为sentinel.conf文件, 里面的内容为:
+    sentinel monitor host6379 127.0.0.1 6379 1   其中sentinel monitor 为固定写法, host6379为给当前主机取的一个
+    名字, 主机的ip,端口号, 最后的1表示,主机挂了后, 剩下的机子选出票数多于1的就是新主机.
+    redis-sentinel /path/sentinel.conf 启动哨兵(后在后台一直监控redis机子).
+
+    一个哨兵可以监控多个master
+
+
+    
+
+

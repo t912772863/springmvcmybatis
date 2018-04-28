@@ -25,6 +25,8 @@ public class Demo001<E> {
         Map<DemoEnum, Set<DemoEnum>> map = new EnumMap<DemoEnum, Set<DemoEnum>>(DemoEnum.class);
         System.out.println(System.nanoTime() - startTime);
         System.out.println(System.currentTimeMillis() - startTime2);
+        char c = 46;
+        System.out.println(c+"");
     }
 
     public static void testEnum(DemoEnum a){

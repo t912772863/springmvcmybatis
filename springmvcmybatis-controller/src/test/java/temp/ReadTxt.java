@@ -1,6 +1,5 @@
 package temp;
 
-import com.tian.springmvcmybatis.dao.entity.File;
 import com.tian.common.util.FileUtil;
 
 import java.io.FileReader;
@@ -18,11 +17,9 @@ public class ReadTxt {
         // 有效号码集
         List<String> mobileList = new ArrayList<String>();
 
-        LineNumberReader lineNumberReader = new LineNumberReader(new FileReader("E:\\yuanwenjian.txt"));
-        File file = new File();
+        LineNumberReader lineNumberReader = new LineNumberReader(new FileReader("E:\\temp\\test.txt"));
 
-
-        int tottalLines = FileUtil.getTxtLineNumber("E:\\yuanwenjian.txt");
+        int tottalLines = FileUtil.getTxtLineNumber("E:\\temp\\test.txt");
         Pattern pattern = Pattern.compile("^(1[0-9]{10})$");
         for (int i = 1; i <= tottalLines; i++) {
             // 拿到每行的内容

@@ -27,7 +27,7 @@
             <param-name>contextConfigLocation</param-name>
             <!--框架会默认加载一个名为spring-servlet.xml的文件(这个名字和上面的servlet-name有关),或者加载指定的文件,这里所有的配置在上下文加载了,这里不需要加载,所
             以显式指定为空-->
-            <param-value></param-value>
+            <param-value>classpath:applicationContext.xml</param-value>
             <!--<param-value>classpath:applicationContext.xml;</param-value>-->
         </init-param>
         <load-on-startup>2</load-on-startup>

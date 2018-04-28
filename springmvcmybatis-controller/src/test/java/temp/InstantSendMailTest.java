@@ -32,13 +32,13 @@ public class InstantSendMailTest {
 //        String url = "http://121.15.167.229:18080/SendMailModule/IndustrySmsService";  // 开发环境
 //        String url = "http://211.136.10.228:8580/SendMailModule/SendSmsMailService";   // 自有环境
 //        String url = "http://172.16.16.84:8581/SendMailModule/IndustrySmsService";   // 自有环境
-        String url = "http://localhost:8088/SendMailModule/IndustrySmsService";
+        String url = "http://localhost:8085/SendMailModule/SendSmsMailService";
 //        String url = "http://openapi.mail.10086.cn:8580/SendMailModule/SendSmsMailService";
         String methodName = "sendmail";
         String uid = "13760869714";      //13842035301        //caixun_test              //发邮件人
         String receiverMail = _receiverMail;//"1351274169@hmg1.rd139.com";	//		//收件人
         String content = Base64.encode("邮件内容".getBytes("utf-8"));
-        String smsContent = "【百度金融】恭喜，您获得百度金融商城特邀资格";
+        String smsContent = "................................恭喜，您获得百度金融商城特邀资格";
         String title = Base64.encode((smsContent).getBytes("UTF-8"));
         String email_title = Base64.encode("这是一个email_title".getBytes("UTF-8"));
         Date date = new Date();
@@ -59,7 +59,7 @@ public class InstantSendMailTest {
                 + "sendsmspriority1"
                 +"serviceType"+serviceType
                 + "spnumber" + spnumber
-//                + "templateId" + templateId
+                + "templateId" + templateId
                 + "timestamp" + timestamp
                 //+"sendsmspriority2templateId"+templateId+"timestamp" + timestamp
                 + "title" + title
@@ -73,7 +73,7 @@ public class InstantSendMailTest {
         testXML.append("<?xml version=\"1.0\" encoding=\"UTF-8\"?>")
                 .append("<sendmail>")
                 .append("<sendsmspriority>1</sendsmspriority>")
-//                .append("<templateId>"+templateId+"</templateId>")
+                .append("<templateId>"+templateId+"</templateId>")
                 .append("<version>2.0</version>")
                 .append("<request_method>sendmail</request_method>")
                 .append("<app_key>" + appKey + "</app_key>")
@@ -171,7 +171,7 @@ public class InstantSendMailTest {
 
     public static void main(String[] args) throws Exception{
         // 黑: 13777718896  13800138000  13510272496  18928789779  13360032000
-        sendMail2("13510272496@139.com");
+        sendMail2("13510272496@139.com,13500000000@139.com");
 //        sendMail2("13800138000@139.com");
 //        sendMail2("13777718896@139.com");
     }

@@ -38,6 +38,8 @@ public interface IUserService {
      * @return
      */
     boolean testTransaction3();
+
+    boolean testTransaction4();
     /**
      * 分页查询用户信息
      * @param pageParam

@@ -37,6 +37,7 @@ public class RoleServiceImpl implements IRoleService {
     }
 
     public boolean insertRole(Role role) {
+        role.setCreateTime(new Date());
         roleMapper.insertSelective(role);
         return true;
     }

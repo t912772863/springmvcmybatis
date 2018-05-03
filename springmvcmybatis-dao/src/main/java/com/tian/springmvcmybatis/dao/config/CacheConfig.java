@@ -17,6 +17,7 @@ import java.util.Map;
  * 通过java的方式注入Bean,该配置文件主要配置缓存相关
  * Created by Administrator on 2017/7/11 0011.
  */
+// 标识该类为一个配置类
 @Configuration
 // 启用缓存
 @EnableCaching

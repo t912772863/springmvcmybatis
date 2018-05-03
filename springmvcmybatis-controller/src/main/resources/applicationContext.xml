@@ -23,8 +23,8 @@
 	<!--全局异常处理-->
 	<bean id="exceptionHandler" class="com.tian.springmvcmybatis.controller.common.DefaultExceptionHandler"/>
 
-	<!-- 加载数据源1 -->
-	<bean id="dbcpdatasource" class="org.apache.commons.dbcp.BasicDataSource">
+	<!-- 加载数据源1, 主数据源(主要用于写) -->
+	<bean id="dataSourceMaster" class="org.apache.commons.dbcp.BasicDataSource">
 		<property name="username" value="${data_source_username}"></property>
 		<property name="password" value="${data_source_password}"></property>
 		<property name="url" value="${data_source_url}"></property>
@@ -41,8 +41,38 @@
 		<property name="maxWait" value="60"></property>
 	</bean>
 
+	<!-- 加载数据源2, 主数据源(主要用于读)主从库数据一致性,在mysql服务中配置 -->
+	<bean id="dataSourceSlaver" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="username" value="${data_source_username2}"></property>
+		<property name="password" value="${data_source_password2}"></property>
+		<property name="url" value="${data_source_url2}"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="initialSize" value="1"></property>
+		<property name="maxActive" value="20"></property>
+		<property name="maxIdle" value="2"></property>
+		<property name="maxOpenPreparedStatements" value="5"></property>
+		<property name="maxWait" value="60"></property>
+	</bean>
+
+	<!--注入自己编写的多数据源切换类:DynamicDataSource继承了AbstractRoutingDataSource
+	下面对AbstractRoutingDataSource中的属性进行注入,
+	-->
+	<bean id="dataSource" class="com.tian.springmvcmybatis.dao.common.DynamicDataSource">
+		<property name="targetDataSources">
+			<map key-type="java.lang.String">
+				<entry key="dataSourceMaster" value-ref="dataSourceMaster"></entry>
+				<entry key="dataSourceSlaver" value-ref="dataSourceSlaver"></entry>
+			</map>
+		</property>
+		<!--这里配置的默认数据源可以支持事务, 按照我们要求的读写分离,只要对写控制事务也就够了-->
+		<property name="defaultTargetDataSource" ref="dataSourceMaster"></property>
+	</bean>
+
 	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
-		<property name="dataSource" ref="dbcpdatasource" />
+		<!--
+		这里默认给sqlSessionFactory注入dataSource, 也就是默认用主库, 通过切面拦截方法后, 根据读或写切换不同的dataSource
+		-->
+		<property name="dataSource" ref="dataSource" />
 		<property name="mapperLocations" value="classpath:com/tian/springmvcmybatis/dao/mapper/*.xml"></property>
 		<!--添加一个mybatis插件实现不同数据库的默认分页-->
 		<property name="plugins">
@@ -114,11 +144,11 @@
 
 	<!-- 配置事务 -->
 	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dbcpdatasource"  />
+		<property name="dataSource" ref="dataSource"  />
 	</bean>
 
 	<!-- 自动注入事物,也就是@Transaction注解的处理器-->
-	<tx:annotation-driven transaction-manager="transactionManager" />
+	<tx:annotation-driven transaction-manager="transactionManager"  />
 
 	<!--启用定时任务注解-->
 	<task:annotation-driven />

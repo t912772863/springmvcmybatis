@@ -55,7 +55,7 @@ public class TestController extends BaseController{
     }
 
     /**
-     * 测试事务控制(单个数据源)
+     * 测试事务控制(单个数据源,单个表)
      * @return
      */
     @RequestMapping("test_trancation")
@@ -66,7 +66,7 @@ public class TestController extends BaseController{
     }
 
     /**
-     * 测试事务控制(多个数据源)
+     * 测试事务控制(单个数据源, 多个表)
      * @return
      */
     @RequestMapping("test_trancation2")
@@ -77,13 +77,24 @@ public class TestController extends BaseController{
     }
 
     /**
-     * 测试事务控制(从数据源)
+     * 测试事务控制(多个数据源, 先插入, 再查询, 看看前面主库的插入事务是否还有效)
      * @return
      */
     @RequestMapping("test_trancation3")
     @ResponseBody
     public ResponseData testTransaction3(){
         userService.testTransaction3();
+        return success;
+    }
+
+    /**
+     * 测试两个不同的数据源, 同时做修改, 是否能同时回滚.
+     * @return
+     */
+    @RequestMapping("test_trancation4")
+    @ResponseBody
+    public ResponseData testTransaction4(){
+        userService.testTransaction4();
         return success;
     }
 

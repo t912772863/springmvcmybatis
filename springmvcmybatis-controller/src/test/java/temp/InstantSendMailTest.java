@@ -23,7 +23,9 @@ import java.util.Date;
  */
 public class InstantSendMailTest {
     public static void sendMail2(String _receiverMail) throws UnsupportedEncodingException {
+        // appkey(不用动)
         String appKey = "553137c5-d0ee-4e24-bc38-3db42df3e833";//开发环境
+        // appSecret(不用动)
         String appSecret = "9ba9666b-3dd1-45d5-8ef5-9df5678b672f";//;  IndustrySmsService
 
 //        String appKey = "569f172e-f388-47e3-bf32-c299fdf30585";//自有环境
@@ -32,25 +34,35 @@ public class InstantSendMailTest {
 //        String url = "http://121.15.167.229:18080/SendMailModule/IndustrySmsService";  // 开发环境
 //        String url = "http://211.136.10.228:8580/SendMailModule/SendSmsMailService";   // 自有环境
 //        String url = "http://172.16.16.84:8581/SendMailModule/IndustrySmsService";   // 自有环境
-        String url = "http://localhost:8085/SendMailModule/SendSmsMailService";
+        String url = "http://localhost:8801/sendMailModule/SendSmsMailService";
+        // 接口地址 (IndustrySmsService 替换 SendSmsMailService). 也就是两个接口. 请求参数完全一致.
+//        String url = "http://192.168.9.77:8088/SendMailModule/SendSmsMailService";
 //        String url = "http://openapi.mail.10086.cn:8580/SendMailModule/SendSmsMailService";
+        // 不用动
         String methodName = "sendmail";
+        // 不用动
         String uid = "13760869714";      //13842035301        //caixun_test              //发邮件人
         String receiverMail = _receiverMail;//"1351274169@hmg1.rd139.com";	//		//收件人
         String content = Base64.encode("邮件内容".getBytes("utf-8"));
-        String smsContent = "................................恭喜，您获得百度金融商城特邀资格";
+
+        // 短信内容 (替换成要下发的短信内容)
+        String smsContent = "你好啊";
         String title = Base64.encode((smsContent).getBytes("UTF-8"));
         String email_title = Base64.encode("这是一个email_title".getBytes("UTF-8"));
         Date date = new Date();
         date.setTime(date.getTime() + 40000000);
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String timestamp = sdf.format(date);
+        // 端口号(不用动)
         String spnumber = "106581399910021586524";// 开发环境
 //        String spnumber = "1065813988123";//自有环境
 
+        // 模版id(替换要匹配的模版: 模版需要等会把邮件给出的模版内容给到开发. 然后入库, 再把对应的模版ID给出来)
         String templateId = "1000295";
+        // 不用动
         String serviceType = "SMS";
 
+        // 不用动
         String beforeEncript = "app_key" + appKey + "app_secret" + appSecret + "content" + content
                 + "email_title"+ email_title
                 + "receiver_mail" + receiverMail
@@ -95,7 +107,12 @@ public class InstantSendMailTest {
         long startTime = System.currentTimeMillis();
         String resStr = httpRequest(testXML.toString(), url);
         long end = System.currentTimeMillis();
+
+        // 查看接口返回数据. 返回的xml中包括了"<resultcode>10002</resultcode>" 也就是10002异常码表示了模版不通过.
+        // <resultcode>000</resultcode>  000表示成功,也就是模版通过.
         System.out.println("耗时：" + (end - startTime) / 1000 + "返回XML：" + resStr);
+
+
     }
 
     public static String encriptMD5(String text) {
@@ -171,7 +188,7 @@ public class InstantSendMailTest {
 
     public static void main(String[] args) throws Exception{
         // 黑: 13777718896  13800138000  13510272496  18928789779  13360032000
-        sendMail2("13510272496@139.com,13500000000@139.com");
+        sendMail2("13510272496@139.com");
 //        sendMail2("13800138000@139.com");
 //        sendMail2("13777718896@139.com");
     }

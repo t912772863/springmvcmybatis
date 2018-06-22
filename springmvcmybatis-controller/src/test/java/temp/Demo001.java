@@ -1,32 +1,28 @@
 package temp;
 
-import java.util.EnumMap;
-import java.util.Map;
-import java.util.Set;
+import org.apache.commons.io.output.WriterOutputStream;
+
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.OutputStream;
 
 /**
  */
 public class Demo001<E> {
 
 
-    public static void main(String[] args) {
-        long startTime = System.nanoTime();
-        long startTime2 = System.currentTimeMillis();
-        System.out.println(startTime2);
-        DemoEnum[] arr = DemoEnum.values();
-//        for (DemoEnum d : arr){
-//            System.out.println(d.toString());
-//        }
+    public static void main(String[] args) throws IOException {
+//        http://121.15.167.235:8982/HeSmsCloud/smsTemplate/insertSmsTemplate
+        File file = new File("F://testip.txt");
+        OutputStream out = new WriterOutputStream(new FileWriter(file));
+        for(int i=0;i< 100000 ; i++){
+            out.write(("http://121.15.167.235:8982/HeSmsCloud/smsTemplate/insertSmsTemplate?a="+i+"\r\n").getBytes());
+        }
+        out.close();
 
+        String s = "";
 
-        DemoEnum demoEnum = DemoEnum.getEnumByAge(10);
-        System.out.println(demoEnum);
-
-        Map<DemoEnum, Set<DemoEnum>> map = new EnumMap<DemoEnum, Set<DemoEnum>>(DemoEnum.class);
-        System.out.println(System.nanoTime() - startTime);
-        System.out.println(System.currentTimeMillis() - startTime2);
-        char c = 46;
-        System.out.println(c+"");
     }
 
     public static void testEnum(DemoEnum a){

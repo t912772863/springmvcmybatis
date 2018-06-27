@@ -233,6 +233,7 @@ master以写为主, slaver以读为主.
     redis-sentinel /path/sentinel.conf 启动哨兵(后在后台一直监控redis机子).
 
     一个哨兵可以监控多个master
+    需要注意的一点是, 如果要用外网连哨兵, 则需要先用命令slaveof 指定不同节点间的关系(用外网)
 
 
     

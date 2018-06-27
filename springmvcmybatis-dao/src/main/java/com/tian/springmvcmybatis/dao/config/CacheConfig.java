@@ -6,10 +6,14 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
+import org.springframework.data.redis.connection.RedisNode;
+import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,11 +41,35 @@ public class CacheConfig{
         return redisCacheManager;
     }
 
+    /**
+     * 单机版本redis注入
+     * @return
+     */
+//    @Bean
+//    public JedisConnectionFactory redisConnectionFactory(){
+//        // 这里是单机模式的redis
+//        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+//        jedisConnectionFactory.afterPropertiesSet();
+//        return jedisConnectionFactory;
+//    }
+
+    /**
+     * 哨兵版本redis注入.
+     * @return
+     */
     @Bean
-    public JedisConnectionFactory redisConnectionFactory(){
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-        jedisConnectionFactory.afterPropertiesSet();
-        return jedisConnectionFactory;
+    public RedisConnectionFactory redisConnectionFactory(){
+        // 这里是哨兵模式的redis
+        RedisSentinelConfiguration sentinel = new RedisSentinelConfiguration();
+        RedisNode redisNode = new RedisNode("118.126.115.206",6379);
+        redisNode.setName("host6379");
+        sentinel.setMaster(redisNode);
+        List<RedisNode> list = new ArrayList<RedisNode>();
+        // 哨兵的地址
+        list.add(new RedisNode("118.126.115.206", 26379));
+        sentinel.setSentinels(list);
+        RedisConnectionFactory redisConnectionFactory =new JedisConnectionFactory(sentinel,null);
+        return redisConnectionFactory;
     }
 
     @Bean

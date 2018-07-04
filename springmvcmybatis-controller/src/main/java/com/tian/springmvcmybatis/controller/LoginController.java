@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -20,6 +22,7 @@ import javax.servlet.http.HttpServletRequest;
  */
 @Controller
 @RequestMapping("login")
+@SessionAttributes("testAttr")
 public class LoginController extends BaseController{
     @Autowired
     private IUserService userService;
@@ -30,10 +33,18 @@ public class LoginController extends BaseController{
      * 这个后端只返回json,不用再处理页面跳转等问题.
      * @return
      */
-//    @RequestMapping("to_login_view")
-//    public ModelAndView toLoginView(){
-//        return new ModelAndView("index");
-//    }
+    @RequestMapping("to_login_view")
+    public ModelAndView toLoginView(){
+        ModelAndView mav =new ModelAndView("index");
+        /*
+        默认情况下mav的addObject方法所添加的键值值对, 只在本次请求内有效.
+        但是在类上面加了@SessionAttributes("testAttr")
+        也就是本类的请求中, 如果有某个方法设置了一个属性名为testAttr的值.那么这个键值对将会被保存
+        到request的session对象中的attribute中去.
+         */
+        mav.addObject("testAttr", "attrValue");
+        return mav;
+    }
 
     /**
      * 用户登录接口(用户名,密码)

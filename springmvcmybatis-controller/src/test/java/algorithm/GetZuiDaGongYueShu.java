@@ -7,7 +7,7 @@ package algorithm;
  */
 public class GetZuiDaGongYueShu {
     public static void main(String[] args) {
-        System.out.println(getGreatestCommonDivisor(10340034,34536));
+        System.out.println(getGreatestCommonDivisor(1111111,1234567));
     }
 
     /**
@@ -30,4 +30,5 @@ public class GetZuiDaGongYueShu {
         int r = p%q;
         return getGreatestCommonDivisor(q,r);
     }
+
 }

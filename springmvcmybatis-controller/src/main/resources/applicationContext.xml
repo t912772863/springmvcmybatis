@@ -54,6 +54,18 @@
 		<property name="maxWait" value="60"></property>
 	</bean>
 
+	<bean id="dataSourceOracle" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="username" value="${data_source_username2}"></property>
+		<property name="password" value="${data_source_password2}"></property>
+		<property name="url" value="${data_source_url2}"></property>
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="initialSize" value="1"></property>
+		<property name="maxActive" value="20"></property>
+		<property name="maxIdle" value="2"></property>
+		<property name="maxOpenPreparedStatements" value="5"></property>
+		<property name="maxWait" value="60"></property>
+	</bean>
+
 	<!--注入自己编写的多数据源切换类:DynamicDataSource继承了AbstractRoutingDataSource
 	下面对AbstractRoutingDataSource中的属性进行注入,
 	-->

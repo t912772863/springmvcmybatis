@@ -1,9 +1,11 @@
 package com.tian.springmvcmybatis.dao.mapper;
 
+import com.tian.common.datasource.DataSource;
 import com.tian.springmvcmybatis.dao.entity.SystemMenu;
 
 import java.util.List;
 
+@DataSource("dataSourceMaster")
 public interface SystemMenuMapper {
     int deleteByPrimaryKey(Long id);
 
@@ -21,5 +23,6 @@ public interface SystemMenuMapper {
      * 查询所有
      * @return
      */
+    @DataSource("dataSourceMaster")
     List<SystemMenu> queryList();
 }

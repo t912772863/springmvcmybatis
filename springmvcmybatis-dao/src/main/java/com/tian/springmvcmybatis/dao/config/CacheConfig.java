@@ -45,32 +45,32 @@ public class CacheConfig{
      * 单机版本redis注入
      * @return
      */
-//    @Bean
-//    public JedisConnectionFactory redisConnectionFactory(){
-//        // 这里是单机模式的redis
-//        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-//        jedisConnectionFactory.afterPropertiesSet();
-//        return jedisConnectionFactory;
-//    }
+    @Bean
+    public JedisConnectionFactory redisConnectionFactory(){
+        // 这里是单机模式的redis
+        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+        jedisConnectionFactory.afterPropertiesSet();
+        return jedisConnectionFactory;
+    }
 
     /**
      * 哨兵版本redis注入.
      * @return
      */
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory(){
-        // 这里是哨兵模式的redis
-        RedisSentinelConfiguration sentinel = new RedisSentinelConfiguration();
-        RedisNode redisNode = new RedisNode("118.126.115.206",6379);
-        redisNode.setName("host6379");
-        sentinel.setMaster(redisNode);
-        List<RedisNode> list = new ArrayList<RedisNode>();
-        // 哨兵的地址
-        list.add(new RedisNode("118.126.115.206", 26379));
-        sentinel.setSentinels(list);
-        RedisConnectionFactory redisConnectionFactory =new JedisConnectionFactory(sentinel,null);
-        return redisConnectionFactory;
-    }
+//    @Bean
+//    public RedisConnectionFactory redisConnectionFactory(){
+//        // 这里是哨兵模式的redis
+//        RedisSentinelConfiguration sentinel = new RedisSentinelConfiguration();
+//        RedisNode redisNode = new RedisNode("118.126.115.206",6379);
+//        redisNode.setName("host6379");
+//        sentinel.setMaster(redisNode);
+//        List<RedisNode> list = new ArrayList<RedisNode>();
+//        // 哨兵的地址
+//        list.add(new RedisNode("118.126.115.206", 26379));
+//        sentinel.setSentinels(list);
+//        RedisConnectionFactory redisConnectionFactory =new JedisConnectionFactory(sentinel,null);
+//        return redisConnectionFactory;
+//    }
 
     @Bean
     public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){

@@ -28,7 +28,7 @@ import java.util.concurrent.LinkedBlockingQueue;
  * 定时任务类
  * Created by Administrator on 2016/12/9 0009.
  */
-@Component
+//@Component
 public class TimerTask {
 
     /**

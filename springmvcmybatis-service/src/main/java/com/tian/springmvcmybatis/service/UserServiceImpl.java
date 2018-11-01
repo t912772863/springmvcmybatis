@@ -1,10 +1,13 @@
 package com.tian.springmvcmybatis.service;
 
+import com.tian.common.datasource.MultiTransactional;
 import com.tian.common.other.PageParam;
+import com.tian.springmvcmybatis.dao.entity.Button;
 import com.tian.springmvcmybatis.dao.entity.Role;
 import com.tian.springmvcmybatis.dao.entity.User;
 import com.tian.springmvcmybatis.dao.mapper.UserMapper;
 import com.tian.common.other.BusinessException;
+import com.tian.springmvcmybatis.dao.mapper.hpfd.ButtonMapper;
 import com.tian.springmvcmybatis.service.common.InnerConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +28,8 @@ public class UserServiceImpl implements IUserService {
     private ISystemMenuService systemMenuService;
     @Autowired
     private IRoleService roleService;
+    @Autowired
+    private ButtonMapper buttonMapper;
 
     public boolean insertUser(User user) {
         user.setCreateTime(new Date());
@@ -108,10 +113,12 @@ public class UserServiceImpl implements IUserService {
     /**
      * 测试两次插入不同的数据源中, 是否可以同时管理事务
      *
+     * 这里通过动态数据源实现切换. 但是如果添加了事务注解, 则会在方法开始时就获取连接, 是间不会再切换数据源,导致动态数据源无效.
+     *
      * 结论,按照普通的事务配置方法, 是无法管理两个数据源的事务的, 默认只能管理配置的默认数据源
      * @return
      */
-    @Transactional
+//    @Transactional
     public boolean testTransaction4(){
         // 在切面中会对下面两个插入方法,切换到不同的数据源, 当出现异常的时候, 查看两个事务是否都可以回滚.
         Role role = new Role();
@@ -120,12 +127,81 @@ public class UserServiceImpl implements IUserService {
         role.setName("testRole");
         // 先做一次插入,
         roleService.insertRole(role);
-        User user = new User();
-        user.setUserName("tset");
-        user.setCreateTime(new Date());
-        user.setStatus(InnerConstant.DATA_STATUS_COMMON);
-        userMapper.insert(user);
+        // 插入另一个数据源
+        Button button = new Button();
+        button.setName("testButton");
+        button.setType("test");
+        button.setLevel(1);
+        button.setUseStatus(1);
+        button.setStatus(1);
+        button.setCreateTime(new Date());
+        buttonMapper.insert(button);
+
         if(new Random().nextBoolean()){
+            throw new BusinessException(500,"测试事务,拋出异常");
+        }
+        return true;
+    }
+
+    /**
+     * 多个事务管理对象, 操作单个事务
+     * @return
+     */
+    @Transactional("transactionManager")
+    public boolean testTransaction5(){
+        // 在切面中会对下面两个插入方法,切换到不同的数据源, 当出现异常的时候, 查看两个事务是否都可以回滚.
+        Role role = new Role();
+        role.setCreateTime(new Date());
+        role.setStatus(InnerConstant.DATA_STATUS_COMMON);
+        role.setName("testRole");
+        // 先做一次插入,
+        roleService.insertRole(role);
+        if(1==1){
+            throw new BusinessException(500,"测试事务,拋出异常");
+        }
+        return true;
+    }
+
+    @Transactional("transactionManagerHappyFood")
+    public boolean testTransaction6(){
+        Button button = new Button();
+        button.setName("testButton");
+        button.setType("test");
+        button.setLevel(1);
+        button.setUseStatus(1);
+        button.setStatus(1);
+        button.setCreateTime(new Date());
+        buttonMapper.insert(button);
+        if(1==1){
+            throw new BusinessException(500,"测试事务,拋出异常");
+        }
+        return true;
+    }
+
+    /**
+     * 自定义注解,对多数据源事务支持
+     * @return
+     */
+    @MultiTransactional
+    public boolean testTransaction7(){
+        //
+        Button button = new Button();
+        button.setName("testButton");
+        button.setType("test");
+        button.setLevel(1);
+        button.setUseStatus(1);
+        button.setStatus(1);
+        button.setCreateTime(new Date());
+        buttonMapper.insert(button);
+        //
+        Role role = new Role();
+        role.setCreateTime(new Date());
+        role.setStatus(InnerConstant.DATA_STATUS_COMMON);
+        role.setName("testRole");
+        // 先做一次插入,
+        roleService.insertRole(role);
+        if(new Random().nextBoolean()){
+            System.out.println("=============手动拋出异常");
             throw new BusinessException(500,"测试事务,拋出异常");
         }
         return true;

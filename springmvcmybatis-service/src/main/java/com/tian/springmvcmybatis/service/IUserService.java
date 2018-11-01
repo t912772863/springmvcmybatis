@@ -40,6 +40,12 @@ public interface IUserService {
     boolean testTransaction3();
 
     boolean testTransaction4();
+
+    boolean testTransaction5();
+
+    boolean testTransaction6();
+
+    boolean testTransaction7();
     /**
      * 分页查询用户信息
      * @param pageParam

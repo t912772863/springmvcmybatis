@@ -99,6 +99,39 @@ public class TestController extends BaseController{
     }
 
     /**
+     * 多数据源,多事务管理,操作单个事务
+     * @return
+     */
+    @RequestMapping("test_trancation5")
+    @ResponseBody
+    public ResponseData testTransaction5(){
+        userService.testTransaction5();
+        return success;
+    }
+
+    /**
+     * 多数据源,多事务管理,操作单个事务
+     * @return
+     */
+    @RequestMapping("test_trancation6")
+    @ResponseBody
+    public ResponseData testTransaction6(){
+        userService.testTransaction6();
+        return success;
+    }
+
+    /**
+     * 测试自定义注解对多数据源的支持
+     * @return
+     */
+    @RequestMapping("test_trancation7")
+    @ResponseBody
+    public ResponseData testTransaction7(){
+        userService.testTransaction7();
+        return success;
+    }
+
+    /**
      * 测试Session相关的一些功能
      * @param request
      * @param response

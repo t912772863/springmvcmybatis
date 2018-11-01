@@ -1,15 +1,21 @@
 package com.tian.springmvcmybatis.dao.common;
 
+import com.tian.common.datasource.DataSource;
 import com.tian.springmvcmybatis.dao.entity.Role;
 import com.tian.springmvcmybatis.dao.entity.User;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.stereotype.Component;
+import sun.reflect.generics.tree.ClassSignature;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 该切面用来实现读写分离, 切换不同的数据源.
@@ -55,23 +61,19 @@ public class DataSourceAspect {
     @Before(value = "execution(* com.tian.springmvcmybatis.dao..*Mapper.*(..))")
     public void before(JoinPoint jp) throws Throwable {
         logger.info("====> process in "+jp.getSignature());
-
-        // 得到方法名
-        MethodSignature methodSignature = (MethodSignature) jp.getSignature();
-        Method method = methodSignature.getMethod();
-        String methodName = method.getName();
-
-        Object[] args = jp.getArgs();
-        // 这里试一上, 比如插入用户用主数据源, 插入角色用从数据源,看看是否都能回滚
-        if("insert".equals(methodName) && args[0] instanceof User){
+        MethodSignature methodSignature = (MethodSignature)jp.getSignature();
+        Method targetMethod = methodSignature.getMethod();
+        DataSource dataSourceAnnotatin = targetMethod.getDeclaringClass().getAnnotation(DataSource.class);
+        if(dataSourceAnnotatin == null){
             DataSourceContextHolder.setDataSourceType("dataSourceMaster");
-        }else if("insertSelective".equals(methodName) && args[0] instanceof Role){
-            DataSourceContextHolder.setDataSourceType("dataSourceSlaver");
+        }else {
+            String dataSourceName = dataSourceAnnotatin.value();
+            DataSourceContextHolder.setDataSourceType(dataSourceName);
+            logger.info("set dataSourceThread "+Thread.currentThread().getName());
         }
-
     }
 
-    @Before(value = "execution(* com.tian.springmvcmybatis.dao..*Mapper.*(..))")
+    @After(value = "execution(* com.tian.springmvcmybatis.dao..*Mapper.*(..))")
     public void after(JoinPoint jp) throws Throwable {
         DataSourceContextHolder.clearDataSourceType();
     }

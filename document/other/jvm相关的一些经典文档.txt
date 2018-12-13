@@ -6,3 +6,6 @@
 
 2. jvm调优常用配置
    参考文章: http://www.importnew.com/19264.html
+
+3. 常用命令
+ jstack -l PID >> temp.txt 把java线程信息导出到文件.

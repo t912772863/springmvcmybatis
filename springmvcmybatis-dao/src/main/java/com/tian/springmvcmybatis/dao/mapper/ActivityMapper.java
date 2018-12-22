@@ -19,8 +19,6 @@ public interface ActivityMapper {
      * @return
      */
     @CachePut
-    int insert(Activity record);
-
     int insertSelective(Activity record);
 
     /**

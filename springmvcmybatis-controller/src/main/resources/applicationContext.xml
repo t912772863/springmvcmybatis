@@ -113,7 +113,7 @@
 		<property name="basePackage" value="com.tian.springmvcmybatis.dao.mapper"></property>
 	</bean>
 
-	<!-- 组件扫描 加载dao,service和Controller -->
+	<!-- 组件扫描 加载service和Controller等 -->
 	<context:component-scan base-package="com.tian.springmvcmybatis"></context:component-scan>
 
 	<!-- 使用mvc:annotation-driven代替上边的注解映射器和注解适配器, 而且会默认加载一些常用的参数,所以这种配置方式 是开发中真正

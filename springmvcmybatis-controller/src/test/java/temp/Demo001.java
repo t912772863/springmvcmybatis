@@ -6,23 +6,23 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  */
 public class Demo001<E> {
+    private static class  Tab{
+        private byte[] bytes = new byte[1024*1024*1024];
+    }
 
 
     public static void main(String[] args) throws IOException {
-//        http://121.15.167.235:8982/HeSmsCloud/smsTemplate/insertSmsTemplate
-        File file = new File("F://testip.txt");
-        OutputStream out = new WriterOutputStream(new FileWriter(file));
-        for(int i=0;i< 100000 ; i++){
-            out.write(("http://121.15.167.235:8982/HeSmsCloud/smsTemplate/insertSmsTemplate?a="+i+"\r\n").getBytes());
+        List<Tab> list = new ArrayList<>();
+        for (int i = 0; i <10 ; i++) {
+            list.add(new Tab());
         }
-        out.close();
-
-        String s = "";
-
+        System.out.println(list.size());
     }
 
     public static void testEnum(DemoEnum a){

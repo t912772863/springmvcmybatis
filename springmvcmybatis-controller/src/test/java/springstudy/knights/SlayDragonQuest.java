@@ -8,11 +8,16 @@ import java.io.PrintStream;
 public class SlayDragonQuest implements Quest{
     private PrintStream stream;
 
+    public SlayDragonQuest(){
+
+    }
+
     public SlayDragonQuest(PrintStream stream) {
         this.stream = stream;
     }
 
     public void embark() {
         stream.print("任务执行啦");
+        System.out.println("任务执行啦");
     }
 }

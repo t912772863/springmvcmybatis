@@ -4,17 +4,12 @@ import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
+import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisNode;
-import org.springframework.data.redis.connection.RedisSentinelConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
 
 /**
  * service层和Controller层可以不关注数据持久层的缓存,所以该配置文件放在dao层
@@ -31,13 +26,8 @@ public class CacheConfig{
      * @return
      */
     @Bean
-    public CacheManager cacheManager(RedisTemplate redisTemplate){
-        RedisCacheManager redisCacheManager = new RedisCacheManager(redisTemplate);
-        // 设置指定条目(区域)的key的过期时间,单位秒
-        Map<String,Long> map = new HashMap<String, Long>();
-        map.put("activityCache",100L);
-
-        redisCacheManager.setExpires(map);
+    public CacheManager cacheManager( RedisConnectionFactory connection){
+        RedisCacheManager redisCacheManager = new RedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(connection), RedisCacheConfiguration.defaultCacheConfig());
         return redisCacheManager;
     }
 
@@ -70,6 +60,16 @@ public class CacheConfig{
 //        sentinel.setSentinels(list);
 //        RedisConnectionFactory redisConnectionFactory =new JedisConnectionFactory(sentinel,null);
 //        return redisConnectionFactory;
+//    }
+
+    /**
+     * 集群版本redis
+     * @return
+     */
+//    @Bean
+//    public RedisConnectionFactory redisConnectionFactory(){
+//        RedisConnectionFactory redisConnectionFactory = new RedisCl
+//
 //    }
 
     @Bean

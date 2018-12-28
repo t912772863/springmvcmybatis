@@ -42,8 +42,6 @@ public interface ActivityMapper {
     @CacheEvict(value = "activityCache",key = "#root.args[0].id")
     int updateByPrimaryKeySelective(Activity record);
 
-    int updateByPrimaryKey(Activity record);
-
     /**
      * 查询出所有需要进行状态修改的数据
      * @return

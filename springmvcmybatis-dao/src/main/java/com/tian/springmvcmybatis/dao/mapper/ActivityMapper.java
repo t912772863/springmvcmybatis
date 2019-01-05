@@ -67,5 +67,4 @@ public interface ActivityMapper {
      * @return
      */
     List<Activity> queryByPage(PageParam<Activity> pageParam);
-
 }

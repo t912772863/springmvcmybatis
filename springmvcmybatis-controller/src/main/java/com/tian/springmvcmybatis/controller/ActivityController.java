@@ -2,6 +2,7 @@ package com.tian.springmvcmybatis.controller;
 
 import com.tian.common.other.PageParam;
 import com.tian.common.other.ResponseData;
+import com.tian.common.validation.NotNull;
 import com.tian.common.validation.Number;
 import com.tian.springmvcmybatis.dao.entity.Activity;
 import com.tian.springmvcmybatis.service.IActivityService;
@@ -73,5 +74,15 @@ public class ActivityController extends BaseController {
         return success;
     }
 
+    /**
+     * 根据名字查询活动
+     * @param name
+     * @return
+     */
+    @RequestMapping("query_activity_by_name")
+    @ResponseBody
+    public ResponseData queryActivityByName(@NotNull String name){
+        return successData.setData(activityService.queryByName(name));
+    }
 
 }

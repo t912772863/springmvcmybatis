@@ -32,4 +32,11 @@ public interface IActivityService {
      * @return
      */
     PageParam<Activity> queryActivityPage(PageParam<Activity> pageParam);
+
+    /**
+     * 根据名字查询
+     * @param name
+     * @return
+     */
+    List<Activity> queryByName(String name);
 }

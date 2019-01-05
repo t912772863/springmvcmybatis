@@ -7,9 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
 import org.springframework.data.redis.cache.RedisCacheManager;
 import org.springframework.data.redis.cache.RedisCacheWriter;
-import org.springframework.data.redis.connection.RedisClusterConfiguration;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
-import org.springframework.data.redis.connection.RedisNode;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.data.redis.core.RedisTemplate;
 
@@ -33,7 +31,7 @@ public class CacheConfig{
     public CacheManager cacheManager( RedisConnectionFactory connection){
         RedisCacheConfiguration configuration = RedisCacheConfiguration.defaultCacheConfig();
         // 设置有效期
-        configuration = configuration.entryTtl(Duration.ofSeconds(60));
+        configuration = configuration.entryTtl(Duration.ofDays(1));
 
         RedisCacheManager redisCacheManager = new RedisCacheManager(RedisCacheWriter.nonLockingRedisCacheWriter(connection), configuration);
         return redisCacheManager;
@@ -43,13 +41,13 @@ public class CacheConfig{
      * 单机版本redis注入
      * @return
      */
-//    @Bean
-//    public JedisConnectionFactory redisConnectionFactory(){
-//        // 这里是单机模式的redis
-//        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
-//        jedisConnectionFactory.afterPropertiesSet();
-//        return jedisConnectionFactory;
-//    }
+    @Bean
+    public JedisConnectionFactory redisConnectionFactory(){
+        // 这里是单机模式的redis
+        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory();
+        jedisConnectionFactory.afterPropertiesSet();
+        return jedisConnectionFactory;
+    }
 
     /**
      * 哨兵版本redis注入.
@@ -74,28 +72,28 @@ public class CacheConfig{
      * 集群版本redis
      * @return
      */
-    @Bean
-    public RedisConnectionFactory redisConnectionFactory(){
-        RedisClusterConfiguration clusterConfig = new RedisClusterConfiguration();
-        /*
-        集群模式下, 多个节点, 其实只要连接一下节点就可以正常使用了, 不过如果该节点挂了, 就不能正常使用, 所以一般把集群的多个节点都配置上
-         */
-        RedisNode redisNode1 = new RedisNode("10.90.1.179",7001);
-        RedisNode redisNode2 = new RedisNode("10.90.1.179",7002);
-        RedisNode redisNode3 = new RedisNode("10.90.1.179",7000);
-        RedisNode redisNode4 = new RedisNode("10.90.1.180",7003);
-        RedisNode redisNode5 = new RedisNode("10.90.1.180",7004);
-        RedisNode redisNode6 = new RedisNode("10.90.1.180",7005);
-        clusterConfig.addClusterNode(redisNode1);
-        clusterConfig.addClusterNode(redisNode2);
-        clusterConfig.addClusterNode(redisNode3);
-        clusterConfig.addClusterNode(redisNode4);
-        clusterConfig.addClusterNode(redisNode5);
-        clusterConfig.addClusterNode(redisNode6);
-
-        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(clusterConfig);
-        return jedisConnectionFactory;
-    }
+//    @Bean
+//    public RedisConnectionFactory redisConnectionFactory(){
+//        RedisClusterConfiguration clusterConfig = new RedisClusterConfiguration();
+//        /*
+//        集群模式下, 多个节点, 其实只要连接一下节点就可以正常使用了, 不过如果该节点挂了, 就不能正常使用, 所以一般把集群的多个节点都配置上
+//         */
+//        RedisNode redisNode1 = new RedisNode("10.90.1.179",7001);
+//        RedisNode redisNode2 = new RedisNode("10.90.1.179",7002);
+//        RedisNode redisNode3 = new RedisNode("10.90.1.179",7000);
+//        RedisNode redisNode4 = new RedisNode("10.90.1.180",7003);
+//        RedisNode redisNode5 = new RedisNode("10.90.1.180",7004);
+//        RedisNode redisNode6 = new RedisNode("10.90.1.180",7005);
+//        clusterConfig.addClusterNode(redisNode1);
+//        clusterConfig.addClusterNode(redisNode2);
+//        clusterConfig.addClusterNode(redisNode3);
+//        clusterConfig.addClusterNode(redisNode4);
+//        clusterConfig.addClusterNode(redisNode5);
+//        clusterConfig.addClusterNode(redisNode6);
+//
+//        JedisConnectionFactory jedisConnectionFactory = new JedisConnectionFactory(clusterConfig);
+//        return jedisConnectionFactory;
+//    }
 
     @Bean
     public RedisTemplate<String,Object> redisTemplate(RedisConnectionFactory redisConnectionFactory){

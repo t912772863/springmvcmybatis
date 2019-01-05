@@ -45,6 +45,9 @@ public class ActivityServiceImpl implements IActivityService {
 
     public ActivityDetailDto queryById(Long id) {
         Activity activity = activityMapper.selectByPrimaryKey(id);
+        if(activity == null){
+            return new ActivityDetailDto();
+        }
         ActivityDetailDto detailDto = new ActivityDetailDto();
         BeanUtils.copyProperties(activity, detailDto);
         // 查询出活动的图片
@@ -65,5 +68,9 @@ public class ActivityServiceImpl implements IActivityService {
         List<Activity> list = activityMapper.queryByPage(pageParam);
         pageParam.setResult(list);
         return pageParam;
+    }
+
+    public List<Activity> queryByName(String name) {
+        return activityMapper.queryByName(name);
     }
 }

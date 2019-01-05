@@ -24,10 +24,16 @@ public interface ActivityMapper {
     /**
      * Cacheable注解会,首先在缓存中找, 找到直接返回,不再调用方法,找不到调用方法,而且会把结果加
      * 入到缓存中去.
+     *
+     * value属性指定了缓存的名字,
+     * key属性则细化到某一个缓存记录. 例如: id=1时, 结果缓存key为: activityCache::1
+     * sync表示多线程访问时, 是否同步
+     * condition指定条件才进行缓存,在执行前判断
+     * unless当表达式返回true时, 不进行缓存(注意, 该属性不能和sync同时使用)
      * @param id
      * @return
      */
-    @Cacheable("activityCache")
+    @Cacheable(value = "activityCache", key = "#root.args[0]", unless="#result eq null")
     Activity selectByPrimaryKey(Long id);
 
     /**
@@ -41,6 +47,13 @@ public interface ActivityMapper {
      */
     @CacheEvict(value = "activityCache",key = "#root.args[0].id")
     int updateByPrimaryKeySelective(Activity record);
+
+    /**
+     * 根据名字查询
+     * @param name
+     * @return
+     */
+    List<Activity> queryByName(@Param("name")String name);
 
     /**
      * 查询出所有需要进行状态修改的数据

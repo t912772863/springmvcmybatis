@@ -1,21 +1,16 @@
 package com.tian.springmvcmybatis.dao.common;
 
 import com.tian.common.datasource.DataSource;
-import com.tian.springmvcmybatis.dao.entity.Role;
-import com.tian.springmvcmybatis.dao.entity.User;
 import org.apache.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.Before;
 import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
-import sun.reflect.generics.tree.ClassSignature;
 
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 该切面用来实现读写分离, 切换不同的数据源.
@@ -23,6 +18,7 @@ import java.util.Map;
  * 该原理还适用于处理表的水平分割, 比如匹配到特定注解, 则获取到参数, 通过转换得到水平表名的后缀部分, 然后动态拼接表名
  * Created by Administrator on 2016/11/16 0016.
  */
+@Order(1)
 @Aspect
 @Component
 public class DataSourceAspect {
@@ -64,6 +60,7 @@ public class DataSourceAspect {
         MethodSignature methodSignature = (MethodSignature)jp.getSignature();
         Method targetMethod = methodSignature.getMethod();
         DataSource dataSourceAnnotatin = targetMethod.getDeclaringClass().getAnnotation(DataSource.class);
+
         if(dataSourceAnnotatin == null){
             DataSourceContextHolder.setDataSourceType("dataSourceMaster");
         }else {

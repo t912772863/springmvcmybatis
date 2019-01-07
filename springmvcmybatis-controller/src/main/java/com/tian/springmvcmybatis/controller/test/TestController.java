@@ -110,17 +110,6 @@ public class TestController extends BaseController{
     }
 
     /**
-     * 多数据源,多事务管理,操作单个事务
-     * @return
-     */
-    @RequestMapping("test_trancation6")
-    @ResponseBody
-    public ResponseData testTransaction6(){
-        userService.testTransaction6();
-        return success;
-    }
-
-    /**
      * 测试自定义注解对多数据源的支持
      * @return
      */

@@ -22,7 +22,6 @@ import javax.servlet.http.HttpServletRequest;
 public class ActivityController extends BaseController {
     @Autowired
     private IActivityService activityService;
-
     /**
      * 新增一个活动
      * @param activity

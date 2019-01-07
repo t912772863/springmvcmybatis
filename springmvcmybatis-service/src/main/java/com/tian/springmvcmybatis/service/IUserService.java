@@ -43,8 +43,6 @@ public interface IUserService {
 
     boolean testTransaction5();
 
-    boolean testTransaction6();
-
     boolean testTransaction7();
     /**
      * 分页查询用户信息

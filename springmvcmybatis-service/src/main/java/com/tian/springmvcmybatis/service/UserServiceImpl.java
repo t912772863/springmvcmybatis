@@ -147,31 +147,28 @@ public class UserServiceImpl implements IUserService {
      * 多个事务管理对象, 操作单个事务
      * @return
      */
-    @Transactional("transactionManager")
+    @MultiTransactional
     public boolean testTransaction5(){
-        // 在切面中会对下面两个插入方法,切换到不同的数据源, 当出现异常的时候, 查看两个事务是否都可以回滚.
-        Role role = new Role();
-        role.setCreateTime(new Date());
-        role.setStatus(InnerConstant.DATA_STATUS_COMMON);
-        role.setName("testRole");
-        // 先做一次插入,
-        roleService.insertRole(role);
-        if(1==1){
-            throw new BusinessException(500,"测试事务,拋出异常");
+        // 对两个数据源随机操作一下, 看看事物是否都生效
+        boolean index = new Random().nextBoolean();
+        if(index){
+            Role role = new Role();
+            role.setCreateTime(new Date());
+            role.setStatus(InnerConstant.DATA_STATUS_COMMON);
+            role.setName("testRole");
+            // 先做一次插入,
+            roleService.insertRole(role);
+        }else {
+            Button button = new Button();
+            button.setName("testButton");
+            button.setType("test");
+            button.setLevel(1);
+            button.setUseStatus(1);
+            button.setStatus(1);
+            button.setCreateTime(new Date());
+            buttonMapper.insert(button);
         }
-        return true;
-    }
 
-    @Transactional("transactionManagerHappyFood")
-    public boolean testTransaction6(){
-        Button button = new Button();
-        button.setName("testButton");
-        button.setType("test");
-        button.setLevel(1);
-        button.setUseStatus(1);
-        button.setStatus(1);
-        button.setCreateTime(new Date());
-        buttonMapper.insert(button);
         if(1==1){
             throw new BusinessException(500,"测试事务,拋出异常");
         }

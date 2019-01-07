@@ -39,6 +39,7 @@
 		<property name="maxOpenPreparedStatements" value="5"></property>
 		<!--获取连接时最大等待时间, -1表示无限等待-->
 		<property name="maxWait" value="60"></property>
+		<property name="defaultAutoCommit" value="false"></property>
 	</bean>
 
 	<!-- 加载数据源2, 主数据源(主要用于读)主从库数据一致性,在mysql服务中配置 -->
@@ -52,6 +53,7 @@
 		<property name="maxIdle" value="2"></property>
 		<property name="maxOpenPreparedStatements" value="5"></property>
 		<property name="maxWait" value="60"></property>
+		<property name="defaultAutoCommit" value="false"></property>
 	</bean>
 
 	<!-- 加载数据源3,-->
@@ -65,6 +67,7 @@
 		<property name="maxIdle" value="2"></property>
 		<property name="maxOpenPreparedStatements" value="5"></property>
 		<property name="maxWait" value="60"></property>
+		<property name="defaultAutoCommit" value="false"></property>
 	</bean>
 
 	<!--注入自己编写的多数据源切换类:DynamicDataSource继承了AbstractRoutingDataSource
@@ -163,16 +166,11 @@
 	<mvc:default-servlet-handler/>
 
 	<!-- 配置事务 -->
-	<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+	<!--<bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
 		<property name="dataSource" ref="dataSource"  />
-	</bean>
+	</bean>-->
 	<!-- 自动注入事物,也就是@Transaction注解的处理器-->
-	<tx:annotation-driven transaction-manager="transactionManager"  />
-	<bean id="transactionManagerHappyFood" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
-		<property name="dataSource" ref="dataSourceHappyFood"  />
-	</bean>
-	<tx:annotation-driven transaction-manager="transactionManagerHappyFood"  />
-
+	<!--<tx:annotation-driven transaction-manager="transactionManager" order="10" />-->
 
 	<!--启用定时任务注解-->
 	<task:annotation-driven />

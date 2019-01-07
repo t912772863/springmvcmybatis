@@ -3,14 +3,14 @@ package com.tian.springmvcmybatis.service.common;
 import com.tian.common.datasource.MultiTransactional;
 import com.tian.springmvcmybatis.dao.common.DataSourceContextHolder;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
-import org.aspectj.lang.reflect.MethodSignature;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.sql.SQLException;
 
 /**

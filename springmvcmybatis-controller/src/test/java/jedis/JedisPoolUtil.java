@@ -43,7 +43,7 @@ public class JedisPoolUtil {
      */
     public static void release(JedisPool jedisPool, Jedis jedis){
         if(null != jedis){
-            jedisPool.returnBrokenResource(jedis);
+//            jedisPool.returnBrokenResource(jedis);
         }
     }
 

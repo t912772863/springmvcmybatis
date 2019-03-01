@@ -8,7 +8,15 @@ import javax.jms.*;
 
 
 /**
- * 消息生产者: 点对点模式
+ * 消息生产者: 点对点模式.
+ *
+ * 如何从单个MessageProducer向不同的目标发送消息:
+ *      使用null目标创建MessageProducer; 然后每次发送时指定目的地.
+ *      MessageProducer producer = session.createProducer(null);
+        ...
+        producer.send(someDestination, message);
+        ...
+        producer.send(anotherDestination, message);
  * Created by tian on 2016/11/1.
  */
 public class JMSProducer {
@@ -59,8 +67,8 @@ public class JMSProducer {
             // 可以设置mq的持久化方案,可以不持久, 也可持久化到硬盘或者数据库中
             messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
-//            sendMessage(session,messageProducer);
-            sendMessage2(session,messageProducer);
+            sendMessage(session,messageProducer);
+//            sendMessage2(session,messageProducer);
 
             // 创建session的时候添加的有事务,所以这里要commit
             session.commit();

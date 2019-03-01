@@ -22,6 +22,9 @@ public class JMSProducer2 {
     private static final String PASSWORD = ActiveMQConnection.DEFAULT_PASSWORD;
     /**
      * 默认连接地址
+     *
+     * 默认情况下消息的发送是同步的, 如果需要指定快速返回,异步发送消息,可以修改连接地址, 指定异步属性
+     * 例如, tcp://localhost:61616?jms.useAsyncSend=true
      */
     private static final String BROKEURL = ActiveMQConnection.DEFAULT_BROKER_URL;
     /**
@@ -77,7 +80,10 @@ public class JMSProducer2 {
         for(int i = 0; i< JMSProducer2.NUMBER; i++){
             TextMessage message = session.createTextMessage("activemq发送的消息"+i);
             System.out.println("发送消息: "+"activemq发送的消息"+i);
+            // 生产者可以对消息设置一个有效时间, 超过这个时间,消息不会再被接收到.
+            producer.setTimeToLive(1000);
             producer.send(message);
+            Thread.sleep(5000);
         }
     }
 

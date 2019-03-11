@@ -12,11 +12,51 @@
         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd"
        default-lazy-init="false">
 
-    <!-- 提供方应用名称信息，这个相当于起一个名字，我们dubbo管理页面比较清晰是哪个应用暴露出来的 -->
-    <dubbo:application name="dubbo_provider"></dubbo:application>
-    <!-- 使用zookeeper注册中心暴露服务地址 -->
-    <dubbo:registry address="zookeeper://127.0.0.1:2181" check="false" subscribe="false" register=""></dubbo:registry>
-    <!-- 要暴露的服务接口 -->
-    <dubbo:service interface="com.tian.springmvcmybatis.remote.ITestRemoteService" ref="testRemoteService" />
+    <!-- 不同粒度的覆盖关系: 方法级优选, 接口级次之, 全局配置再次之. 如果级别相同, 则消费方优选,提供方次之 -->
 
+
+    <!-- 用户配置当前应用信息, 不管是服务提供方还是消费方 -->
+    <dubbo:application name="dubbo_provider"></dubbo:application>
+    <!-- 使用zookeeper注册中心暴露服务地址
+    register 是否注册服务, 默认当然是true, 当开发的时候加了这个配置则只会云订阅别的服务,不会把开发中的, 可能有问题的服务注册到注册中心
+    subscribe 是否订阅
+    dynamic 动态服务注册与发现, 默认true
+    id 当有多个注册中心时, 不同的注册中心叫不同的名字
+    可以配置多个registry节点指定多个注册中心,通过default=false指定用从注册中心.
+    -->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" check="false" subscribe="false" register="true"></dubbo:registry>
+    <!-- 通讯协议类型, 协议由服务提供方指定, 服务接收方被动接收
+     dispatcher 线程模版,定义哪些事件在IO上处理, 哪些事件给线程池处理
+     threadpool 线程池类型
+     threads 线程数量
+     accepts 限制服务端连接数
+     可以配置多个protocol节点通过不同的端口提供多种协议的服务
+     -->
+    <dubbo:protocol name="dubbo" dispatcher="message" threadpool="fixed" threads="10" />
+    <!-- 要暴露的服务接口, 定义服务的元信息, 一个服务可以用多个协议暴露, 一个服务也可以注册到多个注册中心
+    retries 重试次数不包括第一次调用. 一般用于查询接口
+    cluster 可以指定集群模式, 比如快速失败, 失败自动恢复,安全失败等
+    protocol 当定义了多种协议的时候, 这个服务用哪个协议提供服务, 多个之间用,分开.例: protocol="dubbo,hessian"
+    registry 向哪个注册中心注册服务可以多个. 例: registry="hangzhouRegistry,qingdaoRegistry"
+    group 当一个接口有多种实现时, 可以用分组来区分. 可以用*表示任意组
+    version 版本号, 不同版本号的服务间不会相互引用, 如果不需要区分版本号可以用*
+    delay 延迟暴露服务, -1表示spring窗口初始化完成后暴露, 也可以写值(单位毫秒)
+    executes 服务端并发限制,某个服务最多占用的线程数. 也可以写在子method标签中限制某个方法级别
+    actives 限制某个客户端的并发
+    filter 过滤器, 可以用default关键字表示框架默认的过滤器
+    -->
+    <dubbo:service interface="com.tian.springmvcmybatis.remote.ITestRemoteService" ref="testRemoteService" retries="2"  delay="-1" executes="3" />
+
+    <!--用于配置当前模块信息, 可选-->
+    <!--<dubbo:module name=""/>-->
+    <!-- 用于配置连接监控中心相关信息, 可选 -->
+    <!--<dubbo:monitor/>-->
+    <!-- 当protocolConfig和ServiceConfig某属性没有配置时, 采用此缺省值,可选 -->
+    <!--<dubbo:provider/>-->
+    <!-- 方法配置, 用于ServiceConfig和ReferenceConfig指定方法级别配置信息 -->
+    <!--<dubbo:method name=""/>-->
+    <!-- 参数配置, 用于指定方法的参数配置 -->
+    <!--<dubbo:argument/>-->
+    <!-- 动态配置中心, v2.7.0才有. 两个功能:1.外部化配置, （简单理解为dubbo.properties的外部化存储）2.服务治理。服务治理规则的存储与通知。 -->
+    <!--<dubbo:config-center address="zookeeper://127.0.0.1:2181"/>-->
 </beans>

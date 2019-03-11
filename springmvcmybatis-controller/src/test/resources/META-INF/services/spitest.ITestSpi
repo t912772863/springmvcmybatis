@@ -1,0 +1,3 @@
+# spi机制, 是面向接口编程的一种规范, 这个文件名是接口的全路径, 里面的内容是实现类的全路径.文件所在的路径名是固定的
+spitest.TestSpiOne
+spitest.TestSpiTwo

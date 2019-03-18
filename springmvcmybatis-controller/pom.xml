@@ -46,6 +46,13 @@
             <artifactId>goeasy-sdk</artifactId>
             <version>0.3.3</version>
         </dependency>
+
+        <!-- https://mvnrepository.com/artifact/cglib/cglib -->
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib</artifactId>
+            <version>3.2.0</version>
+        </dependency>
     </dependencies>
 
     <!--idea中web的根目录叫web,而在maven规范中,默认打包会云找一个叫webapp的目录,所以会找不到里面的web.xml配置

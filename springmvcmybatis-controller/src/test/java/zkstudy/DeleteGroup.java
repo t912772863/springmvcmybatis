@@ -29,8 +29,8 @@ public class DeleteGroup extends ConnectionWatcher {
 
     public static void main(String[] args) throws IOException, InterruptedException, KeeperException {
         DeleteGroup deleteGroup = new DeleteGroup();
-        deleteGroup.connection("118.126.115.206:2181");
-        deleteGroup.delete("testGroup");
+        deleteGroup.connection("10.90.1.234:2181");
+        deleteGroup.delete("oms-lock/com.yks.oms.task.JoomOrderGrabTask_lock");
     }
 
 

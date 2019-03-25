@@ -31,8 +31,8 @@ public class ListGroup extends ConnectionWatcher{
 
     public static void main(String[] args) throws KeeperException, InterruptedException, IOException {
         ListGroup listGroup = new ListGroup();
-        listGroup.connection("118.126.115.206:2181");
+        listGroup.connection("10.90.1.234:2181");
 
-        listGroup.list("testGroup");
+        listGroup.list("oms-lock/com.yks.oms.task.WishOrderGrabTask_lock");
     }
 }

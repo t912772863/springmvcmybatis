@@ -1,0 +1,310 @@
+elasticSearch学习笔记
+
+一. 安装
+    1. Linux
+    下载tar文件,解压缩, 进入bin目录,使用./elasticsearch启动.
+    启动过程中,如果出现已杀死, 是内存太小了, 可以调大ES_JAVA_OPTS="-Xms512m -Xmx512m"
+    linux不能用root用户启动,可以添加参数启动, ./elasticsearch -Des.insecure.allow.root=true, 或者直接修改文件elasticsearch, 加上
+ES_JAVA_OPTS="-Des.insecure.allow.root=true"
+    2. windows
+    直接下载压缩包, 解析后, 进入bin目录执行elasticsearch.bat就启动成功了, 默认的商品为9200.
+    注意: 运行需要JDK环境
+二. CURL命令
+    curl www.baidu.com 通过命令访问一个网页
+    curl -v www.baidu.com 显示一次请求的通讯过程
+    curl -X GET/POST/PUT/DELETE url 操作某种类型的请求
+
+三. 配合使用的软件
+    elasticSearch-head. Kibana. 都是提供elasticSearch的可视化操作服务.
+
+四. 倒排索引
+     语义分词, 建立倒排索引(某单词在某文档出现的次数, 每次出现的位置), 查找.
+     es在建立倒排索引的时候,为了提高搜索准确度,会使用一个标准化的规则, 又如忽略大小写, 忽略单复数等.
+
+五. 分词器
+     进行语义分析, 转换的. 分词器包括3部分:
+     1. character filter 分词之前的预处理, 过滤html标签等
+     2. tokenizer: 分词
+     3. token filter: 标准化
+
+     内置分词器:
+     standard 分词器(默认的)他会将词汇单元转换成小写形式,并去掉停用词和标点符号 , 支持中文, 采用的方法为单字切分.
+     simple 分词器, 首先会通过非字母字符来分割文本信息,然后将词汇单元统一为小写形式, 该分析器会去掉数字类型的字符.
+     whitespace 分词器, 仅仅是去除空格, 对字符没有lowcase化, 不支持中文, 并且不对生成的词汇单元进行其它标准化处理.
+     language 分词器, 特定语言的分词器, 不支持中文.
+
+     安装中文分词器:
+
+六. 基于kibana操作ES
+    创建一个索引:
+    PUT /lib/                                 restful基于put请求发送数据, 指定了创建索引("lib")
+    {
+      "settings": {
+        "index":{
+          "number_of_shards":3,               数据分片为3份
+          "number_of_replicas":0              因为只有一个节点,备份设置为0
+        }
+      }
+    }
+
+    PUT lib2                                  这也是创建索引,简写, 各属性用默认值
+
+    GET /lib/_settings                        查看索引信息, 以"_"开头的一般是ES默认创建好的.
+
+    GET _all/_settings                        查看所有索引配置
+
+    PUT /lib/user/1                           指定id添加文件, 1为id,根据这个查找文档
+    {
+      "first_name":"tian",
+      "last_name":"xiong",
+      "age":30,
+      "about":"i like to collect rock.",
+      "interests":["music"]
+    }
+
+   POST /lib/user/                          不指定id,则用post请求, id会由系统生成
+   {
+     "first_name":"chen",
+     "last_name":"haiying",
+     "age":25,
+     "about":"i love tianxiong.",
+     "interests":["music"]
+   }
+
+   GET /lib/user/1                          获取指定id文档
+
+   GET /lib/user/1?_source=first_name,last_name   只获取first_name和last_name两个字段值
+
+   POST /lib/user/1/_update                 显示指定修改指定文档指定属性的值. 也可以用put进行覆盖更新
+   {
+     "doc":{
+       "age":18
+     }
+   }
+
+   DELETE /lib/user/3                      删除某个文档
+   DELETE lib2                             删除索引
+
+七. 批量获取
+   GET /_mget                              _mget 是批量获取的语法
+   {
+     "docs":[
+       {
+         "_index":"lib",
+         "_type":"user",
+         "_id":1
+       },
+       {
+         "_index":"lib",
+         "_type":"user",
+         "_id":2
+       },
+       {
+         "_index":"lib",
+         "_type":"user",
+         "_id":3
+       }
+       ]
+   }
+
+   GET /lib/user/_mget                      当索引和类型相同时, 还可以把这两个写在路径上, 下面json中就不用再单独指定
+   {
+     "docs":[
+       {
+         "_id":1
+       },
+       {
+         "_id":2
+       }
+       ]
+   }
+
+   GET /lib/user/_mget                     更简单的写法
+   {
+     "ids":[1,2]
+   }
+
+八. 使用Bulk API实现批量操作
+    bulk的格式:
+    {action:{metadata}}
+    {requstbody}
+    action:(行为)
+    create:文档不存在时创建
+    update:更新文档
+    index:创建新文档或替换已有文档
+    delete; 删除一个文档
+    metadata: _index,_type,_id
+    create和index的区别: 如果数据存在, 使用create操作失败, 会提示文档已经存在,使用index则可以成功执行.
+
+九. 版本控制
+    ES使用了乐观锁保证数据一致性, 也就是说, 当用户对文档进行操作时, 并不需要加锁和解锁操作, 只需要指定要操作的版本即可.
+    当版本号一致时, ES会允许该操作顺利执行,当版本有冲突时,会提示并拋出异常.
+
+    POST /lib/user/1/_update?version_type=1    在更新数据时, 通过version_type=1指定了文档版本为1
+    {
+      "doc":{
+        "age":20
+      }
+    }
+
+    如果当前版本为1,则更新成功.否则,返回异常.
+    也可以通过version指定版本操作. 只要该版本号大于当前版本号就可以了
+
+十. mapping
+   一是规定了字段的数据类型
+   支持的属性:
+        "store": false 是否单独设置此字段的是否存储而从_source字段中分离, 默认false,只能搜索, 不能获取值
+        "index":true   分词, 设置false,字段将不会被索引.
+        "analyzer": "ik"  指定分词, 默认用的是standard
+        "boost":1.23   字段级别的分数加权, 默认是1.0
+        "doc_values":false  对不分词的字段, 默认都是开启的, 分词字段不能用. 节约内存
+        "ignore_above":100  超过多少长度的进行忽略, 默认256
+        ......
+
+十一. 手动创建mapping
+   PUT /lib2
+   {
+     "settings":{
+       "number_of_replicas": 0,
+       "number_of_shards": 3
+     },
+     "mappings": {
+       "books":{
+         "properties":{
+           "title":{
+             "type":"text"
+           },
+           "name":{
+             "type":"text",
+             "analyzer":"standard"            指定分词器
+           },
+           "publish_date":{
+             "type":"date",
+             "index":false                    显示指定该字段不创建倒排索引.
+           },
+           "price":{
+             "type":"double"
+           },
+           "number":{
+             "type":"integer"
+           }
+         }
+       }
+     }
+   }
+
+十二. 基本查询(重点)
+    例: GET /myindex/article/_search?q=title:java
+       请求方式  文档   _search表示查询操作  q后面跟查询条件  title是文档中的一个属性 : 表示用查询, 后面是查的内容
+
+       GET /myindex/article/_search?q=content:java&sort=author_id:asc
+       &表示条件并且, 根据author_id字段进行升序排序
+
+       GET /myindex/article/_search       term 查询字段content, 有内容python的文档
+       {
+         "query":{
+           "term": {
+             "content": {
+               "value": "python"
+             }
+           }
+         }
+       }
+
+
+       GET /myindex/article/_search    terms 查询字段content, 有内容python或者php的文档
+       {
+         "query":{
+           "terms": {
+             "content": [
+               "python",
+               "php"
+             ]
+           }
+           }
+         }
+
+
+         GET /myindex/article/_search
+         {
+           "from": 0,                  指定开始查找文档
+           "size": 1,                  指定返回一个 , 结合上面参数可以实现分页
+           "version": true,            返回文档版本号
+           "query":{
+             "terms": {
+               "content": [
+                 "python",
+                 "php"
+               ]
+             }
+             }
+           }
+
+
+        GET /myindex/article/_search   match会把传入的条件通过分词器分解, 再查询, 也就是内容含有php或者best都会查出来.
+        {
+          "query": {
+            "match": {
+              "content": "php best"
+            }
+          }
+        }
+
+        GET /myindex/article/_search   title和content任意一个字段中包含有php就会查出
+        {
+          "query": {
+            "multi_match": {
+              "query": "php",
+              "fields": ["title","content"]
+            }
+          }
+        }
+
+        GET /myindex/article/_search    match_phrase表示短语匹配, 也就是指定字段中要含有完全一样的内容才查出.
+        {
+          "_source":["title","content"],    指定返回哪些字段.这里指定字段时, 可以用*通配符
+          "query": {
+            "match_phrase": {
+              "content": "python php"
+            }
+          }
+        }
+
+        GET /myindex/article/_search   range可以查询范围, 还支持数字类型的
+        {
+          "query": {
+            "range": {
+              "post_date": {
+                "gte": "2019-05-01",
+                "lte": "2019-06-10"
+              }
+            }
+          }
+        }
+
+        GET /myindex/article/_search   wildcard类型于正则匹配查询
+        {
+          "query":{
+            "wildcard": {
+              "title": {
+                "value": "ph?"
+              }
+            }
+          }
+        }
+
+        GET /myindex/article/_search   fuzzy相似度查询,这里的pythion和python虽然不一样, 但是很相似,所以也能查出来.
+        {
+          "query":{
+            "fuzzy": {
+              "content": "pythion"
+            }
+          },
+           "highlight": {             highlight可以指定对返回的结果进行高亮显示, 需要注意的是返回的json和原始文档不一样,
+                                               高亮部分字段会有其它嵌套属性进行标识.
+              "fields":{
+                "content":{}
+              }
+            }
+        }
+

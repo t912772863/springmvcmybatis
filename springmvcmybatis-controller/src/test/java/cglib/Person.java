@@ -1,5 +1,8 @@
 package cglib;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
  * Created by tianxiong on 2019/3/25.
  */
@@ -32,5 +35,12 @@ public class Person {
         this.age += i;
         System.out.println(this.age);
         return this.age;
+    }
+
+    public static void main(String[] args) {
+        long now = System.currentTimeMillis();
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        System.out.println(sdf.format(now));
+        System.out.println(sdf.format(new Date(now)));
     }
 }

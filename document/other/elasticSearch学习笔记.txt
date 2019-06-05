@@ -193,7 +193,7 @@ ES_JAVA_OPTS="-Des.insecure.allow.root=true"
      }
    }
 
-十二. 基本查询(重点)
+十二. 基本查询(query查询重点)
     例: GET /myindex/article/_search?q=title:java
        请求方式  文档   _search表示查询操作  q后面跟查询条件  title是文档中的一个属性 : 表示用查询, 后面是查的内容
 
@@ -308,3 +308,72 @@ ES_JAVA_OPTS="-Des.insecure.allow.root=true"
             }
         }
 
+十三. filter查询(速度比query查询快, 可以缓存)
+
+    GET /lib4/items/_search
+    {
+      "query": {
+        "bool": {
+          "filter": {
+            "term":{
+              "price":40              单个过滤, 价格为40的
+            }
+          }
+        }
+      }
+    }
+
+    GET /lib4/items/_search
+    {
+      "query": {
+        "bool": {
+          "filter": {
+            "terms":{
+              "price":[20,40]       过滤价格为20或者40的
+            }
+          }
+        }
+      }
+    }
+
+ 十四. bool过滤查询
+    可以实现组合过滤查询.
+    格式: {"bool":{"must":[],"should":[],"must_not":[]}}
+    must必须满足类似于sql中的and, should类型于sql中的or, must_not不能满足
+    exists 表示过滤某个字段为为空
+
+ 十五. 聚合查询
+   GET /lib4/items/_search
+   {
+     "aggs": {                  aggs 固定写法
+       "price_of_sum": {        price_of_sum类似数据库别名
+         "sum": {               sum,min, max, avg等函数. cardinality类型于count(distinct)
+           "field": "price"
+         }
+       }
+     }
+   }
+
+  十六, ES原理,特点
+   ES是一个分布式系统,隐藏了复杂的处理机制.
+   1. 分布式架构的透明隐藏机制.
+   分片机制,  我们不用关心数据是按什么机制分片的, 最后放入到哪个分片中.
+   分片的副本, 集群发现机制, 比如当我们启动了一个ES进程, 当启动第二个ES进程时, 这个进程做为一个node, 自动就发现了集群
+        并且加入进去.
+   shard负载均衡, 比如现有10 shard, 集群中有3个节点, ES会进行均衡的进行分配, 以保持每个节点为的均衡负载请求.
+   2. 扩容机制
+     垂直扩容, 购置新机器, 替换已有机器.
+     水平扩容, 直接增加节点.
+   3. rebalance
+     增加或者减少节点会自动均衡
+   4. master 节点
+     主节点的主要职责是和集群操作相关的内容, 如创建或删除索引, 跟踪那些节点是集群的一部分, 并决定哪些分片分配给相关的
+     节点, 稳定的主节点是对集群的健康非常重要的.
+   5. 节点对等
+     每个节点都能接受请求, 每个节点接收到请求后都能把该请求路由到有相关数据的其它节点上, 接收原始请求的节点负责采集数据
+     并返回给客户端.
+   6. 分片和副本机制.
+     index包含多个shard
+     每个shard都是一个最小工作单元. 承载部分数据, 每个shard都是一个lucene实例, 有完整的建立索引处理请求的能力.
+     增减节点时, shard会自动在nodes中负载均衡.
+   7. 水平扩容过程

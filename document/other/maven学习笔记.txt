@@ -1,0 +1,95 @@
+一. maven是什么?
+    1.构建软件项目的工具, 编译,测试, 打包, 部署, 运行等.
+      maven已经成为业界的标配.
+    2. maven给java项目带来了什么?
+      快速创建项目.
+      管理jar包.
+      运行测试用例
+      打包部署
+
+二. maven的安装
+    1. apache.org站点下载.
+       绿色免安装
+       配置环境变量
+       验证: mvn --version
+
+三. maven的生命周期
+    从左向右: pre-clean, clean, post-clean, compile, test, package, install, deploy, pro-site, site, post-site, site-deploy
+    前三个为clean生命周期, 清除生成的文件.
+    中间三个为default生命周期, 打包编译
+    最后4个为site生命周期, 一般是将包布到远程服务器
+
+四. 插件
+    1. 插件是maven的核心
+       所有的功能均有插件提供
+       每个插件有多个goal, 即目标.
+       目标是插件功能 细分
+       比如: maven-clean-plugin插件有个goal,分别是: pro-clean, clean, post-clean
+    2. 插件和生命周期进行绑定
+    3. maven内置插件
+       maven-clean-plugin 清理构建目录
+       maven-compiler-plugin 编译
+       maven-surefire-plugin 测试
+       maven-resources-plugin 资源文件
+       maven-help-plugin 获取插件信息
+       maven-assembly-plugin 项目打包
+       ...
+五. maven仓库
+    1. 本地仓库: 当前用户目录下.m2/repository 目录下
+        远程仓库:
+            中央仓库: 默认的远程仓库. 在maven安装路径下的lib中有一个jar, maven-module-builder-3.3.9.jar, 解压后在路径org.apatch.module下有一个pom文件
+                      打开可以看到里面配置的远程仓库的地址
+            私服:
+            其它公共仓库
+    2. 下载顺序: 本地--> 私服 --> 远程
+
+六. maven的坐标
+    groupId: 项目名, 一般格式为: 域名倒置+项目
+    artifactId: 项目模块名
+    version: 项目版本号
+
+七. maven命令的分类以及用法
+   1. maven命令分类
+   2. 插件如何使用
+   3. 自动生成项目骨架
+      a. 使用maven-archetype-plugin
+      b. 这个插件在哪里?
+         在maven安装路径下的plugins目录里面
+      c. 怎么使用这个插件?
+
+八. 通过命令把一个本地jar上传到私服
+  mvn deploy:deploy-file
+  -DgroupId={groupId}
+  -DartifactId={artifactId}
+  -Dversion={version}
+  -Dclassifier=jar-with-dependencies
+  -Dpackaging=jar
+  -Dfile=要上传jar包的磁盘路径
+  -Durl=http://私服路径/nexus/content/repositories/CRM_BCC_Snapshot/
+  -DrepositoryId=CRM_BCC_SNAPSHOTS 这里的DrepositoryId应该和setting.xml中的serverId保持一致
+
+  一个示例:
+   mvn deploy:deploy-file --settings D:\program\maven\apache-maven-3.6.1\conf\settings.xml -DgroupId=com.amazon.sdk -DartifactId=client-orders -Dversion=1.1 -Dpackaging=jar -Dfile=C:\Users\tom\Desktop\临时文件夹\client-orders-1.1.jar -Durl=http://192.168.9.26:8084/nexus/content/repositories/snapshots/ -DrepositoryId=nexus-releases
+
+   注意: 其中--settings 是显示指定配置文件,默认用户名下的.m2下的setting.xml文件
+   通过上传jar包上传到release库, 也可以上传到snashop,但是该库下jar会默认添加时间名.
+
+九. setting.xml文件说明
+   <localRepository>D:\mvn_repo</localRepository>
+   可以指定把jar包缓存到本地哪个位置
+
+   <mirror>
+         <id>YKS-prod</id>
+         <mirrorOf>central</mirrorOf>
+         <name>YKS prod</name>
+         <url>http://192.168.9.26:8084/nexus/content/groups/public/</url>
+    </mirror>
+    该节点可以配置一个镜像地址, 因为默认的maven中心仓库在国外服务器,下载jar可能会很慢,
+    还有另一个主要用途是, 一般企业都会有自己的maven私服,用于企业内部自己的jar的依赖,可以配置在这里.
+
+    <server>
+         <id>nexus-releases</id>
+         <username>admin</username>
+         <password>admin123</password>
+     </server>
+     该节点用于配置自己的maven服务相关用户信息, 当执行比上上传jar包命令时,会用到, 否则无法访问.

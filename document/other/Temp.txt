@@ -1,0 +1,30 @@
+Compiled from "Temp.java"
+public class temp.Temp {
+  public temp.Temp();
+    Code:
+       0: aload_0
+       1: invokespecial #1                  // Method java/lang/Object."<init>":()V
+       4: return
+
+  public static void main(java.lang.String[]);
+    Code:
+       0: getstatic     #2                  // Field java/lang/System.out:Ljava/io/PrintStream;
+       3: invokestatic  #3                  // Method test:()I
+       6: invokevirtual #4                  // Method java/io/PrintStream.println:(I)V
+       9: return
+
+  public static int test();
+    Code:
+       0: iconst_1                                              # 声明一个int型变量1
+       1: istore_0                                              # 把int类型的变量存入局部变量表的0号位
+       2: iconst_2                                              # 声明一个int型变量2
+       3: istore_1                                              # 把int类型的变量存入局部变量表的1号位
+       4: iload_0                                               # 从局部变量表中取出int类型变量0 放入操作数栈
+       5: iload_1                                               # 从局部变量表中取出int类型变量1 放入操作数栈
+       6: iadd                                                  # 求和
+       7: bipush        10                                      # 往操作数栈中放入一个int型值10
+       9: imul                                                  # 对int值求积
+      10: istore_2                                              # 保存int变量2号位
+      11: iload_2                                               # 加载int型2号位的值
+      12: ireturn                                               # 返回一个int
+}

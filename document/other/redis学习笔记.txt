@@ -143,6 +143,13 @@ zscore zset1 v3 得到zset1集合中v3元素的分值
 config get requirepass 获取当前redis的密码
 config set requirepass 123456 给redis设置一个密码,这样每一个访问命令都要求输入密码
 config get dir 获取redis的安装路径
+config get maxclients 获取最大客户端数
+
+-----------其它客户端命令
+CLIENT LIST  获取客户端列表
+CLIENT SETNAME    设置当前连接点redis的名称
+CLIENT GETNAME    查看当前连接的名称
+CLIENT KILL ip:port    杀死指定连接
 
 
 -----------redis持久化

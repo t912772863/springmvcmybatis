@@ -5,7 +5,9 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  */
@@ -17,18 +19,11 @@ public class Demo001<E> {
     }
 
     public static void main(String[] args) {
-        try{
-            String a = "";
-            if(1==1){
-                a = null;
-                a.substring(0,5);
-            }
-        }catch (Exception e){
-//            log.error("error, str:{}, e:{}", "a", e);
-            log.error("====================");
-            log.error("error", e);
-        }
-
+        Set<String> sets = new HashSet<>();
+        sets.add("a");
+        sets.add("b");
+        sets.add("a");
+        System.out.println(sets);
     }
 
 

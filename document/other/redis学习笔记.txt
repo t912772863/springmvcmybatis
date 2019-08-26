@@ -247,7 +247,7 @@ master以写为主, slaver以读为主.
 cluster info 集群模式下, 该命令可以查看当前node节点的一些信息
 cluster nodes  集群模式下, 该命令可以查看到同一集群下其它的主
 
-redis-cli -h ip -c -p port 集群模式的redis连接, 如果用普通的连接也可以, 但是只能get当前节点的数据,
+redis-cli -c -h ip -p port 集群模式的redis连接, 如果用普通的连接也可以, 但是只能get当前节点的数据,
                 如果当前节点为slave节点则不能移除数据. 加 -c 后相关于连接的是集群, 可以支持操作所有节点数据.
 
 
@@ -872,6 +872,4 @@ aof-rewrite-incremental-fsync yes
   在aof重写的时候，如果打开了aof-rewrite-incremental-fsync开关，系统会每32MB执行一次fsync。
   这对于把文件写入磁盘是有帮助的，可以避免过大的延迟峰值
 
-    
-
-
+集群搭建参考: https://blog.csdn.net/woxingwosu0100/article/details/77840486

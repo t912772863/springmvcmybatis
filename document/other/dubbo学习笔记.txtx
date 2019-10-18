@@ -1,0 +1,7 @@
+1. 通过命令测试dubbo服务
+   a. 连接上dubbo服务 telnet localhost 2098
+      localhost为dubbo服务所在机器ip, 2098为定义的dubbo协议商品
+    b, ls 可以查看当前dubbo服务有哪些服务接口
+    c, 测试调用服务的方法
+       例如: invoke com.akulaku.service.orderservice.api.IOrderServiceApi.riskPass(123)
+       方法的全路径及参数

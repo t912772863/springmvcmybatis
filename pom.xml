@@ -15,5 +15,26 @@
         <module>springmvcmybatis-remote</module>
     </modules>
 
+<build>
+    <plugins>
+        <!--test plugin-->
+        <plugin>
+            <groupId>com.tian</groupId>
+            <artifactId>count-maven-plugin</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <configuration>
+                <path>E:\project\springmvcmybatis</path>
+            </configuration>
+            <executions>
+                <execution>
+                    <phase>package</phase>
+                    <goals>
+                        <goal>count-maven-plugin</goal>
+                    </goals>
+                </execution>
+            </executions>
+        </plugin>
+    </plugins>
+</build>
 
 </project>

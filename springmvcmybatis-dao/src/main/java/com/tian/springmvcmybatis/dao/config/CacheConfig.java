@@ -1,7 +1,9 @@
 package com.tian.springmvcmybatis.dao.config;
 
+import com.tian.springmvcmybatis.dao.common.RedisCacheErrorHandler;
 import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.AbstractCacheInvoker;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
@@ -101,5 +103,22 @@ public class CacheConfig{
         redisTemplate.setConnectionFactory(redisConnectionFactory);
         redisTemplate.afterPropertiesSet();
         return redisTemplate;
+    }
+
+    /**
+     * 下面配置这两个bean配置了spring cache缓存默认的redis缓存异常, 导致服务不可用问题.
+     * 不过要注意的一点是, 如果要这样用缓存, redis最好设置成不做持久化, 这样可以避免数据
+     * 的不一致性问题.
+     * @return
+     */
+    @Bean
+    public RedisCacheErrorHandler redisCacheErrorHandler(){
+        return new RedisCacheErrorHandler();
+    }
+
+    @Bean
+    public AbstractCacheInvoker abstractCacheInvoker(AbstractCacheInvoker abstractCacheInvoker, RedisCacheErrorHandler redisCacheErrorHandler){
+        abstractCacheInvoker.setErrorHandler(redisCacheErrorHandler);
+        return abstractCacheInvoker;
     }
 }
